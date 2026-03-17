@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ireland Adventure — Cork &amp; Kinsale Weekend</title>
+<style>
+  :root {
+    --parchment: #f4efe1;
+    --parchment-dark: #e8e0cc;
+    --ink: #2c1810;
+    --ink-light: #5a3e2b;
+    --moss: #4a6741;
+    --moss-light: #6b8f5e;
+    --moss-pale: #e8f0e4;
+    --sea: #2e6b7e;
+    --sea-light: #4a9bb5;
+    --sea-pale: #dceef3;
+    --gold: #c4a35a;
+    --gold-light: #e8d5a0;
+    --rust: #8b4513;
+    --storm: #536878;
+    --warning: #b8860b;
+    --white: #fefdfb;
+    --shadow: rgba(44, 24, 16, 0.12);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Georgia', 'Times New Roman', serif;
+    background: var(--parchment);
+    color: var(--ink);
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+
+  .hero {
+    background: linear-gradient(135deg, var(--rust) 0%, var(--moss) 40%, var(--sea) 100%);
+    color: var(--white);
+    padding: 3rem 1.5rem 2.5rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0 Q45 15 30 30 Q15 15 30 0z' fill='rgba(255,255,255,0.03)'/%3E%3C/svg%3E") repeat;
+  }
+
+  .hero h1 {
+    font-size: 2.2rem;
+    font-weight: normal;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.3rem;
+    position: relative;
+  }
+
+  .hero .subtitle {
+    font-style: italic;
+    opacity: 0.85;
+    font-size: 1.05rem;
+    position: relative;
+  }
+
+  .hero .dates {
+    margin-top: 1rem;
+    font-size: 0.9rem;
+    opacity: 0.7;
+    position: relative;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .nav-bar {
+    background: var(--ink);
+    padding: 0.6rem 1.5rem;
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  .nav-bar a {
+    color: var(--gold-light);
+    text-decoration: none;
+    font-size: 0.85rem;
+    letter-spacing: 0.05em;
+    transition: color 0.2s;
+  }
+
+  .nav-bar a:hover { color: var(--white); }
+  .nav-bar a.active { color: var(--white); border-bottom: 1px solid var(--gold); }
+
+  .content {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem 4rem;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+    color: var(--moss);
+    margin: 2.5rem 0 1rem;
+    padding-bottom: 0.4rem;
+    border-bottom: 2px solid var(--gold-light);
+    font-weight: normal;
+  }
+
+  h3 {
+    font-size: 1.15rem;
+    color: var(--sea);
+    margin: 1.8rem 0 0.6rem;
+    font-weight: normal;
+    font-style: italic;
+  }
+
+  p { margin-bottom: 1rem; }
+
+  .info-box {
+    background: var(--sea-pale);
+    border-left: 4px solid var(--sea);
+    border-radius: 0 6px 6px 0;
+    padding: 1rem 1.2rem;
+    margin: 1.2rem 0;
+    font-size: 0.9rem;
+  }
+
+  .info-box.warning {
+    background: #fdf3e0;
+    border-left-color: var(--warning);
+  }
+
+  .info-box.opportunity {
+    background: #fdf2f0;
+    border-left-color: var(--rust);
+  }
+
+  .info-box .label {
+    font-weight: bold;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 0.3rem;
+    color: var(--sea);
+  }
+
+  .info-box.warning .label { color: var(--warning); }
+  .info-box.opportunity .label { color: var(--rust); }
+
+
+  .facts-strip {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 0.8rem;
+    margin: 1.5rem 0;
+  }
+
+  .fact-card {
+    background: var(--white);
+    border: 1px solid var(--parchment-dark);
+    border-radius: 6px;
+    padding: 0.8rem;
+    text-align: center;
+  }
+
+  .fact-card .number {
+    font-size: 1.4rem;
+    color: var(--moss);
+    display: block;
+  }
+
+  .fact-card .label {
+    font-size: 0.75rem;
+    color: var(--storm);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .option {
+    display: block;
+    background: var(--parchment);
+    border: 1px solid var(--parchment-dark);
+    border-left: 4px solid var(--moss);
+    border-radius: 6px;
+    padding: 1rem 1.2rem;
+    margin: 0.8rem 0;
+    text-decoration: none;
+    color: var(--ink);
+    transition: all 0.2s ease;
+  }
+
+  .option.romantic { border-left-color: var(--rust); }
+  .option.romantic:hover { border-left-color: #c0392b; background: #fdf2f0; }
+
+  .option.cultural { border-left-color: var(--gold); }
+  .option.cultural:hover { border-left-color: var(--warning); background: #fdf8ed; }
+
+  .option-title {
+    font-size: 1.1rem;
+    color: var(--moss);
+    margin-bottom: 0.3rem;
+  }
+
+  .option-desc {
+    font-size: 0.9rem;
+    color: var(--ink-light);
+    line-height: 1.5;
+  }
+
+  .option-meta {
+    display: flex;
+    gap: 1rem;
+    margin-top: 0.5rem;
+    font-size: 0.8rem;
+    color: var(--storm);
+    flex-wrap: wrap;
+  }
+
+  .option-meta span {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+  }
+
+  .timeline {
+    position: relative;
+    padding-left: 2rem;
+    margin: 1.5rem 0;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 0.5rem;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: var(--gold-light);
+  }
+
+  .timeline-item {
+    position: relative;
+    margin-bottom: 1.2rem;
+    padding-bottom: 0.5rem;
+  }
+
+  .timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -1.65rem;
+    top: 0.5rem;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--gold);
+    border: 2px solid var(--parchment);
+  }
+
+  .timeline-time {
+    font-size: 0.8rem;
+    color: var(--storm);
+    font-style: italic;
+    margin-bottom: 0.2rem;
+  }
+
+  .timeline-event {
+    font-size: 0.95rem;
+  }
+
+  .spot {
+    background: var(--white);
+    border: 1px solid var(--parchment-dark);
+    border-radius: 6px;
+    padding: 1rem 1.2rem;
+    margin: 0.8rem 0;
+  }
+
+  .spot-name {
+    font-size: 1.05rem;
+    color: var(--moss);
+    margin-bottom: 0.2rem;
+  }
+
+  .spot-type {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--storm);
+    margin-bottom: 0.4rem;
+  }
+
+  .spot-detail {
+    font-size: 0.9rem;
+    color: var(--ink-light);
+    margin-bottom: 0.3rem;
+  }
+
+  .spot-hours {
+    font-size: 0.8rem;
+    color: var(--moss);
+    font-style: italic;
+  }
+
+  .spot-veg {
+    display: inline-block;
+    background: var(--moss-pale);
+    color: var(--moss);
+    font-size: 0.7rem;
+    padding: 0.15rem 0.5rem;
+    border-radius: 3px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-top: 0.3rem;
+  }
+
+  .tag {
+    display: inline-block;
+    font-size: 0.7rem;
+    padding: 0.1rem 0.4rem;
+    border-radius: 3px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-right: 0.3rem;
+  }
+
+  .tag-romantic { background: #fce4ec; color: var(--rust); }
+  .tag-history { background: #e8eaf6; color: #3949ab; }
+  .tag-nature { background: var(--moss-pale); color: var(--moss); }
+  .tag-food { background: #fff3e0; color: #e65100; }
+
+  .btn {
+    display: inline-block;
+    padding: 0.7rem 1.5rem;
+    border-radius: 6px;
+    text-decoration: none;
+    font-family: 'Georgia', serif;
+    font-size: 0.95rem;
+    transition: all 0.2s;
+    cursor: pointer;
+    border: none;
+  }
+
+  .btn-primary {
+    background: var(--moss);
+    color: var(--white);
+  }
+
+  .btn-primary:hover { background: var(--moss-light); }
+
+  .btn-secondary {
+    background: var(--white);
+    color: var(--moss);
+    border: 1px solid var(--moss);
+  }
+
+  .btn-secondary:hover { background: var(--moss-pale); }
+
+  .btn-gold {
+    background: linear-gradient(135deg, var(--gold) 0%, var(--warning) 100%);
+    color: var(--white);
+  }
+
+  .btn-group {
+    display: flex;
+    gap: 0.8rem;
+    flex-wrap: wrap;
+    margin: 1.5rem 0;
+  }
+
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    color: var(--storm);
+    text-decoration: none;
+    font-size: 0.85rem;
+    margin-bottom: 1rem;
+    transition: color 0.2s;
+  }
+
+  .back-link:hover { color: var(--moss); }
+
+  .footer {
+    text-align: center;
+    padding: 2rem 1.5rem;
+    font-size: 0.8rem;
+    color: var(--storm);
+    border-top: 1px solid var(--parchment-dark);
+    margin-top: 3rem;
+  }
+
+  .divider {
+    text-align: center;
+    margin: 2rem 0;
+    color: var(--gold);
+    font-size: 1.2rem;
+    letter-spacing: 0.5rem;
+  }
+
+  @media (max-width: 480px) {
+    .hero h1 { font-size: 1.7rem; }
+    .content { padding: 1.5rem 1rem 3rem; }
+    .option { padding: 0.8rem 1rem; }
+    .btn-group { flex-direction: column; }
+    .btn { text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>Cork &amp; Kinsale</h1>
+  <div class="subtitle">Your anniversary weekend</div>
+  <div class="dates">March 21 -- 22, 2026</div>
+</div>
+
+<nav class="nav-bar">
+  <a href="index.html">Start</a>
+  <a href="cork-weekend.html" class="active">Cork Weekend</a>
+  <a href="heading-home.html">Getting Home</a>
+  <a href="packing.html">Packing</a>
+  <a href="map.html">Map</a>
+</nav>
+
+<div class="content">
+
+  <a href="index.html" class="back-link">&larr; Back to Start</a>
+
+  <p>All roads lead here. However you spent Wednesday through Friday -- Galway and the Aran Islands, Kerry and the Dingle Peninsula, or the direct route south -- Saturday and Sunday are yours in Cork and Kinsale. No long drives. No itinerary pressure. This is your base.</p>
+
+  <p>You've been on the road all week. You've seen cliffs and castles and stone walls stretching to the horizon. Now settle in. Eat well. Walk slowly. Hold hands along a harbor. This is what the whole trip has been building toward.</p>
+
+  <div class="facts-strip">
+    <div class="fact-card">
+      <span class="number">25 min</span>
+      <span class="label">Kinsale to Cork</span>
+    </div>
+    <div class="fact-card">
+      <span class="number">Since 1788</span>
+      <span class="label">English Market</span>
+    </div>
+    <div class="fact-card">
+      <span class="number">Cafe Paradiso</span>
+      <span class="label">Anniversary Dinner</span>
+    </div>
+    <div class="fact-card">
+      <span class="number">&euro;5</span>
+      <span class="label">Charles Fort</span>
+    </div>
+  </div>
+
+  <div class="divider">&bull; &bull; &bull;</div>
+
+  <!-- ============ CORK CITY ============ -->
+
+  <h2>Cork City</h2>
+
+  <p>Ireland's second city has a distinct personality -- scrappier and more self-assured than Dublin, with a food culture that rivals anywhere on the island. Cork doesn't try to impress you. It just is what it is, and what it is happens to be excellent.</p>
+
+  <h3>Things to See</h3>
+
+  <div class="spot">
+    <div class="spot-name">The English Market</div>
+    <div class="spot-type"><span class="tag tag-food">Food market</span> Since 1788</div>
+    <div class="spot-detail">One of the oldest covered food markets in Europe, and Cork's beating heart. Browse artisan cheese, charcuterie, fish, bread, and produce from vendors whose families have held their stalls for generations. Eat lunch at the <strong>Farmgate Cafe</strong> on the mezzanine level -- it overlooks the market stalls and serves excellent food with good vegetarian options.</div>
+    <div class="spot-hours">Mon--Sat, 8 AM -- 6 PM. <strong>CLOSED SUNDAYS</strong> and Bank Holidays.</div>
+    <span class="spot-veg">Farmgate has vegetarian options</span>
+  </div>
+
+  <div class="spot">
+    <div class="spot-name">Shandon Bells &amp; Tower</div>
+    <div class="spot-type"><span class="tag tag-history">Church</span> St Anne's, Shandon</div>
+    <div class="spot-detail">Climb the tower of St Anne's Church and ring the bells yourself -- follow the numbered ropes and play a tune over the rooftops of Cork. One of the most unique things you can do in any Irish city. The views from the top reach across the whole city.</div>
+    <div class="spot-hours">Mon--Sat 10 AM -- 5 PM, Sun 11:30 AM -- 4:30 PM. &euro;5 per person.</div>
+  </div>
+
+  <div class="info-box warning">
+    <div class="label">Crawford Art Gallery -- closed until 2028</div>
+    The Crawford Art Gallery is undergoing a major redevelopment and won't reopen until 2028. Skip it. Instead, walk the colorful streets between St Patrick's Street and the English Market -- they're worth exploring on their own.
+  </div>
+
+  <div class="spot">
+    <div class="spot-name">University College Cork</div>
+    <div class="spot-type"><span class="tag tag-nature">Campus walk</span></div>
+    <div class="spot-detail">The UCC campus sits along the River Lee, about a 15-minute walk from the city center. The limestone quad is genuinely beautiful, and the riverside walk through the grounds is peaceful. A good place to stretch your legs and breathe after a morning in the market.</div>
+  </div>
+
+  <h3>Where to Eat in Cork City</h3>
+
+  <div class="option romantic">
+    <div class="option-title">Cafe Paradiso</div>
+    <div class="option-desc">Ireland's most celebrated vegetarian restaurant. Chef Denis Cotter has been doing inventive seasonal vegetarian cooking here since 1993 -- small plates, punchy flavors, beautiful presentation. 16 Lancaster Quay. <strong>This is the anniversary dinner.</strong> Book as far ahead as you can.</div>
+    <div class="option-meta">
+      <span class="spot-veg">Fully vegetarian</span>
+      <span>Fine dining</span>
+      <span>Book ahead</span>
+    </div>
+  </div>
+
+  <div class="spot">
+    <div class="spot-name">Market Lane</div>
+    <div class="spot-type"><span class="tag tag-food">Restaurant</span> Oliver Plunkett Street</div>
+    <div class="spot-detail">An award-winning restaurant near the English Market, sourcing ingredients from the market stalls. Wide-ranging menu with strong vegetarian, vegan, and coeliac options. Relaxed atmosphere, regularly updated seasonal menu.</div>
+    <span class="spot-veg">Vegetarian &amp; vegan options</span>
+  </div>
+
+  <div class="spot">
+    <div class="spot-name">Farmgate Cafe</div>
+    <div class="spot-type"><span class="tag tag-food">Cafe</span> English Market mezzanine</div>
+    <div class="spot-detail">Perched on the mezzanine level of the English Market, overlooking the stalls below. The food is sourced from the vendors downstairs. Excellent for lunch -- you're eating above the market itself, with the sounds and smells drifting up around you.</div>
+    <div class="spot-hours">Mon--Sat, 8 AM -- 5 PM. Closed Sundays (market is closed).</div>
+    <span class="spot-veg">Good vegetarian options</span>
+  </div>
+
+  <div class="divider">&bull; &bull; &bull;</div>
+
+  <!-- ============ KINSALE ============ -->
+
+  <h2>Kinsale</h2>
+
+  <p>A compact, colorful harbor town 25 minutes south of Cork. Kinsale is Ireland's self-proclaimed food capital, and it earns the title -- three Michelin-recognized restaurants and dozens more excellent spots, all in a town you can walk end to end in fifteen minutes. It's also the starting point of the Wild Atlantic Way.</p>
+
+  <p>The town's history runs deep. The <strong>Battle of Kinsale in 1601</strong> was the decisive moment in the English conquest of Ireland. Spanish forces allied with the Gaelic chieftains O'Neill and O'Donnell landed here, but the combined Irish-Spanish force was routed by English troops under Mountjoy. It marked the end of the old Gaelic order and led to the Flight of the Earls -- the Irish chieftains fleeing to continental Europe, never to return. The Ireland that came after was shaped by that defeat.</p>
+
+  <h3>Things to See</h3>
+
+  <div class="spot">
+    <div class="spot-name">Charles Fort</div>
+    <div class="spot-type"><span class="tag tag-history">17th-century star fort</span></div>
+    <div class="spot-detail">A massive star-shaped fort overlooking Kinsale harbor, built in the 1670s. Walk the ramparts for panoramic views of the harbor and coastline. You can drive (5 minutes from town) or take the <strong>Scilly Walk</strong> along the harbor -- a gorgeous 35-minute waterfront walk with the fort growing larger ahead of you the whole way.</div>
+    <div class="spot-hours">Open daily 10 AM -- 5 PM (March). Last admission 4:15 PM. &euro;5 per person.</div>
+  </div>
+
+  <h3>Where to Eat in Kinsale</h3>
+
+  <div class="option romantic">
+    <div class="option-title">Bastion</div>
+    <div class="option-desc">Michelin star. Modern Irish cuisine at its best. The menu changes with the seasons and accommodates dietary restrictions with real care, not as an afterthought. This is a special-occasion dinner. Book well ahead.</div>
+    <div class="option-meta">
+      <span class="spot-veg">Accommodates vegetarian/vegan</span>
+      <span>Michelin star</span>
+      <span>Book ahead</span>
+    </div>
+  </div>
+
+  <div class="spot">
+    <div class="spot-name">Fishy Fishy</div>
+    <div class="spot-type"><span class="tag tag-food">Seafood</span> Crowley's Quay</div>
+    <div class="spot-detail">Kinsale's most famous restaurant. Don't let the name fool you -- they have good vegetarian options alongside the fish. Casual, colorful, and reliably excellent. Great for lunch.</div>
+    <span class="spot-veg">Vegetarian options</span>
+  </div>
+
+  <div class="option romantic">
+    <div class="option-title">The Black Pig</div>
+    <div class="option-desc">A wine bar with a multi-page wine list and tapas-style sharing plates. The vibe is intimate and unhurried -- dim lighting, a low hum of conversation, plates arriving one at a time. Excellent vegetarian sharing plates. Perfect for an evening when you want to linger.</div>
+    <div class="option-meta">
+      <span class="spot-veg">Vegetarian sharing plates</span>
+      <span>Wine bar</span>
+      <span>Intimate</span>
+    </div>
+  </div>
+
+  <div class="spot">
+    <div class="spot-name">The Lemon Leaf Cafe</div>
+    <div class="spot-type"><span class="tag tag-food">Cafe</span> Main Street</div>
+    <div class="spot-detail">A local favorite for breakfast and lunch, with popular homemade baked goods. Good vegetarian and vegan options. Also runs the Lemon Leaf Townhouse upstairs -- a central B&amp;B with ten rooms.</div>
+    <span class="spot-veg">Vegetarian &amp; vegan options</span>
+  </div>
+
+  <h3>Where to Stay in Kinsale</h3>
+
+  <div class="option romantic">
+    <div class="option-title">Long Quay House</div>
+    <div class="option-desc">An elegant 18th-century Georgian townhouse overlooking Kinsale's inner harbor and marina. Walking distance to everything. Considered the best B&amp;B in Kinsale -- the kind of place where you wake up to harbor light through tall windows.</div>
+    <div class="option-meta">
+      <span>&euro;120--160/night</span>
+      <span>Harbor views</span>
+      <span>longquayhousekinsale.com</span>
+    </div>
+  </div>
+
+  <div class="option romantic">
+    <div class="option-title">Desmond Townhouse</div>
+    <div class="option-desc">A 260-year-old beautifully restored Georgian B&amp;B right outside Desmond Castle. Ranked #1 B&amp;B in Kinsale and #3 in all of Ireland on Tripadvisor. The rooms are warm and full of character.</div>
+    <div class="option-meta">
+      <span>&euro;100--140/night</span>
+      <span>#1 on Tripadvisor</span>
+      <span>desmondhousekinsale.com</span>
+    </div>
+  </div>
+
+  <div class="divider">&bull; &bull; &bull;</div>
+
+  <!-- ============ WEEKEND PLAN ============ -->
+
+  <h2>Your Weekend</h2>
+
+  <p>Saturday and Sunday are yours. No long drives, no schedule to keep. You're based here. Below is a suggested shape for the two days -- but mix and match however you like. The only fixed constraint is the English Market's hours.</p>
+
+  <h3>Saturday: Kinsale Day</h3>
+
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="timeline-time">Morning</div>
+      <div class="timeline-event">Sleep in. You've been driving all week. Breakfast at your B&amp;B or at The Lemon Leaf Cafe on Main Street -- homemade baked goods, good coffee, no rush.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-time">Late Morning</div>
+      <div class="timeline-event"><strong>Scilly Walk to Charles Fort</strong> -- a 35-minute waterfront walk from Kinsale town along the harbor. The fort at the end is a massive 17th-century star fort with panoramic views. &euro;5 entry, allow 1--1.5 hours for the fort and the walk back.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-time">Lunch</div>
+      <div class="timeline-event"><strong>Fishy Fishy</strong> on Crowley's Quay. Casual, colorful, reliably excellent. Good vegetarian options despite the name.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-time">Afternoon</div>
+      <div class="timeline-event">Wander Kinsale's colorful streets. Browse the galleries and shops. Walk along the harbor. Anniversary pace -- slow, together, unhurried. There's nowhere you need to be.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-time">Evening</div>
+      <div class="timeline-event"><strong>The Black Pig</strong> for wine and tapas-style sharing plates (great vegetarian options, intimate atmosphere), or go all-out at <strong>Bastion</strong> (Michelin star -- book ahead). Walk back to your B&amp;B under the stars.</div>
+    </div>
+  </div>
+
+  <h3>Sunday: Cork City Day</h3>
+
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="timeline-time">Morning</div>
+      <div class="timeline-event">Drive to Cork City (25 min from Kinsale). Head straight to the <strong>English Market</strong> -- browse the stalls, soak in the atmosphere of a food market that's been running since 1788.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-time">Late Morning</div>
+      <div class="timeline-event"><strong>Farmgate Cafe</strong> lunch on the mezzanine, overlooking the market stalls below. Then on to <strong>Shandon Bells &amp; Tower</strong> -- climb St Anne's Church tower and ring the bells yourself over Cork's rooftops. &euro;5, genuinely one of a kind.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-time">Afternoon</div>
+      <div class="timeline-event">Walk along the River Lee through the UCC campus. The limestone quad is beautiful, and the riverside path is peaceful. Browse the colorful streets between St Patrick's Street and the market area.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-time">Evening</div>
+      <div class="timeline-event"><strong>Cafe Paradiso</strong> for your anniversary dinner. Ireland's most celebrated vegetarian restaurant. Not just "vegetarian food" -- genuinely one of the best restaurants in the country. This is THE meal of the trip.</div>
+    </div>
+  </div>
+
+  <div class="divider">&bull; &bull; &bull;</div>
+
+  <!-- ============ CRITICAL WARNINGS ============ -->
+
+  <div class="info-box warning">
+    <div class="label">English Market is CLOSED SUNDAYS</div>
+    The suggested plan above puts Cork City on Sunday -- but the English Market is closed Sundays. <strong>If your Kinsale day lands on Saturday, swap the days:</strong> do Cork City (with the market) on Saturday, and Kinsale on Sunday. The Shandon Bells tower is open both days (Sun from 11:30 AM). Plan around the market, not the other way around.
+  </div>
+
+  <div class="info-box opportunity">
+    <div class="label">Anniversary Dinner: Cafe Paradiso</div>
+    <strong>Cafe Paradiso</strong> is the clear winner for your anniversary dinner. Fully vegetarian, fine dining level, and genuinely one of the best restaurants in Ireland regardless of category. Chef Denis Cotter has been doing this since 1993 -- it's not trendy, it's enduring. If you book one meal in advance for the whole trip, make it this one. 16 Lancaster Quay, Cork.
+  </div>
+
+  <!-- ============ WITH FRIENDS ============ -->
+
+  <h2>With Friends in Cork</h2>
+
+  <p>You're not just tourists here. You're with friends who know the area, have a car, and can show you the Cork that visitors miss. One of your friends is pregnant, so the plan should favor comfortable places, good food, and things you can enjoy at a relaxed pace. No cliff-edge scrambles or 3-hour hikes.</p>
+
+  <h3>Day Trips from Cork (with your friends' car)</h3>
+
+  <div class="spot">
+    <div class="spot-name">Cobh</div>
+    <div class="spot-type"><span class="tag tag-history">Harbor town</span> 20 min from Cork</div>
+    <div class="spot-detail">Last port of call for the Titanic, and a town that tells the story of Irish emigration better than anywhere else. The <strong>Cobh Heritage Centre</strong> covers the emigration story well -- &euro;10, daily 9:30 AM -- 5 PM. <strong>St. Colman's Cathedral</strong> dominates the hill above the town. The colorful terraced houses cascading down to the waterfront are the postcard shot of Cork harbor. Walk the flat harbor path for views without breaking a sweat.</div>
+    <div class="spot-hours">Pregnant-friendly: flat terrain, indoor museum, cafes nearby.</div>
+  </div>
+
+  <div class="spot">
+    <div class="spot-name">Midleton &amp; the Jameson Experience</div>
+    <div class="spot-type"><span class="tag tag-food">Distillery &amp; market</span> 25 min east of Cork</div>
+    <div class="spot-detail">The <strong>Jameson Distillery</strong> runs guided tours -- about 75 minutes, ~&euro;26 per person. <strong>Midleton Farmers' Market</strong> on Saturday mornings is one of Ireland's best: local producers, artisan cheese, baked goods, and hot food stalls. <strong>Sage Restaurant</strong> in Midleton has excellent vegetarian options and has won multiple awards. Note: you'll need a designated driver for the whiskey tasting -- your friends having a car makes this perfect.</div>
+    <div class="spot-hours">Pregnant-friendly: walking tour, one person skips the tasting.</div>
+  </div>
+
+  <div class="spot">
+    <div class="spot-name">Kinsale</div>
+    <div class="spot-type"><span class="tag tag-food">Food town</span> 25 min south (if not already your base)</div>
+    <div class="spot-detail"><strong>Charles Fort</strong> via the Scilly Walk is a 35-minute waterfront walk -- but note the walk back from the fort is uphill. Drive option available. The food scene speaks for itself: <strong>Fishy Fishy</strong>, <strong>Black Pig</strong>, <strong>Lemon Leaf</strong>. <strong>Desmond Castle</strong> houses the International Wine Museum. Compact town, everything walkable, lots of cafes for rest stops.</div>
+    <div class="spot-hours">Pregnant-friendly: compact town, everything walkable, lots of cafes for rest stops.</div>
+  </div>
+
+  <div class="spot">
+    <div class="spot-name">West Cork: Clonakilty &amp; Timoleague</div>
+    <div class="spot-type"><span class="tag tag-nature">Scenic drive</span> ~45 min from Cork</div>
+    <div class="spot-detail"><strong>Timoleague Friary</strong> -- 13th-century Franciscan ruins, free to visit, sitting on the estuary. <strong>Clonakilty</strong> has the Michael Collins House museum, independent shops, and <strong>Lettercollum</strong> cafe (vegetarian-friendly). <strong>Inchydoney Beach</strong> is a beautiful strand with an easy walk. Mostly a driving day with gentle stops along the way.</div>
+    <div class="spot-hours">Pregnant-friendly: mostly driving with gentle stops.</div>
+  </div>
+
+  <div class="spot">
+    <div class="spot-name">Spike Island</div>
+    <div class="spot-type"><span class="tag tag-history">Island fortress</span> Ferry from Cobh, 15 min crossing</div>
+    <div class="spot-detail">Ireland's answer to Alcatraz. A historic island fortress used from the 7th century through to 2004 -- monks, rebels, convicts, soldiers. Guided tours run about 2 hours. &euro;18/adult, ferry included. Check March hours -- they may have a limited winter schedule.</div>
+    <div class="spot-hours">Note: involves walking on uneven surfaces and stairs. Ask about accessibility before booking.</div>
+  </div>
+
+  <div class="spot">
+    <div class="spot-name">Fota Wildlife Park</div>
+    <div class="spot-type"><span class="tag tag-nature">Wildlife park</span> 15 min from Cork, near Cobh</div>
+    <div class="spot-detail">An open-plan wildlife park where animals roam freely -- cheetahs, penguins, lemurs, red pandas. Flat paths throughout, accessible, benches everywhere. Indoor cafe and picnic areas. &euro;18.50/adult, open daily from 10 AM. One of the best day-out options if you want something easy and enjoyable without thinking too hard about it.</div>
+    <div class="spot-hours">Pregnant-friendly: excellent. Flat easy walking, indoor cafe, rest spots throughout.</div>
+  </div>
+
+  <h3>Restaurants for a Group</h3>
+
+  <p>These work for a group of four where one is vegetarian-leaning and one is pregnant (avoiding raw fish, soft cheese, etc.):</p>
+
+  <div class="spot">
+    <div class="spot-name">Market Lane</div>
+    <div class="spot-type"><span class="tag tag-food">Restaurant</span> Oliver Plunkett St, Cork</div>
+    <div class="spot-detail">Wide menu, strong veg and vegan options, relaxed atmosphere. Good for a group -- everybody finds something they want. Already mentioned above, but worth flagging again as a group dinner pick.</div>
+    <span class="spot-veg">Vegetarian &amp; vegan options</span>
+  </div>
+
+  <div class="spot">
+    <div class="spot-name">Paradiso</div>
+    <div class="spot-type"><span class="tag tag-food">Fine dining</span> Lancaster Quay, Cork</div>
+    <div class="spot-detail">If you haven't used your anniversary dinner slot yet, this works as a group dinner too. Fully vegetarian -- everyone eats well, no one compromises. Great food, no one needs to scan the menu for the one safe option.</div>
+    <span class="spot-veg">Fully vegetarian</span>
+  </div>
+
+  <div class="spot">
+    <div class="spot-name">Elbow Lane</div>
+    <div class="spot-type"><span class="tag tag-food">Brew pub</span> Oliver Plunkett St, Cork</div>
+    <div class="spot-detail">Brew pub and smokehouse with good veg options alongside the BBQ. Local craft beer on tap, non-alcoholic options available. Casual and fun for a group -- the kind of place where you end up staying longer than planned.</div>
+    <span class="spot-veg">Vegetarian options</span>
+  </div>
+
+  <div class="spot">
+    <div class="spot-name">Miyazaki</div>
+    <div class="spot-type"><span class="tag tag-food">Japanese</span> Cork City</div>
+    <div class="spot-detail">Ramen and Japanese food done well. Good vegetarian ramen options. Casual, quick, satisfying -- the kind of meal you want when everyone's hungry and nobody wants to deliberate.</div>
+    <span class="spot-veg">Vegetarian ramen options</span>
+  </div>
+
+  <div class="spot">
+    <div class="spot-name">Ali's Kitchen</div>
+    <div class="spot-type"><span class="tag tag-food">Middle Eastern / Turkish</span> MacCurtain Street, Cork</div>
+    <div class="spot-detail">Excellent vegetarian mezze, casual and affordable. Shareable plates make it easy for a group. The kind of place where you order too much and don't regret it.</div>
+    <span class="spot-veg">Excellent vegetarian mezze</span>
+  </div>
+
+  <h3>Low-Key Cork Activities</h3>
+
+  <p>For when you don't want to leave the city:</p>
+
+  <div class="spot">
+    <div class="spot-name">Fitzgerald Park &amp; Cork Public Museum</div>
+    <div class="spot-type"><span class="tag tag-nature">Park</span> <span class="tag tag-history">Free museum</span></div>
+    <div class="spot-detail">A riverside park with a free museum inside it. Gentle walk, green space, somewhere to sit and talk. Perfect for a pregnant friend -- benches, flat paths, and a cafe nearby.</div>
+  </div>
+
+  <div class="spot">
+    <div class="spot-name">The Marina</div>
+    <div class="spot-type"><span class="tag tag-nature">Riverside walk</span> East of city centre</div>
+    <div class="spot-detail">A flat riverside walk popular with locals. No hills, no scrambling, just a long straight path along the water. Go as far as you like and turn back.</div>
+  </div>
+
+  <div class="spot">
+    <div class="spot-name">Nano Nagle Place</div>
+    <div class="spot-type"><span class="tag tag-history">Heritage centre</span> Cork's medieval heart</div>
+    <div class="spot-detail">A heritage centre and gardens tucked into Cork's oldest quarter. Peaceful walled gardens, a good cafe, and the story of Nano Nagle -- an 18th-century woman who defied the Penal Laws to educate the poor. Accessible and calm.</div>
+  </div>
+
+  <div class="spot">
+    <div class="spot-name">Shopping on Oliver Plunkett Street</div>
+    <div class="spot-type"><span class="tag tag-food">Independent shops</span></div>
+    <div class="spot-detail">Independent shops, no chains. Browse at your own pace. Cork's main shopping street has more character than most -- ducking into side lanes is half the fun.</div>
+  </div>
+
+  <div class="spot">
+    <div class="spot-name">Triskel Arts Centre</div>
+    <div class="spot-type"><span class="tag tag-history">Arts venue</span> Converted church</div>
+    <div class="spot-detail">Cinema, gallery, and performance space housed in a converted church. Check what's on -- it could be a film, an exhibition, or live music. A good rainy-day option with seats and atmosphere.</div>
+  </div>
+
+  <div class="divider">&bull; &bull; &bull;</div>
+
+  <!-- ============ NAVIGATION ============ -->
+
+  <h2>Where Next</h2>
+
+  <p>After the weekend, it's time to think about getting home. Your flight is Tuesday afternoon from Dublin -- you have Monday to make the journey back.</p>
+
+  <div class="btn-group">
+    <a href="heading-home.html" class="btn btn-primary">Getting Home &rarr;</a>
+    <a href="index.html" class="btn btn-secondary">&larr; Back to Start</a>
+  </div>
+
+  <p style="font-size: 0.9rem; color: var(--storm); margin-top: 1.5rem;">Back to the routes that brought you here:</p>
+
+  <div class="btn-group">
+    <a href="west-coast.html" class="btn btn-secondary">West Coast Route</a>
+    <a href="kerry.html" class="btn btn-secondary">Kerry Route</a>
+    <a href="easy-south.html" class="btn btn-secondary">Slow South Route</a>
+  </div>
+
+</div>
+
+<div class="footer">
+  <p>Built with care for Spencer &amp; Savannah's anniversary adventure.</p>
+  <p>Every fact in these pages has been verified. Hours, availability, and transport options are current as of March 2026.</p>
+  <p style="margin-top: 0.5rem;">Works offline. No internet needed once downloaded.</p>
+</div>
+
+</body>
+</html>

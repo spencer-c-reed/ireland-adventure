@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ireland Adventure — Kerry &amp; Dingle</title>
+<style>
+  :root {
+    --parchment: #f4efe1;
+    --parchment-dark: #e8e0cc;
+    --ink: #2c1810;
+    --ink-light: #5a3e2b;
+    --moss: #4a6741;
+    --moss-light: #6b8f5e;
+    --moss-pale: #e8f0e4;
+    --sea: #2e6b7e;
+    --sea-light: #4a9bb5;
+    --sea-pale: #dceef3;
+    --gold: #c4a35a;
+    --gold-light: #e8d5a0;
+    --rust: #8b4513;
+    --storm: #536878;
+    --warning: #b8860b;
+    --white: #fefdfb;
+    --shadow: rgba(44, 24, 16, 0.12);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Georgia', 'Times New Roman', serif;
+    background: var(--parchment);
+    color: var(--ink);
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+
+  .hero {
+    background: linear-gradient(135deg, var(--moss) 0%, var(--sea) 50%, var(--storm) 100%);
+    color: var(--white);
+    padding: 3rem 1.5rem 2.5rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0 Q45 15 30 30 Q15 15 30 0z' fill='rgba(255,255,255,0.03)'/%3E%3C/svg%3E") repeat;
+  }
+
+  .hero h1 {
+    font-size: 2.2rem;
+    font-weight: normal;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.3rem;
+    position: relative;
+  }
+
+  .hero .subtitle {
+    font-style: italic;
+    opacity: 0.85;
+    font-size: 1.05rem;
+    position: relative;
+  }
+
+  .hero .dates {
+    margin-top: 1rem;
+    font-size: 0.9rem;
+    opacity: 0.7;
+    position: relative;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .nav-bar {
+    background: var(--ink);
+    padding: 0.6rem 1.5rem;
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  .nav-bar a {
+    color: var(--gold-light);
+    text-decoration: none;
+    font-size: 0.85rem;
+    letter-spacing: 0.05em;
+    transition: color 0.2s;
+  }
+
+  .nav-bar a:hover { color: var(--white); }
+  .nav-bar a.active { color: var(--white); border-bottom: 1px solid var(--gold); }
+
+  .content {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem 4rem;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+    color: var(--moss);
+    margin: 2.5rem 0 1rem;
+    padding-bottom: 0.4rem;
+    border-bottom: 2px solid var(--gold-light);
+    font-weight: normal;
+  }
+
+  h3 {
+    font-size: 1.15rem;
+    color: var(--sea);
+    margin: 1.8rem 0 0.6rem;
+    font-weight: normal;
+    font-style: italic;
+  }
+
+  p { margin-bottom: 1rem; }
+
+  .decision {
+    background: var(--white);
+    border: 1px solid var(--gold-light);
+    border-radius: 8px;
+    margin: 1.5rem 0;
+    overflow: hidden;
+    box-shadow: 0 2px 8px var(--shadow);
+  }
+
+  .decision-header {
+    background: linear-gradient(135deg, var(--ink) 0%, var(--ink-light) 100%);
+    color: var(--gold-light);
+    padding: 0.8rem 1.2rem;
+    font-size: 0.85rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .decision-header .icon { font-size: 1.1rem; }
+
+  .decision-body {
+    padding: 1.2rem;
+  }
+
+  .option {
+    display: block;
+    background: var(--parchment);
+    border: 1px solid var(--parchment-dark);
+    border-left: 4px solid var(--moss);
+    border-radius: 6px;
+    padding: 1rem 1.2rem;
+    margin: 0.8rem 0;
+    text-decoration: none;
+    color: var(--ink);
+    transition: all 0.2s ease;
+    cursor: pointer;
+  }
+
+  .option:hover {
+    border-left-color: var(--sea);
+    background: var(--sea-pale);
+    transform: translateX(4px);
+  }
+
+  .option.romantic { border-left-color: var(--rust); }
+  .option.romantic:hover { border-left-color: #c0392b; background: #fdf2f0; }
+
+  .option.adventure { border-left-color: var(--sea); }
+  .option.adventure:hover { border-left-color: var(--sea-light); }
+
+  .option.cultural { border-left-color: var(--gold); }
+  .option.cultural:hover { border-left-color: var(--warning); background: #fdf8ed; }
+
+  .option-title {
+    font-size: 1.1rem;
+    color: var(--moss);
+    margin-bottom: 0.3rem;
+  }
+
+  .option-desc {
+    font-size: 0.9rem;
+    color: var(--ink-light);
+    line-height: 1.5;
+  }
+
+  .option-meta {
+    display: flex;
+    gap: 1rem;
+    margin-top: 0.5rem;
+    font-size: 0.8rem;
+    color: var(--storm);
+    flex-wrap: wrap;
+  }
+
+  .option-meta span {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+  }
+
+  .info-box {
+    background: var(--sea-pale);
+    border-left: 4px solid var(--sea);
+    border-radius: 0 6px 6px 0;
+    padding: 1rem 1.2rem;
+    margin: 1.2rem 0;
+    font-size: 0.9rem;
+  }
+
+  .info-box.warning {
+    background: #fdf3e0;
+    border-left-color: var(--warning);
+  }
+
+  .info-box.opportunity {
+    background: #fdf2f0;
+    border-left-color: var(--rust);
+  }
+
+  .info-box .label {
+    font-weight: bold;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 0.3rem;
+    color: var(--sea);
+  }
+
+  .info-box.warning .label { color: var(--warning); }
+  .info-box.opportunity .label { color: var(--rust); }
+
+  .timeline {
+    position: relative;
+    padding-left: 2rem;
+    margin: 1.5rem 0;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 0.5rem;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: var(--gold-light);
+  }
+
+  .timeline-item {
+    position: relative;
+    margin-bottom: 1.2rem;
+    padding-bottom: 0.5rem;
+  }
+
+  .timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -1.65rem;
+    top: 0.5rem;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--gold);
+    border: 2px solid var(--parchment);
+  }
+
+  .timeline-time {
+    font-size: 0.8rem;
+    color: var(--storm);
+    font-style: italic;
+    margin-bottom: 0.2rem;
+  }
+
+  .timeline-event {
+    font-size: 0.95rem;
+  }
+
+  .spot {
+    background: var(--white);
+    border: 1px solid var(--parchment-dark);
+    border-radius: 6px;
+    padding: 1rem 1.2rem;
+    margin: 0.8rem 0;
+  }
+
+  .spot-name {
+    font-size: 1.05rem;
+    color: var(--moss);
+    margin-bottom: 0.2rem;
+  }
+
+  .spot-type {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--storm);
+    margin-bottom: 0.4rem;
+  }
+
+  .spot-detail {
+    font-size: 0.9rem;
+    color: var(--ink-light);
+    margin-bottom: 0.3rem;
+  }
+
+  .spot-hours {
+    font-size: 0.8rem;
+    color: var(--moss);
+    font-style: italic;
+  }
+
+  .spot-veg {
+    display: inline-block;
+    background: var(--moss-pale);
+    color: var(--moss);
+    font-size: 0.7rem;
+    padding: 0.15rem 0.5rem;
+    border-radius: 3px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-top: 0.3rem;
+  }
+
+  .tradeoff {
+    background: var(--parchment-dark);
+    border-radius: 6px;
+    padding: 1rem 1.2rem;
+    margin: 1rem 0;
+    font-size: 0.9rem;
+  }
+
+  .tradeoff-title {
+    font-weight: bold;
+    color: var(--rust);
+    margin-bottom: 0.4rem;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .tradeoff ul {
+    margin-left: 1.2rem;
+    margin-top: 0.3rem;
+  }
+
+  .tradeoff li {
+    margin-bottom: 0.3rem;
+    font-size: 0.88rem;
+  }
+
+  .facts-strip {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 0.8rem;
+    margin: 1.5rem 0;
+  }
+
+  .fact-card {
+    background: var(--white);
+    border: 1px solid var(--parchment-dark);
+    border-radius: 6px;
+    padding: 0.8rem;
+    text-align: center;
+  }
+
+  .fact-card .number {
+    font-size: 1.4rem;
+    color: var(--moss);
+    display: block;
+  }
+
+  .fact-card .label {
+    font-size: 0.75rem;
+    color: var(--storm);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .btn {
+    display: inline-block;
+    padding: 0.7rem 1.5rem;
+    border-radius: 6px;
+    text-decoration: none;
+    font-family: 'Georgia', serif;
+    font-size: 0.95rem;
+    transition: all 0.2s;
+    cursor: pointer;
+    border: none;
+  }
+
+  .btn-primary {
+    background: var(--moss);
+    color: var(--white);
+  }
+
+  .btn-primary:hover { background: var(--moss-light); }
+
+  .btn-secondary {
+    background: var(--white);
+    color: var(--moss);
+    border: 1px solid var(--moss);
+  }
+
+  .btn-secondary:hover { background: var(--moss-pale); }
+
+  .btn-gold {
+    background: linear-gradient(135deg, var(--gold) 0%, var(--warning) 100%);
+    color: var(--white);
+  }
+
+  .btn-group {
+    display: flex;
+    gap: 0.8rem;
+    flex-wrap: wrap;
+    margin: 1.5rem 0;
+  }
+
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    color: var(--storm);
+    text-decoration: none;
+    font-size: 0.85rem;
+    margin-bottom: 1rem;
+    transition: color 0.2s;
+  }
+
+  .back-link:hover { color: var(--moss); }
+
+  .footer {
+    text-align: center;
+    padding: 2rem 1.5rem;
+    font-size: 0.8rem;
+    color: var(--storm);
+    border-top: 1px solid var(--parchment-dark);
+    margin-top: 3rem;
+  }
+
+  .divider {
+    text-align: center;
+    margin: 2rem 0;
+    color: var(--gold);
+    font-size: 1.2rem;
+    letter-spacing: 0.5rem;
+  }
+
+  .tag {
+    display: inline-block;
+    font-size: 0.7rem;
+    padding: 0.1rem 0.4rem;
+    border-radius: 3px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-right: 0.3rem;
+  }
+
+  .tag-romantic { background: #fce4ec; color: var(--rust); }
+  .tag-history { background: #e8eaf6; color: #3949ab; }
+  .tag-nature { background: var(--moss-pale); color: var(--moss); }
+  .tag-food { background: #fff3e0; color: #e65100; }
+  .tag-shopping { background: #f3e5f5; color: #7b1fa2; }
+  .tag-whiskey { background: #efebe9; color: #4e342e; }
+
+  @media (max-width: 480px) {
+    .hero h1 { font-size: 1.7rem; }
+    .content { padding: 1.5rem 1rem 3rem; }
+    .option { padding: 0.8rem 1rem; }
+    .btn-group { flex-direction: column; }
+    .btn { text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>Kerry &amp; Dingle</h1>
+  <div class="subtitle">Mountain passes, hidden beaches &amp; Ireland's finest peninsula</div>
+  <div class="dates">March 18 -- 24, 2026</div>
+</div>
+
+<nav class="nav-bar">
+  <a href="index.html">Start</a>
+  <a href="kerry.html" class="active">Kerry &amp; Dingle</a>
+  <a href="cork-weekend.html">Cork Weekend</a>
+  <a href="heading-home.html">Getting Home</a>
+  <a href="packing.html">Packing</a>
+  <a href="map.html">Map</a>
+</nav>
+
+<div class="content">
+
+  <a href="index.html" class="back-link">&larr; Back to Start</a>
+
+  <!-- ============================================ -->
+  <h2>Wednesday: Dublin to Kerry</h2>
+  <!-- ============================================ -->
+
+  <p>You land at Dublin Airport at 4:20 AM. By 5:30 or 6:00, you'll have the rental car. From here, you've got a choice to make: spend the morning in Dublin, or get on the road and be in Dingle by lunch.</p>
+
+  <div class="facts-strip">
+    <div class="fact-card">
+      <span class="number">4:20 AM</span>
+      <span class="label">Land in Dublin</span>
+    </div>
+    <div class="fact-card">
+      <span class="number">~4 hrs</span>
+      <span class="label">Dublin to Dingle</span>
+    </div>
+    <div class="fact-card">
+      <span class="number">~2.5 hrs</span>
+      <span class="label">Dublin to Limerick</span>
+    </div>
+    <div class="fact-card">
+      <span class="number">~1.5 hrs</span>
+      <span class="label">Limerick to Dingle</span>
+    </div>
+  </div>
+
+  <div class="decision">
+    <div class="decision-header">
+      <span class="icon">&#9670;</span>
+      FIRST CALL OF THE TRIP: DUBLIN OR STRAIGHT TO KERRY?
+    </div>
+    <div class="decision-body">
+
+      <div class="option cultural">
+        <div class="option-title">Option A: Dublin Morning First</div>
+        <div class="option-desc">Spend the morning in Dublin. Breakfast, Kilmainham Gaol (if you can get cancellation tickets), Kevin &amp; Howlin tweed shop on Nassau Street, the GPO. Leave Dublin by 1--2 PM. Arrive Dingle late afternoon/evening.</div>
+        <div class="option-meta">
+          <span>Leave Dublin ~1--2 PM</span>
+          <span>Arrive Dingle ~5--6 PM</span>
+        </div>
+      </div>
+
+      <div class="option adventure">
+        <div class="option-title">Option B: Drive Straight to Kerry</div>
+        <div class="option-desc">On the road by 6 AM. M7 to Limerick, then N21 to Tralee and N86 to Dingle. You'll be walking the harbor and eating lunch in Dingle while the Dublin option is still shopping for tweed.</div>
+        <div class="option-meta">
+          <span>Leave Dublin ~6 AM</span>
+          <span>Arrive Dingle ~10 AM</span>
+        </div>
+      </div>
+
+      <div class="tradeoff">
+        <div class="tradeoff-title">The tradeoff</div>
+        <ul>
+          <li><strong>Dublin morning:</strong> Kilmainham Gaol is the most powerful political history site in Ireland. Kevin &amp; Howlin is the best Donegal tweed shop in the country. If you're doing a one-way car to Cork, this is your only Dublin time.</li>
+          <li><strong>Straight to Kerry:</strong> More time on the peninsula. You'll arrive rested enough to explore Dingle in daylight. You can always hit Dublin on a future trip; you can't get this week's weather back.</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+
+  <h3>If you choose Dublin first</h3>
+
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="timeline-time">4:20 AM</div>
+      <div class="timeline-event">Land at Dublin Airport. Clear customs, pick up rental car.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-time">~6:30 AM</div>
+      <div class="timeline-event">Breakfast at <strong>Keogh's Cafe</strong> (opens 6:30 AM, Trinity Street) or grab something at the airport and drive into the city.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-time">9:15 AM</div>
+      <div class="timeline-event">Refresh <em>kilmainhamgaolmuseum.ie</em> for cancellation tickets. They drop between 9:15--9:30. If you get them, head to Kilmainham for the earliest tour (~60 min + 30 min museum).</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-time">~11:00 AM</div>
+      <div class="timeline-event"><strong>Kevin &amp; Howlin</strong> (31 Nassau Street, opens 10 AM). The gold standard for handwoven Donegal tweed since 1936. Jackets ~&euro;450, trousers ~&euro;240. Opposite Trinity College.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-time">~11:45 AM</div>
+      <div class="timeline-event">Walk to the <strong>GPO</strong> on O'Connell Street if time allows. Rebel headquarters during 1916; bullet holes still in the facade.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-time">12:30 PM</div>
+      <div class="timeline-event">Lunch. <strong>Cornucopia</strong> (Wicklow Street, 100% vegetarian since 1986) or <strong>Glas</strong> (Chatham Street, award-winning vegetarian fine dining).</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-time">~1:30--2:00 PM</div>
+      <div class="timeline-event">Hit the road. M7 southwest toward Limerick.</div>
+    </div>
+  </div>
+
+  <div class="info-box warning">
+    <div class="label">Kilmainham tickets</div>
+    Tickets release 28 days in advance and sell out fast. For March 18, those dropped on February 18. Your best shot is cancellation tickets released each morning between 9:15 and 9:30 AM on the official site. Only buy from <em>kilmainhamgaolmuseum.ie</em> -- third-party tickets aren't valid. If Kilmainham is sold out, <strong>Collins Barracks</strong> (free, no ticket needed) has an excellent 1916 Rising exhibition 15 minutes away.
+  </div>
+
+  <h3>The drive: Dublin to Dingle</h3>
+
+  <p>The route is straightforward. M7 southwest to Limerick (about 2.5 hours, mostly motorway). Then N21 to Tralee and N86 over the Connor Pass into Dingle (about 1.5 hours more, increasingly scenic). Total: roughly 4 hours of driving. The last stretch over the Connor Pass is narrow and dramatic -- mountains on both sides, views down to the coast. It's the moment the trip shifts from "getting there" to "being there."</p>
+
+  <div class="info-box">
+    <div class="label">Driving on the left</div>
+    If this is your first time, the M7 motorway is forgiving -- wide, well-signed, mostly straight. Roundabouts are the main hazard: go clockwise, yield to the right. The roads narrow significantly after Tralee. Caffeine is not optional, especially if you've been up since a red-eye.
+  </div>
+
+  <h3>Dingle evening</h3>
+
+  <p>However you get here, you'll arrive in a colorful harbor town on the western tip of Kerry. Dingle is a Gaeltacht area -- Irish is the everyday language on street signs and in shops. The town is small enough to walk end to end in fifteen minutes, but the food scene punches far above its weight. After the drive, drop your bags, stretch your legs along the harbor, and eat well.</p>
+
+  <h3>Where to eat in Dingle</h3>
+
+  <div class="spot">
+    <div class="spot-name">The Chart House</div>
+    <div class="spot-type"><span class="tag tag-food">Restaurant</span> Michelin Guide listed</div>
+    <div class="spot-detail">Elegant but unfussy, with an imaginative approach to local Kerry ingredients. The menu rotates seasonally and always includes strong vegetarian options. One of Dingle's best dinners -- the kind of place that makes you glad you drove four hours to get here.</div>
+    <span class="spot-veg">Vegetarian options</span>
+  </div>
+
+  <div class="spot">
+    <div class="spot-name">Solas Tapas &amp; Wine</div>
+    <div class="spot-type"><span class="tag tag-food">Tapas</span> Small plates &amp; wine</div>
+    <div class="spot-detail">Fresh, beautifully presented small plates perfect for sharing. Great variety, including several vegetarian and vegan dishes. Ideal if you don't want a heavy sit-down meal after a long day of travel.</div>
+    <span class="spot-veg">Strong vegetarian &amp; vegan menu</span>
+  </div>
+
+  <div class="spot">
+    <div class="spot-name">The Wren's Nest</div>
+    <div class="spot-type"><span class="tag tag-food">Cafe</span> Dykegate Lane, Dingle</div>
+    <div class="spot-detail">A completely vegetarian cafe, coffee house, garden, and eclectic shop rolled into one. Extensive menu with plenty of vegan and gluten-free options. Perfect for a long, lazy lunch between sights. Savannah will love this place.</div>
+    <div class="spot-hours">Open 11 AM -- 5 PM daily, March through November</div>
+    <span class="spot-veg">Fully vegetarian</span>
+  </div>
+
+  <h3>Where to stay in Dingle</h3>
+
+  <div class="spot">
+    <div class="spot-name">Heaton's Guesthouse</div>
+    <div class="spot-type"><span class="tag tag-romantic">Guesthouse</span> Dingle Bay waterfront</div>
+    <div class="spot-detail">On the shores of Dingle Bay with panoramic views, five minutes' walk from town center. Classic rooms from &euro;92/night, junior suites with bay views from &euro;132. Consistently one of the top-rated stays in Dingle. Waking up to that bay view on your first real morning in Ireland is a good way to start.</div>
+    <div class="spot-hours">heatonsdingle.com</div>
+  </div>
+
+  <div class="spot">
+    <div class="spot-name">Pax House</div>
+    <div class="spot-type"><span class="tag tag-romantic">Boutique B&amp;B</span> Rated #1 in Dingle on Tripadvisor</div>
+    <div class="spot-detail">The warmth of a B&amp;B with the polish of a boutique hotel. Gorgeous views and exceptional breakfasts. Book early -- this place has a loyal following. Expect &euro;120--160/night in March.</div>
+    <div class="spot-hours">pax-house.com</div>
+  </div>
+
+  <div class="divider">&bull; &bull; &bull;</div>
+
+  <!-- ============================================ -->
+  <h2>Thursday: The Dingle Peninsula</h2>
+  <!-- ============================================ -->
+
+  <p>This is your big day on the peninsula. The Slea Head Drive is one of the most spectacular coastal loops in Ireland, and in late March you'll have it largely to yourselves. After that, if time and energy allow, you can dip into the Killarney National Park highlights in the afternoon.</p>
+
+  <div class="info-box opportunity">
+    <div class="label">March advantage</div>
+    Dingle in late March is off-peak. The Slea Head Drive, which is bumper-to-bumper with tour buses in July, will be yours. The light on the Atlantic is extraordinary this time of year -- low-angled, constantly shifting. Bring a camera.
+  </div>
+
+  <h3>Morning: Slea Head Drive</h3>
+
+  <p>A 38 km circular route around the tip of the peninsula, starting and ending in Dingle town. Drive it <strong>clockwise</strong> to avoid meeting tour buses head-on. The drive itself takes under an hour, but you'll want to stop constantly. Allow 2.5--3.5 hours with stops.</p>
+
+  <div class="facts-strip">
+    <div class="fact-card">
+      <span class="number">38 km</span>
+      <span class="label">Slea Head loop</span>
+    </div>
+    <div class="fact-card">
+      <span class="number">2.5--3.5 hrs</span>
+      <span class="label">With stops</span>
+    </div>
+    <div class="fact-card">
+      <span class="number">Clockwise</span>
+      <span class="label">Avoids tour buses</span>
+    </div>
+  </div>
+
+  <div class="spot">
+    <div class="spot-name">Fahan Beehive Huts</div>
+    <div class="spot-type"><span class="tag tag-history">Ancient site</span> <span class="tag tag-nature">Farm</span></div>
+    <div class="spot-detail">19 souterrain and 18 standing clochans (stone beehive huts), some over 2,000 years old. The family that owns the farm charges &euro;4 entry -- and you can hold a baby lamb. That alone is worth the stop.</div>
+  </div>
+
+  <div class="spot">
+    <div class="spot-name">Dunmore Head</div>
+    <div class="spot-type"><span class="tag tag-nature">Viewpoint</span> <span class="tag tag-romantic">Romantic</span></div>
+    <div class="spot-detail">The westernmost point of mainland Ireland. Stand here and the next stop west is North America. On a clear day, the Blasket Islands seem close enough to swim to. It's a short walk from the car park to the headland -- and genuinely one of those "edge of the world" moments.</div>
+  </div>
+
+  <div class="spot">
+    <div class="spot-name">Gallarus Oratory</div>
+    <div class="spot-type"><span class="tag tag-history">7th-century chapel</span></div>
+    <div class="spot-detail">A remarkably preserved early Christian chapel built entirely from dry-stacked stone, shaped like an inverted boat. It's been standing here since around 700 AD, still watertight. One of the most intact early medieval buildings in Ireland.</div>
+  </div>
+
+  <div class="spot">
+    <div class="spot-name">Blasket Centre</div>
+    <div class="spot-type"><span class="tag tag-history">Museum</span> Dunquin</div>
+    <div class="spot-detail">A museum honoring the island community of the Great Blasket, evacuated by the Irish government in 1953 when the population became too small to sustain itself. The islanders produced an extraordinary literary tradition -- three classics of Irish autobiography came from a community of fewer than 200 people. The building itself sits on the cliff overlooking the abandoned island.</div>
+  </div>
+
+  <div class="info-box">
+    <div class="label">Star Wars was here</div>
+    The Dingle Peninsula was used as a filming location for <em>Star Wars: The Force Awakens</em>. The dramatic coastal landscape doubled for the planet where Luke Skywalker was found. Keep an eye out for the signs.
+  </div>
+
+  <h3>Afternoon option: Killarney National Park highlights</h3>
+
+  <p>If you finish Slea Head by early afternoon and still have energy, the Killarney area is about an hour east of Dingle. You don't need to do the full Ring of Kerry -- just cherry-pick the best parts.</p>
+
+  <div class="spot">
+    <div class="spot-name">Killarney National Park</div>
+    <div class="spot-type"><span class="tag tag-nature">National Park</span> Free admission</div>
+    <div class="spot-detail">Ireland's first national park. 10,236 hectares of lakes, mountains, and ancient oak forest -- the only remaining native woodland of its kind in Ireland. Free to enter, open year-round.</div>
+  </div>
+
+  <div class="spot">
+    <div class="spot-name">Muckross House &amp; Gardens</div>
+    <div class="spot-type"><span class="tag tag-history">Historic house</span> <span class="tag tag-nature">Gardens</span></div>
+    <div class="spot-detail">A Victorian mansion at the heart of the national park. The gardens are free and beautiful; the house is by guided tour. The Traditional Farms are open from March onward. No pre-booking needed.</div>
+    <div class="spot-hours">Open daily 9 AM -- 6 PM. Free parking. 6 km from Killarney town.</div>
+  </div>
+
+  <div class="spot">
+    <div class="spot-name">Gap of Dunloe</div>
+    <div class="spot-type"><span class="tag tag-nature">Mountain pass</span> <span class="tag tag-romantic">Scenic walk</span></div>
+    <div class="spot-detail">A dramatic glacial valley between the MacGillycuddy Reeks and Purple Mountain. The <strong>Wishing Bridge</strong> is a lovely 30-minute round trip walk. The full gap is 11 km (about 2.5 hours one way). In March, with fewer crowds, driving the narrow road is actually feasible -- it's usually packed with walkers and jaunting cars in summer. Free parking at Kate Kearney's Cottage, 15 minutes from Killarney.</div>
+  </div>
+
+  <div class="spot">
+    <div class="spot-name">Ladies View</div>
+    <div class="spot-type"><span class="tag tag-nature">Viewpoint</span> <span class="tag tag-romantic">Romantic</span></div>
+    <div class="spot-detail">One of Ireland's most famous viewpoints, looking down over the Upper Lake and the surrounding mountains. Named for Queen Victoria's ladies-in-waiting, who admired the view during a royal visit in 1861. Free, right on the N71. Just pull over.</div>
+  </div>
+
+  <div class="info-box warning">
+    <div class="label">Ring of Kerry time check</div>
+    The full Ring of Kerry loop is 179 km and takes 4--5 hours of driving, plus stops. If you have a full day, it's a beautiful circuit. But if time is short after Slea Head, skip the full ring and focus on Killarney National Park, the Gap of Dunloe, and Ladies View. You'll see the best scenery without the time commitment.
+  </div>
+
+  <p>Thursday evening: back to Dingle for dinner, or start making your way toward Kenmare if you're ready to set up for the drive to Cork on Friday.</p>
+
+  <div class="divider">&bull; &bull; &bull;</div>
+
+  <!-- ============================================ -->
+  <h2>Friday: Kerry to Cork</h2>
+  <!-- ============================================ -->
+
+  <p>Cork is your weekend base -- that's non-negotiable. Friday is about making your way south, with a couple of route options depending on where you woke up and how much driving you want to do.</p>
+
+  <h3>Kenmare: the natural overnight stop</h3>
+
+  <p>If you stayed in or near Killarney on Thursday night, Kenmare is about an hour south on the N71. It's an elegant small town at the head of Kenmare Bay, and the food is excellent. Even if you're just passing through, it's worth a stop for lunch.</p>
+
+  <div class="spot">
+    <div class="spot-name">No. 35</div>
+    <div class="spot-type"><span class="tag tag-food">Restaurant</span> Modern Irish</div>
+    <div class="spot-detail">Rated 4.7 on Tripadvisor. Described as "innovative, exciting, and original" -- a laid-back little restaurant with serious ambition. Strong vegetarian options. Book ahead; Kenmare restaurants fill up fast even off-season.</div>
+    <span class="spot-veg">Vegetarian options</span>
+  </div>
+
+  <div class="spot">
+    <div class="spot-name">Tom Crean (D'Arcy's)</div>
+    <div class="spot-type"><span class="tag tag-food">Restaurant</span> 25 Main Street, Kenmare</div>
+    <div class="spot-detail">Named after the Kerry-born Antarctic explorer. They make their own vegan mozzarella for homemade pizzas -- that tells you everything about how seriously they take dietary options. Meat, fish, vegetarian, and vegan all well represented.</div>
+    <span class="spot-veg">Vegetarian &amp; vegan options</span>
+  </div>
+
+  <div class="spot">
+    <div class="spot-name">The Lime Tree</div>
+    <div class="spot-type"><span class="tag tag-food">Restaurant</span> Shelbourne Street, Kenmare</div>
+    <div class="spot-detail">A long-established Kenmare favorite with a warm atmosphere and good vegetarian choices. Popular for dinner; reservations recommended.</div>
+    <span class="spot-veg">Vegetarian options</span>
+  </div>
+
+  <h3>Getting to Cork</h3>
+
+  <div class="decision">
+    <div class="decision-header">
+      <span class="icon">&#9670;</span>
+      ROUTE DECISION: SCENIC OR DIRECT?
+    </div>
+    <div class="decision-body">
+
+      <div class="option adventure">
+        <div class="option-title">Via Kenmare &amp; the West Cork Coast</div>
+        <div class="option-desc">From Kenmare, take the N71 through Bantry and Bandon. You'll cross the Caha Pass, drive through Michael Collins country, and arrive in Cork via Kinsale. The roads are narrow and slow, but the scenery is spectacular. Budget the full 2 hours.</div>
+        <div class="option-meta">
+          <span>~2 hrs to Kinsale</span>
+          <span>Scenic but narrow roads</span>
+          <span>Best for: if you have the daylight</span>
+        </div>
+      </div>
+
+      <div class="option cultural">
+        <div class="option-title">Direct from Killarney to Cork City</div>
+        <div class="option-desc">The N22 from Killarney to Cork City is about 90 km and takes roughly 1h15. Better roads, faster, straightforward. You can always drive to Kinsale (25 min) from Cork the next day.</div>
+        <div class="option-meta">
+          <span>~1h15 to Cork City</span>
+          <span>Good roads, easy drive</span>
+          <span>Best for: if it's getting late</span>
+        </div>
+      </div>
+
+      <div class="tradeoff">
+        <div class="tradeoff-title">Which route to Cork?</div>
+        <ul>
+          <li><strong>Via Kenmare/West Cork:</strong> More scenic, but the roads are narrow and slow. Worth it if you have the daylight and the energy. The Caha Pass alone is worth the detour.</li>
+          <li><strong>Direct from Killarney:</strong> Faster and on better roads. Doesn't mean you miss Kinsale -- just means you visit it from Cork on Saturday or Sunday instead of arriving through it.</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="info-box warning">
+    <div class="label">Time check</div>
+    If it's Friday and you're still in Dingle, take the direct Killarney-Cork route (N22, about 1h15 from Killarney to Cork City). Don't try to squeeze in the scenic West Cork coast -- you'll arrive in Cork after dark and miss the whole point. The scenic route works best if you're leaving from Kenmare with a full afternoon ahead of you.
+  </div>
+
+  <p>However you get there, the goal is simple: arrive in Cork on Friday afternoon or evening, settled and ready for the weekend. Cork is where the trip shifts gears -- from driving and exploring to slowing down, eating well, and celebrating your anniversary.</p>
+
+  <div class="divider">&bull; &bull; &bull;</div>
+
+  <div class="btn-group">
+    <a href="cork-weekend.html" class="btn btn-primary">Continue to Cork Weekend &rarr;</a>
+    <a href="index.html" class="btn btn-secondary">&larr; Back to Start</a>
+  </div>
+
+</div>
+
+<div class="footer">
+  <p>Built with care for Spencer &amp; Savannah's anniversary adventure.</p>
+  <p>Every fact in these pages has been verified. Hours, availability, and transport options are current as of March 2026.</p>
+  <p style="margin-top: 0.5rem;">Works offline. No internet needed once downloaded.</p>
+</div>
+
+</body>
+</html>

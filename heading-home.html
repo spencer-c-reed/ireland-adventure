@@ -1,0 +1,978 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ireland Adventure — Getting Home: Monday &amp; Tuesday</title>
+<style>
+  :root {
+    --parchment: #f4efe1;
+    --parchment-dark: #e8e0cc;
+    --ink: #2c1810;
+    --ink-light: #5a3e2b;
+    --moss: #4a6741;
+    --moss-light: #6b8f5e;
+    --moss-pale: #e8f0e4;
+    --sea: #2e6b7e;
+    --sea-light: #4a9bb5;
+    --sea-pale: #dceef3;
+    --gold: #c4a35a;
+    --gold-light: #e8d5a0;
+    --rust: #8b4513;
+    --storm: #536878;
+    --warning: #b8860b;
+    --white: #fefdfb;
+    --shadow: rgba(44, 24, 16, 0.12);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Georgia', 'Times New Roman', serif;
+    background: var(--parchment);
+    color: var(--ink);
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+
+  /* === HEADER === */
+  .hero {
+    background: linear-gradient(135deg, var(--moss) 0%, var(--sea) 50%, var(--storm) 100%);
+    color: var(--white);
+    padding: 3rem 1.5rem 2.5rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0 Q45 15 30 30 Q15 15 30 0z' fill='rgba(255,255,255,0.03)'/%3E%3C/svg%3E") repeat;
+  }
+
+  .hero h1 {
+    font-size: 2.2rem;
+    font-weight: normal;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.3rem;
+    position: relative;
+  }
+
+  .hero .subtitle {
+    font-style: italic;
+    opacity: 0.85;
+    font-size: 1.05rem;
+    position: relative;
+  }
+
+  .hero .dates {
+    margin-top: 1rem;
+    font-size: 0.9rem;
+    opacity: 0.7;
+    position: relative;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  /* === NAVIGATION BAR === */
+  .nav-bar {
+    background: var(--ink);
+    padding: 0.6rem 1.5rem;
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  .nav-bar a {
+    color: var(--gold-light);
+    text-decoration: none;
+    font-size: 0.85rem;
+    letter-spacing: 0.05em;
+    transition: color 0.2s;
+  }
+
+  .nav-bar a:hover { color: var(--white); }
+  .nav-bar a.active { color: var(--white); border-bottom: 1px solid var(--gold); }
+
+  /* === MAIN CONTENT === */
+  .content {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem 4rem;
+  }
+
+  /* === SECTION HEADERS === */
+  h2 {
+    font-size: 1.5rem;
+    color: var(--moss);
+    margin: 2.5rem 0 1rem;
+    padding-bottom: 0.4rem;
+    border-bottom: 2px solid var(--gold-light);
+    font-weight: normal;
+  }
+
+  h3 {
+    font-size: 1.15rem;
+    color: var(--sea);
+    margin: 1.8rem 0 0.6rem;
+    font-weight: normal;
+    font-style: italic;
+  }
+
+  p { margin-bottom: 1rem; }
+
+  /* === DECISION CARDS === */
+  .decision {
+    background: var(--white);
+    border: 1px solid var(--gold-light);
+    border-radius: 8px;
+    margin: 1.5rem 0;
+    overflow: hidden;
+    box-shadow: 0 2px 8px var(--shadow);
+  }
+
+  .decision-header {
+    background: linear-gradient(135deg, var(--ink) 0%, var(--ink-light) 100%);
+    color: var(--gold-light);
+    padding: 0.8rem 1.2rem;
+    font-size: 0.85rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .decision-header .icon { font-size: 1.1rem; }
+
+  .decision-body {
+    padding: 1.2rem;
+  }
+
+  /* === OPTION CARDS === */
+  .option {
+    display: block;
+    background: var(--parchment);
+    border: 1px solid var(--parchment-dark);
+    border-left: 4px solid var(--moss);
+    border-radius: 6px;
+    padding: 1rem 1.2rem;
+    margin: 0.8rem 0;
+    text-decoration: none;
+    color: var(--ink);
+    transition: all 0.2s ease;
+    cursor: pointer;
+  }
+
+  .option:hover {
+    border-left-color: var(--sea);
+    background: var(--sea-pale);
+    transform: translateX(4px);
+  }
+
+  .option.romantic { border-left-color: var(--rust); }
+  .option.romantic:hover { border-left-color: #c0392b; background: #fdf2f0; }
+
+  .option.adventure { border-left-color: var(--sea); }
+  .option.adventure:hover { border-left-color: var(--sea-light); }
+
+  .option.cultural { border-left-color: var(--gold); }
+  .option.cultural:hover { border-left-color: var(--warning); background: #fdf8ed; }
+
+  .option-title {
+    font-size: 1.1rem;
+    color: var(--moss);
+    margin-bottom: 0.3rem;
+  }
+
+  .option-desc {
+    font-size: 0.9rem;
+    color: var(--ink-light);
+    line-height: 1.5;
+  }
+
+  .option-meta {
+    display: flex;
+    gap: 1rem;
+    margin-top: 0.5rem;
+    font-size: 0.8rem;
+    color: var(--storm);
+    flex-wrap: wrap;
+  }
+
+  .option-meta span {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+  }
+
+  /* === INFO BOXES === */
+  .info-box {
+    background: var(--sea-pale);
+    border-left: 4px solid var(--sea);
+    border-radius: 0 6px 6px 0;
+    padding: 1rem 1.2rem;
+    margin: 1.2rem 0;
+    font-size: 0.9rem;
+  }
+
+  .info-box.warning {
+    background: #fdf3e0;
+    border-left-color: var(--warning);
+  }
+
+  .info-box.opportunity {
+    background: #fdf2f0;
+    border-left-color: var(--rust);
+  }
+
+  .info-box .label {
+    font-weight: bold;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 0.3rem;
+    color: var(--sea);
+  }
+
+  .info-box.warning .label { color: var(--warning); }
+  .info-box.opportunity .label { color: var(--rust); }
+
+  /* === TIMELINE === */
+  .timeline {
+    position: relative;
+    padding-left: 2rem;
+    margin: 1.5rem 0;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 0.5rem;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: var(--gold-light);
+  }
+
+  .timeline-item {
+    position: relative;
+    margin-bottom: 1.2rem;
+    padding-bottom: 0.5rem;
+  }
+
+  .timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -1.65rem;
+    top: 0.5rem;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--gold);
+    border: 2px solid var(--parchment);
+  }
+
+  .timeline-time {
+    font-size: 0.8rem;
+    color: var(--storm);
+    font-style: italic;
+    margin-bottom: 0.2rem;
+  }
+
+  .timeline-event {
+    font-size: 0.95rem;
+  }
+
+  /* === SPOT CARDS === */
+  .spot {
+    background: var(--white);
+    border: 1px solid var(--parchment-dark);
+    border-radius: 6px;
+    padding: 1rem 1.2rem;
+    margin: 0.8rem 0;
+  }
+
+  .spot-name {
+    font-size: 1.05rem;
+    color: var(--moss);
+    margin-bottom: 0.2rem;
+  }
+
+  .spot-type {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--storm);
+    margin-bottom: 0.4rem;
+  }
+
+  .spot-detail {
+    font-size: 0.9rem;
+    color: var(--ink-light);
+    margin-bottom: 0.3rem;
+  }
+
+  .spot-hours {
+    font-size: 0.8rem;
+    color: var(--moss);
+    font-style: italic;
+  }
+
+  .spot-veg {
+    display: inline-block;
+    background: var(--moss-pale);
+    color: var(--moss);
+    font-size: 0.7rem;
+    padding: 0.15rem 0.5rem;
+    border-radius: 3px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-top: 0.3rem;
+  }
+
+  /* === TRADEOFF BOX === */
+  .tradeoff {
+    background: var(--parchment-dark);
+    border-radius: 6px;
+    padding: 1rem 1.2rem;
+    margin: 1rem 0;
+    font-size: 0.9rem;
+  }
+
+  .tradeoff-title {
+    font-weight: bold;
+    color: var(--rust);
+    margin-bottom: 0.4rem;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .tradeoff ul {
+    margin-left: 1.2rem;
+    margin-top: 0.3rem;
+  }
+
+  .tradeoff li {
+    margin-bottom: 0.3rem;
+    font-size: 0.88rem;
+  }
+
+  /* === QUICK FACTS STRIP === */
+  .facts-strip {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 0.8rem;
+    margin: 1.5rem 0;
+  }
+
+  .fact-card {
+    background: var(--white);
+    border: 1px solid var(--parchment-dark);
+    border-radius: 6px;
+    padding: 0.8rem;
+    text-align: center;
+  }
+
+  .fact-card .number {
+    font-size: 1.4rem;
+    color: var(--moss);
+    display: block;
+  }
+
+  .fact-card .label {
+    font-size: 0.75rem;
+    color: var(--storm);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  /* === BUTTONS === */
+  .btn {
+    display: inline-block;
+    padding: 0.7rem 1.5rem;
+    border-radius: 6px;
+    text-decoration: none;
+    font-family: 'Georgia', serif;
+    font-size: 0.95rem;
+    transition: all 0.2s;
+    cursor: pointer;
+    border: none;
+  }
+
+  .btn-primary {
+    background: var(--moss);
+    color: var(--white);
+  }
+
+  .btn-primary:hover {
+    background: var(--moss-light);
+  }
+
+  .btn-secondary {
+    background: var(--white);
+    color: var(--moss);
+    border: 1px solid var(--moss);
+  }
+
+  .btn-secondary:hover {
+    background: var(--moss-pale);
+  }
+
+  .btn-gold {
+    background: linear-gradient(135deg, var(--gold) 0%, var(--warning) 100%);
+    color: var(--white);
+  }
+
+  .btn-group {
+    display: flex;
+    gap: 0.8rem;
+    flex-wrap: wrap;
+    margin: 1.5rem 0;
+  }
+
+  /* === BACK LINK === */
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    color: var(--storm);
+    text-decoration: none;
+    font-size: 0.85rem;
+    margin-bottom: 1rem;
+    transition: color 0.2s;
+  }
+
+  .back-link:hover { color: var(--moss); }
+
+  /* === FOOTER === */
+  .footer {
+    text-align: center;
+    padding: 2rem 1.5rem;
+    font-size: 0.8rem;
+    color: var(--storm);
+    border-top: 1px solid var(--parchment-dark);
+    margin-top: 3rem;
+  }
+
+  /* === CELTIC DIVIDER === */
+  .divider {
+    text-align: center;
+    margin: 2rem 0;
+    color: var(--gold);
+    font-size: 1.2rem;
+    letter-spacing: 0.5rem;
+  }
+
+  /* === CHECKLIST === */
+  .checklist {
+    list-style: none;
+    margin: 1rem 0;
+    padding: 0;
+  }
+
+  .checklist li {
+    position: relative;
+    padding-left: 1.8rem;
+    margin-bottom: 0.6rem;
+    font-size: 0.95rem;
+  }
+
+  .checklist li::before {
+    content: '\2610';
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-size: 1.1rem;
+    color: var(--moss);
+  }
+
+  /* === TAG === */
+  .tag {
+    display: inline-block;
+    font-size: 0.7rem;
+    padding: 0.1rem 0.4rem;
+    border-radius: 3px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-right: 0.3rem;
+  }
+
+  .tag-romantic { background: #fce4ec; color: var(--rust); }
+  .tag-history { background: #e8eaf6; color: #3949ab; }
+  .tag-nature { background: var(--moss-pale); color: var(--moss); }
+  .tag-food { background: #fff3e0; color: #e65100; }
+  .tag-shopping { background: #f3e5f5; color: #7b1fa2; }
+  .tag-whiskey { background: #efebe9; color: #4e342e; }
+
+  /* === RESPONSIVE === */
+  @media (max-width: 480px) {
+    .hero h1 { font-size: 1.7rem; }
+    .content { padding: 1.5rem 1rem 3rem; }
+    .option { padding: 0.8rem 1rem; }
+    .btn-group { flex-direction: column; }
+    .btn { text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>Getting Home</h1>
+  <div class="subtitle">Monday &amp; Tuesday &mdash; Cork to Dublin Airport</div>
+  <div class="dates">March 23--24, 2026</div>
+</div>
+
+<nav class="nav-bar">
+  <a href="index.html">Start</a>
+  <a href="cork-weekend.html">Cork Weekend</a>
+  <a href="heading-home.html" class="active">Getting Home</a>
+  <a href="packing.html">Packing</a>
+  <a href="map.html">Map</a>
+</nav>
+
+<div class="content">
+
+  <a href="cork-weekend.html" class="back-link">&larr; Back to Cork Weekend</a>
+
+  <h2>The Final Stretch</h2>
+
+  <p>Your weekend in Cork is done. Now you need to get to Dublin Airport by 2:00 PM Tuesday for the 4:45 PM flight home. How Monday goes depends entirely on which car you booked.</p>
+
+  <div class="facts-strip">
+    <div class="fact-card">
+      <span class="number">EI 0107</span>
+      <span class="label">Flight</span>
+    </div>
+    <div class="fact-card">
+      <span class="number">16:45</span>
+      <span class="label">Depart DUB</span>
+    </div>
+    <div class="fact-card">
+      <span class="number">20:25</span>
+      <span class="label">Arrive JFK</span>
+    </div>
+    <div class="fact-card">
+      <span class="number">T2</span>
+      <span class="label">Terminal</span>
+    </div>
+  </div>
+
+  <div class="divider">&bull; &bull; &bull;</div>
+
+  <!-- ============================================ -->
+  <!-- SECTION 1: ROUND-TRIP CAR                    -->
+  <!-- ============================================ -->
+
+  <h2>If You Have a Round-Trip Car</h2>
+
+  <h3>Monday: The drive north</h3>
+
+  <p>Leave Cork Monday morning or early afternoon. The route is M8/M7 motorway the whole way: 265 km, about 3h05 in ideal conditions. Budget <strong>3h23--3h33</strong> realistic, accounting for fuel stops and the usual motorway slowdowns around Portlaoise.</p>
+
+  <p>The drive itself is fast and straight -- no narrow coastal roads, no single-track boreens. Just motorway. The real question is whether you stop along the way.</p>
+
+  <h3>En-route stops worth making</h3>
+
+  <div class="spot">
+    <div class="spot-name">Rock of Cashel</div>
+    <div class="spot-type"><span class="tag tag-history">Medieval</span> Cashel, Co. Tipperary &mdash; ~1.5 hrs from Cork</div>
+    <div class="spot-detail">One of Ireland's most iconic silhouettes. A cluster of 12th-century ruins on a dramatic hilltop -- cathedral, round tower, Romanesque chapel, all of it exposed to the wind on a limestone outcrop rising from the Tipperary plain. This was the seat of the Kings of Munster for centuries. It's right off the M8. You can see it from the motorway.</div>
+    <div class="spot-hours">Open 9:00 AM -- 5:00 PM in March &mdash; EUR 8 &mdash; allow 45--60 min</div>
+  </div>
+
+  <div class="spot">
+    <div class="spot-name">Cahir Castle</div>
+    <div class="spot-type"><span class="tag tag-history">Medieval</span> Cahir, Co. Tipperary &mdash; ~20 min north of Cashel</div>
+    <div class="spot-detail">One of the largest and best-preserved medieval castles in Ireland, sitting on a rock island in the River Suir. Cromwell besieged it in 1599 and barely dented it. If you're already stopping at Cashel, Cahir is a quick add-on just up the road.</div>
+    <div class="spot-hours">Open daily &mdash; EUR 5 &mdash; allow ~45 min</div>
+  </div>
+
+  <div class="spot">
+    <div class="spot-name">Kilkenny</div>
+    <div class="spot-type"><span class="tag tag-history">Medieval</span> <span class="tag tag-food">Food</span> <span class="tag tag-shopping">Shopping</span> Co. Kilkenny &mdash; ~1.5 hrs from Dublin Airport</div>
+    <div class="spot-detail">The Medieval Mile connects Kilkenny Castle to St. Canice's Cathedral through narrow lanes lined with craft shops, pubs, and the Smithwick's brewery. It's one of the most walkable towns in Ireland. If you overnight here, it's only 1h30--1h45 to the airport Tuesday morning.</div>
+    <div class="spot-hours">Kilkenny Castle: open daily, EUR 8 &mdash; St. Canice's Cathedral: EUR 6</div>
+  </div>
+
+  <div class="tradeoff">
+    <div class="tradeoff-title">Picking your stops</div>
+    <ul>
+      <li><strong>Cashel + Cahir</strong> are a natural pair -- 20 minutes apart, both off the M8. Together they add about 2 hours to the drive.</li>
+      <li><strong>Kilkenny</strong> works best as an overnight. It's slightly off the M8 (you'd take the M9 fork), but it's a better town to spend time in than anywhere else on this route.</li>
+      <li><strong>All three</strong> is doable if you leave Cork by 10 AM. Cashel and Cahir in the early afternoon, then on to Kilkenny by late afternoon.</li>
+    </ul>
+  </div>
+
+  <h3>Monday night options</h3>
+
+  <div class="decision">
+    <div class="decision-header">
+      <span class="icon">&#9670;</span>
+      WHERE DO YOU SLEEP MONDAY NIGHT?
+    </div>
+    <div class="decision-body">
+
+      <div class="option romantic">
+        <div class="option-title">Dublin City Centre (Best)</div>
+        <div class="option-desc">30--40 minutes to the airport. Great dinner, evening walk along the Liffey, a proper farewell to Ireland. This is the strongest choice if you arrive before evening.</div>
+        <div class="option-meta">
+          <span>15 km to DUB Airport</span>
+          <span>Best dinner options</span>
+        </div>
+      </div>
+
+      <div class="option cultural">
+        <div class="option-title">Kilkenny</div>
+        <div class="option-desc">Split the drive. Medieval atmosphere, craft beer scene, walkable lanes. 1h30--1h45 to the airport Tuesday morning. A good balance of adventure and logistics.</div>
+        <div class="option-meta">
+          <span>~130 km to DUB Airport</span>
+          <span>Leave by noon Tuesday</span>
+        </div>
+      </div>
+
+      <div class="option">
+        <div class="option-title">Airport Hotel</div>
+        <div class="option-desc">Pragmatic but soulless. Five minutes to the terminal. No alarms, no traffic anxiety. Only makes sense if you're arriving very late Monday night.</div>
+        <div class="option-meta">
+          <span>5 min to terminal</span>
+          <span>Limited dinner options</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="divider">&bull; &bull; &bull;</div>
+
+  <!-- ============================================ -->
+  <!-- DUBLIN MONDAY EVENING                        -->
+  <!-- ============================================ -->
+
+  <h2>Dublin Monday Evening</h2>
+
+  <p>If you make it to Dublin on Monday, you get a proper farewell night. The weather's cooperating -- 10/7&deg;C, partly cloudy, barely any rain. A good evening for walking.</p>
+
+  <h3>Dinner</h3>
+
+  <p>These aren't all vegetarian restaurants -- they're places with genuinely good vegetarian options. Savannah won't be stuck with a side salad at any of them.</p>
+
+  <div class="spot">
+    <div class="spot-name">Glas Restaurant</div>
+    <div class="spot-type"><span class="tag tag-food">Fine Dining</span> Chatham Street, Dublin 2</div>
+    <div class="spot-detail">100% plant-based, 5-course seasonal tasting menu. Won "Best Sustainable Practices" in Ireland. The kind of meal you'll remember. This is the move if you both want to eat plant-based on your last night.</div>
+    <div class="spot-detail">Reservations recommended via glasrestaurant.ie</div>
+    <span class="spot-veg">100% Plant-Based</span>
+  </div>
+
+  <div class="spot">
+    <div class="spot-name">Cornucopia</div>
+    <div class="spot-type"><span class="tag tag-food">Casual</span> Wicklow Street</div>
+    <div class="spot-detail">Dublin's oldest vegetarian restaurant, open since 1986. Two-floor cafeteria with generous portions. Not fine dining -- more like a beloved local canteen. Good for a relaxed, no-fuss meal.</div>
+    <span class="spot-veg">Fully Vegetarian</span>
+  </div>
+
+  <div class="spot">
+    <div class="spot-name">Brother Hubbard</div>
+    <div class="spot-type"><span class="tag tag-food">Middle Eastern</span> Capel Street</div>
+    <div class="spot-detail">Great mezze platters and grain bowls. Capel Street is one of Dublin's liveliest food streets -- worth a wander before or after dinner.</div>
+    <span class="spot-veg">Strong Veg Options</span>
+  </div>
+
+  <div class="spot">
+    <div class="spot-name">The Winding Stair</div>
+    <div class="spot-type"><span class="tag tag-romantic">Romantic</span> Bachelor's Walk, overlooking the Liffey</div>
+    <div class="spot-detail">Gorgeous riverside spot serving Irish cuisine with solid vegetarian mains. There's an independent bookshop downstairs. The setting alone makes it worth considering for a last evening.</div>
+    <span class="spot-veg">Good Veg Mains</span>
+  </div>
+
+  <div class="spot">
+    <div class="spot-name">Chapter One by Mickael Viljanen</div>
+    <div class="spot-type"><span class="tag tag-food">Michelin Star</span> Parnell Square</div>
+    <div class="spot-detail">If you want to go all out. Pre-theatre menu is more approachable (both in price and formality). Vegetarian tasting menu available on request. Worth it for the occasion.</div>
+  </div>
+
+  <h3>After dinner</h3>
+
+  <div class="spot">
+    <div class="spot-name">Palace Bar</div>
+    <div class="spot-type"><span class="tag tag-whiskey">Whiskey</span> 21 Fleet Street</div>
+    <div class="spot-detail">Over 100 Irish whiskeys. One of Dublin's oldest pubs (1823), tucked on Fleet Street just off Temple Bar. Quieter and more authentic than the tourist pubs. Dark wood, stained glass, no TV screens. Order something you can't get at home.</div>
+  </div>
+
+  <div class="spot">
+    <div class="spot-name">Temple Bar Area</div>
+    <div class="spot-type"><span class="tag tag-romantic">Live Music</span></div>
+    <div class="spot-detail">Yes, it's touristy. But on a Monday night it's less hectic, and you'll still find genuine trad sessions in the smaller pubs. Walk through, pop into wherever sounds good.</div>
+  </div>
+
+  <div class="spot">
+    <div class="spot-name">Walk Along the Liffey</div>
+    <div class="spot-type"><span class="tag tag-romantic">Romantic</span></div>
+    <div class="spot-detail">Ha'penny Bridge lit up at night, the Custom House, the Samuel Beckett Bridge. Dublin's riverfront is at its most atmospheric after dark. A quiet walk to close out the trip.</div>
+  </div>
+
+  <h3>Monday afternoon in Dublin (if arriving early)</h3>
+
+  <div class="spot">
+    <div class="spot-name">Glasnevin Cemetery</div>
+    <div class="spot-type"><span class="tag tag-history">History</span> Finglas Road</div>
+    <div class="spot-detail">The resting place of Michael Collins, de Valera, and Countess Markievicz. Free to walk the grounds. A sober, powerful place.</div>
+  </div>
+
+  <div class="spot">
+    <div class="spot-name">Collins Barracks &mdash; National Museum</div>
+    <div class="spot-type"><span class="tag tag-history">History</span> Benburb Street &mdash; FREE</div>
+    <div class="spot-detail">"Proclaiming a Republic" exhibition traces the 1916 Rising and independence movement. Quieter than Kilmainham Gaol, completely free. Worth an hour or two.</div>
+  </div>
+
+  <div class="spot">
+    <div class="spot-name">GPO &amp; Witness History Museum</div>
+    <div class="spot-type"><span class="tag tag-history">1916 Rising</span> O'Connell Street</div>
+    <div class="spot-detail">The General Post Office was rebel headquarters during the Easter Rising. The bullet marks are still in the columns. The Witness History exhibition inside is well done and interactive.</div>
+  </div>
+
+  <div class="spot">
+    <div class="spot-name">Kevin &amp; Howlin</div>
+    <div class="spot-type"><span class="tag tag-shopping">Shopping</span> 31 Nassau Street</div>
+    <div class="spot-detail">Ireland's most respected tweed shop. Donegal tweed jackets, caps, scarves -- the real thing, not tourist tat. If you didn't make it here on Day 1, Monday afternoon is your final window.</div>
+    <div class="spot-hours">Closes 5:30 PM</div>
+  </div>
+
+  <div class="spot">
+    <div class="spot-name">EPIC The Irish Emigration Museum</div>
+    <div class="spot-type"><span class="tag tag-history">Interactive</span> CHQ Building, Custom House Quay &mdash; ~EUR 17</div>
+    <div class="spot-detail">Interactive museum tracing the Irish diaspora. Near the docks, well-designed, and less crowded than the bigger attractions.</div>
+  </div>
+
+  <div class="info-box opportunity">
+    <div class="label">Last Chance</div>
+    This is your final window for <strong>Kilmainham Gaol</strong> if you haven't been. Check for cancellation tickets at <em>kilmainhamgaolmuseum.ie</em> -- Monday afternoon tours sometimes have openings from day-of cancellations. It's the single most powerful political history site in Ireland, and it's gone once you leave.
+  </div>
+
+  <div class="divider">&bull; &bull; &bull;</div>
+
+  <!-- ============================================ -->
+  <!-- SECTION 2: ONE-WAY CAR (DROPPED IN CORK)    -->
+  <!-- ============================================ -->
+
+  <h2>If You Dropped the Car in Cork (One-Way)</h2>
+
+  <h3>Monday: Your bonus day</h3>
+
+  <p>This is the gift of the one-way rental. No driving. No schedule. No motorways. Monday is yours.</p>
+
+  <p>Sleep in. Have breakfast at your B&amp;B or hotel. Take your time.</p>
+
+  <h3>Morning and afternoon in Cork</h3>
+
+  <p>If you didn't go to the English Market on Sunday -- or even if you did -- go again. It's that good. Wander the stalls, have lunch at the Farmgate Cafe upstairs (looking down over the market floor), and take your time about it.</p>
+
+  <p>In the afternoon, walk along the River Lee. Have one last coffee. Buy something you'll remember. Cork is a city that rewards slow days, and this is the one day you don't have to rush through it.</p>
+
+  <h3>Getting to Dublin: Irish Rail</h3>
+
+  <div class="info-box">
+    <div class="label">Cork Kent Station to Dublin Heuston</div>
+    Trains run roughly hourly. Journey time: <strong>2h15--2h30</strong>. Fares: <strong>EUR 25--40 per person</strong>. Book at irishrail.ie or buy at the station. The train itself is pleasant -- comfortable seats, wifi, scenery through the midlands. From Dublin Heuston: taxi to city centre (EUR 15--20) or taxi to airport area (EUR 30--40).
+  </div>
+
+  <p>Take a late afternoon or evening train. You'll arrive in Dublin with time for dinner and an evening walk. Everything in the "Dublin Monday Evening" section above applies to you too.</p>
+
+  <div class="decision">
+    <div class="decision-header">
+      <span class="icon">&#9670;</span>
+      TRAIN TIMING
+    </div>
+    <div class="decision-body">
+
+      <div class="option romantic">
+        <div class="option-title">Late afternoon/evening train Monday</div>
+        <div class="option-desc">Take a train around 4:00--5:00 PM. Arrive Dublin by 6:30--7:30 PM. Full evening in Dublin for dinner and one last walk. Tuesday morning is completely relaxed.</div>
+        <div class="option-meta">
+          <span>Recommended</span>
+          <span>Full Dublin evening</span>
+        </div>
+      </div>
+
+      <div class="option adventure">
+        <div class="option-title">Tuesday morning train (tighter)</div>
+        <div class="option-desc">Stay Monday night in Cork too. Take the 9:25 AM Tuesday train, arrive Dublin ~11:55 AM. Taxi to airport by 12:30. This works but is TIGHTER -- no margin for train delays. One signal problem and you're sweating.</div>
+        <div class="option-meta">
+          <span>Extra Cork night</span>
+          <span>No margin for error</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="divider">&bull; &bull; &bull;</div>
+
+  <!-- ============================================ -->
+  <!-- SECTION 3: TUESDAY — DEPARTURE DAY          -->
+  <!-- ============================================ -->
+
+  <h2>Tuesday &mdash; Departure Day</h2>
+
+  <p>Flight: <strong>EI 0107</strong>, 16:45 DUB &rarr; 20:25 JFK, Terminal 2. Booking reference: <strong>32B7CB</strong>.</p>
+
+  <div class="info-box warning">
+    <div class="label">Weather Warning</div>
+    <strong>Tuesday's forecast is RAIN -- 14mm in Dublin.</strong> The worst weather day of the trip. Wind 5--9 m/s (11--20 mph). Allow extra time if driving. Visibility will be poor, roads will be wet, and you'll want windshield wipers you trust.
+  </div>
+
+  <h3>US Preclearance: why you need extra time</h3>
+
+  <p>Dublin has <strong>US Preclearance</strong>. You clear US customs and immigration <em>before</em> you board. That means when you land at JFK, you walk straight out like a domestic arrival. No immigration queue, no customs line. It's wonderful on the JFK end, but it adds 30--60 minutes at Dublin Airport. Budget accordingly.</p>
+
+  <h3>Timeline from Dublin</h3>
+
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="timeline-time">Morning &mdash; Sleep in</div>
+      <div class="timeline-event">No alarm. Last coffee in Ireland. Maybe Kevin &amp; Howlin one more time if you haven't been (opens 9:30 AM).</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-time">12:30 PM &mdash; Leave hotel</div>
+      <div class="timeline-event">Drive to Dublin Airport. Allow 30--40 minutes in rain and traffic.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-time">1:00 &mdash; 1:30 PM &mdash; Arrive airport</div>
+      <div class="timeline-event">Return rental car (if applicable). Fill petrol at station near the rental village first. Hand over keys, take shuttle to Terminal 2.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-time">2:00 PM &mdash; Terminal 2</div>
+      <div class="timeline-event">Check in, drop bags, proceed through security.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-time">2:30 &mdash; 3:30 PM &mdash; US Preclearance</div>
+      <div class="timeline-event"><strong>The big one.</strong> Full US immigration checkpoint: passport scan, photo, fingerprints, questions. Queue takes 30--60 minutes depending on how many US-bound flights are departing around the same time. Have both passports ready.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-time">3:30 &mdash; 4:15 PM &mdash; Duty free + last pint</div>
+      <div class="timeline-event">Duty free is <em>after</em> Preclearance. Anything you buy, you carry on the plane. No customs at JFK.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-time">~4:15 PM &mdash; Boarding</div>
+      <div class="timeline-event">Board EI 0107. Settle in.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-time">4:45 PM &mdash; Wheels up</div>
+      <div class="timeline-event"><strong>Departure.</strong> Next stop: JFK, arriving 8:25 PM local time.</div>
+    </div>
+  </div>
+
+  <h3>Car return process</h3>
+
+  <p>Allow <strong>30 minutes</strong> from pulling into the rental village to stepping into the terminal.</p>
+
+  <ul class="checklist">
+    <li>Fill petrol at station near rental village (on the approach road, follow signs)</li>
+    <li>Check car for damage -- walk around it, photograph all four sides, roof, and wheels</li>
+    <li>Drive to rental company's return bay</li>
+    <li>Hand over keys, get return receipt</li>
+    <li>Take shuttle bus to Terminal 2 (runs every 5--10 minutes)</li>
+  </ul>
+
+  <div class="info-box">
+    <div class="label">M50 Toll</div>
+    The M50 (Dublin's ring road) has a camera-based toll. No stopping, no toll booth -- it photographs your plate. <strong>EUR 3.80</strong> for rental cars, auto-charged by the rental company. Nothing you need to do.
+  </div>
+
+  <div class="divider">&bull; &bull; &bull;</div>
+
+  <!-- ============================================ -->
+  <!-- PRE-DEPARTURE CHECKLIST                      -->
+  <!-- ============================================ -->
+
+  <h2>Pre-Departure Checklist</h2>
+
+  <ul class="checklist">
+    <li>Both passports -- needed for Preclearance</li>
+    <li>Booking reference: <strong>32B7CB</strong></li>
+    <li>Rental car returned, keys handed over, return receipt received</li>
+    <li>Petrol tank full at time of return</li>
+    <li>Photos of rental car taken at return (insurance backup)</li>
+    <li>Nothing left in car, hotel room, or B&amp;B</li>
+    <li>Phone and camera charged</li>
+    <li>Photos and videos backed up (in case of phone loss)</li>
+  </ul>
+
+  <div class="divider">&bull; &bull; &bull;</div>
+
+  <!-- ============================================ -->
+  <!-- LAST-MINUTE SHOPPING                         -->
+  <!-- ============================================ -->
+
+  <h2>Last-Minute Shopping</h2>
+
+  <div class="spot">
+    <div class="spot-name">The Loop &mdash; Dublin Airport Duty Free</div>
+    <div class="spot-type"><span class="tag tag-whiskey">Whiskey</span> <span class="tag tag-shopping">Shopping</span> Terminal 2, after Preclearance</div>
+    <div class="spot-detail">Strong selection of Irish whiskeys including exclusive airport bottlings. Redbreast, Midleton, Green Spot, Powers John's Lane. Also carries Irish chocolates, Aran knitwear, and Waterford Crystal. Anything you buy here, you carry on the plane -- no customs at JFK.</div>
+  </div>
+
+  <div class="spot">
+    <div class="spot-name">Kevin &amp; Howlin</div>
+    <div class="spot-type"><span class="tag tag-shopping">Shopping</span> 31 Nassau Street, Dublin</div>
+    <div class="spot-detail">The best Donegal tweed shop in Ireland. Jackets, caps, scarves, waistcoats. Everything is genuine Magee Donegal tweed. Staff are knowledgeable and will help with fit. A heritage shop, not a tourist trap.</div>
+    <div class="spot-hours">Mon--Sat 9:30 AM -- 5:30 PM</div>
+  </div>
+
+  <div class="spot">
+    <div class="spot-name">Palace Bar</div>
+    <div class="spot-type"><span class="tag tag-whiskey">Whiskey</span> 21 Fleet Street, Dublin</div>
+    <div class="spot-detail">One last whiskey before you go. Opens at 10:30 AM. A quick dram takes 20 minutes, not two hours. Get in, get out, get to the airport.</div>
+    <div class="spot-hours">Opens 10:30 AM daily</div>
+  </div>
+
+  <div class="divider">&bull; &bull; &bull;</div>
+
+  <!-- ============================================ -->
+  <!-- INSURANCE NOTE                               -->
+  <!-- ============================================ -->
+
+  <div class="info-box">
+    <div class="label">Insurance Note</div>
+    <strong>Chase Sapphire</strong> covers international rental car insurance. You declined the rental company's CDW. If there's any damage dispute at return, don't sign anything admitting fault. Take photos, note the agent's name, and file the claim through Chase when you get home. The Sapphire's coverage is primary for international rentals.
+  </div>
+
+  <div class="divider">&bull; &bull; &bull;</div>
+
+  <!-- ============================================ -->
+  <!-- SILVER LINING + AT JFK                       -->
+  <!-- ============================================ -->
+
+  <div class="info-box opportunity">
+    <div class="label">Silver Lining</div>
+    You've had six days of mostly dry weather. Cloud, yes. Mist, sure. But the rain held off for the Aran Islands, for the Cliffs of Moher, for every drive along the coast. Tuesday's downpour is Ireland's parting gift -- a reminder that you got incredibly lucky with the weather, and a reason not to feel bad about leaving.
+  </div>
+
+  <div class="info-box">
+    <div class="label">At JFK</div>
+    US Preclearance means you walk off the plane and straight out of the airport. No immigration line, no customs hall, no declaration forms. Grab your checked bags if you have any, and you're in New York. Fifteen minutes from wheels down to outside. Welcome home.
+  </div>
+
+  <div class="divider">&bull; &bull; &bull;</div>
+
+  <div class="btn-group">
+    <a href="cork-weekend.html" class="btn btn-secondary">&larr; Cork Weekend</a>
+    <a href="packing.html" class="btn btn-primary">Packing &amp; Weather &rarr;</a>
+    <a href="index.html" class="btn btn-gold">Back to Start</a>
+  </div>
+
+</div>
+
+<div class="footer">
+  <p>Built with care for Spencer &amp; Savannah's anniversary adventure.</p>
+  <p>Every fact in these pages has been verified. Hours, availability, and ferry schedules are current as of March 2026.</p>
+  <p style="margin-top: 0.5rem;">Works offline. No internet needed once downloaded.</p>
+</div>
+
+</body>
+</html>

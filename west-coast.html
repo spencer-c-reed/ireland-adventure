@@ -1,0 +1,1128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The West Coast — Ireland Adventure</title>
+<style>
+  :root {
+    --parchment: #f4efe1;
+    --parchment-dark: #e8e0cc;
+    --ink: #2c1810;
+    --ink-light: #5a3e2b;
+    --moss: #4a6741;
+    --moss-light: #6b8f5e;
+    --moss-pale: #e8f0e4;
+    --sea: #2e6b7e;
+    --sea-light: #4a9bb5;
+    --sea-pale: #dceef3;
+    --gold: #c4a35a;
+    --gold-light: #e8d5a0;
+    --rust: #8b4513;
+    --storm: #536878;
+    --warning: #b8860b;
+    --white: #fefdfb;
+    --shadow: rgba(44, 24, 16, 0.12);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Georgia', 'Times New Roman', serif;
+    background: var(--parchment);
+    color: var(--ink);
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+
+  .hero {
+    background: linear-gradient(135deg, var(--moss) 0%, var(--sea) 50%, var(--storm) 100%);
+    color: var(--white);
+    padding: 3rem 1.5rem 2.5rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0 Q45 15 30 30 Q15 15 30 0z' fill='rgba(255,255,255,0.03)'/%3E%3C/svg%3E") repeat;
+  }
+
+  .hero h1 {
+    font-size: 2.2rem;
+    font-weight: normal;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.3rem;
+    position: relative;
+  }
+
+  .hero .subtitle {
+    font-style: italic;
+    opacity: 0.85;
+    font-size: 1.05rem;
+    position: relative;
+  }
+
+  .hero .dates {
+    margin-top: 1rem;
+    font-size: 0.9rem;
+    opacity: 0.7;
+    position: relative;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .nav-bar {
+    background: var(--ink);
+    padding: 0.6rem 1.5rem;
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  .nav-bar a {
+    color: var(--gold-light);
+    text-decoration: none;
+    font-size: 0.85rem;
+    letter-spacing: 0.05em;
+    transition: color 0.2s;
+  }
+
+  .nav-bar a:hover { color: var(--white); }
+  .nav-bar a.active { color: var(--white); border-bottom: 1px solid var(--gold); }
+
+  .content {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem 4rem;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+    color: var(--moss);
+    margin: 2.5rem 0 1rem;
+    padding-bottom: 0.4rem;
+    border-bottom: 2px solid var(--gold-light);
+    font-weight: normal;
+  }
+
+  h3 {
+    font-size: 1.15rem;
+    color: var(--sea);
+    margin: 1.8rem 0 0.6rem;
+    font-weight: normal;
+    font-style: italic;
+  }
+
+  p { margin-bottom: 1rem; }
+
+  .info-box {
+    background: var(--sea-pale);
+    border-left: 4px solid var(--sea);
+    border-radius: 0 6px 6px 0;
+    padding: 1rem 1.2rem;
+    margin: 1.2rem 0;
+    font-size: 0.9rem;
+  }
+
+  .info-box.warning {
+    background: #fdf3e0;
+    border-left-color: var(--warning);
+  }
+
+  .info-box.opportunity {
+    background: #fdf2f0;
+    border-left-color: var(--rust);
+  }
+
+  .info-box .label {
+    font-weight: bold;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 0.3rem;
+    color: var(--sea);
+  }
+
+  .info-box.warning .label { color: var(--warning); }
+  .info-box.opportunity .label { color: var(--rust); }
+
+  .decision {
+    background: var(--white);
+    border: 1px solid var(--gold-light);
+    border-radius: 8px;
+    margin: 1.5rem 0;
+    overflow: hidden;
+    box-shadow: 0 2px 8px var(--shadow);
+  }
+
+  .decision-header {
+    background: linear-gradient(135deg, var(--ink) 0%, var(--ink-light) 100%);
+    color: var(--gold-light);
+    padding: 0.8rem 1.2rem;
+    font-size: 0.85rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .decision-header .icon { font-size: 1.1rem; }
+
+  .decision-body {
+    padding: 1.2rem;
+  }
+
+  .option {
+    display: block;
+    background: var(--parchment);
+    border: 1px solid var(--parchment-dark);
+    border-left: 4px solid var(--moss);
+    border-radius: 6px;
+    padding: 1rem 1.2rem;
+    margin: 0.8rem 0;
+    text-decoration: none;
+    color: var(--ink);
+    transition: all 0.2s ease;
+    cursor: pointer;
+  }
+
+  .option:hover {
+    border-left-color: var(--sea);
+    background: var(--sea-pale);
+    transform: translateX(4px);
+  }
+
+  .option.romantic { border-left-color: var(--rust); }
+  .option.romantic:hover { border-left-color: #c0392b; background: #fdf2f0; }
+
+  .option.adventure { border-left-color: var(--sea); }
+  .option.adventure:hover { border-left-color: var(--sea-light); }
+
+  .option.cultural { border-left-color: var(--gold); }
+  .option.cultural:hover { border-left-color: var(--warning); background: #fdf8ed; }
+
+  .option-title {
+    font-size: 1.1rem;
+    color: var(--moss);
+    margin-bottom: 0.3rem;
+  }
+
+  .option-desc {
+    font-size: 0.9rem;
+    color: var(--ink-light);
+    line-height: 1.5;
+  }
+
+  .option-meta {
+    display: flex;
+    gap: 1rem;
+    margin-top: 0.5rem;
+    font-size: 0.8rem;
+    color: var(--storm);
+    flex-wrap: wrap;
+  }
+
+  .option-meta span {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+  }
+
+  .timeline {
+    position: relative;
+    padding-left: 2rem;
+    margin: 1.5rem 0;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 0.5rem;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: var(--gold-light);
+  }
+
+  .timeline-item {
+    position: relative;
+    margin-bottom: 1.2rem;
+    padding-bottom: 0.5rem;
+  }
+
+  .timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -1.65rem;
+    top: 0.5rem;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--gold);
+    border: 2px solid var(--parchment);
+  }
+
+  .timeline-time {
+    font-size: 0.8rem;
+    color: var(--storm);
+    font-style: italic;
+    margin-bottom: 0.2rem;
+  }
+
+  .timeline-event {
+    font-size: 0.95rem;
+  }
+
+  .spot {
+    background: var(--white);
+    border: 1px solid var(--parchment-dark);
+    border-radius: 6px;
+    padding: 1rem 1.2rem;
+    margin: 0.8rem 0;
+  }
+
+  .spot-name {
+    font-size: 1.05rem;
+    color: var(--moss);
+    margin-bottom: 0.2rem;
+  }
+
+  .spot-type {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--storm);
+    margin-bottom: 0.4rem;
+  }
+
+  .spot-detail {
+    font-size: 0.9rem;
+    color: var(--ink-light);
+    margin-bottom: 0.3rem;
+  }
+
+  .spot-hours {
+    font-size: 0.8rem;
+    color: var(--moss);
+    font-style: italic;
+  }
+
+  .spot-veg {
+    display: inline-block;
+    background: var(--moss-pale);
+    color: var(--moss);
+    font-size: 0.7rem;
+    padding: 0.15rem 0.5rem;
+    border-radius: 3px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-top: 0.3rem;
+  }
+
+  .tradeoff {
+    background: var(--parchment-dark);
+    border-radius: 6px;
+    padding: 1rem 1.2rem;
+    margin: 1rem 0;
+    font-size: 0.9rem;
+  }
+
+  .tradeoff-title {
+    font-weight: bold;
+    color: var(--rust);
+    margin-bottom: 0.4rem;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .tradeoff ul {
+    margin-left: 1.2rem;
+    margin-top: 0.3rem;
+  }
+
+  .tradeoff li {
+    margin-bottom: 0.3rem;
+    font-size: 0.88rem;
+  }
+
+  .facts-strip {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 0.8rem;
+    margin: 1.5rem 0;
+  }
+
+  .fact-card {
+    background: var(--white);
+    border: 1px solid var(--parchment-dark);
+    border-radius: 6px;
+    padding: 0.8rem;
+    text-align: center;
+  }
+
+  .fact-card .number {
+    font-size: 1.4rem;
+    color: var(--moss);
+    display: block;
+  }
+
+  .fact-card .label {
+    font-size: 0.75rem;
+    color: var(--storm);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .btn {
+    display: inline-block;
+    padding: 0.7rem 1.5rem;
+    border-radius: 6px;
+    text-decoration: none;
+    font-family: 'Georgia', serif;
+    font-size: 0.95rem;
+    transition: all 0.2s;
+    cursor: pointer;
+    border: none;
+  }
+
+  .btn-primary {
+    background: var(--moss);
+    color: var(--white);
+  }
+
+  .btn-primary:hover { background: var(--moss-light); }
+
+  .btn-secondary {
+    background: var(--white);
+    color: var(--moss);
+    border: 1px solid var(--moss);
+  }
+
+  .btn-secondary:hover { background: var(--moss-pale); }
+
+  .btn-gold {
+    background: linear-gradient(135deg, var(--gold) 0%, var(--warning) 100%);
+    color: var(--white);
+  }
+
+  .btn-group {
+    display: flex;
+    gap: 0.8rem;
+    flex-wrap: wrap;
+    margin: 1.5rem 0;
+  }
+
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    color: var(--storm);
+    text-decoration: none;
+    font-size: 0.85rem;
+    margin-bottom: 1rem;
+    transition: color 0.2s;
+  }
+
+  .back-link:hover { color: var(--moss); }
+
+  .footer {
+    text-align: center;
+    padding: 2rem 1.5rem;
+    font-size: 0.8rem;
+    color: var(--storm);
+    border-top: 1px solid var(--parchment-dark);
+    margin-top: 3rem;
+  }
+
+  .divider {
+    text-align: center;
+    margin: 2rem 0;
+    color: var(--gold);
+    font-size: 1.2rem;
+    letter-spacing: 0.5rem;
+  }
+
+  .tag {
+    display: inline-block;
+    font-size: 0.7rem;
+    padding: 0.1rem 0.4rem;
+    border-radius: 3px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-right: 0.3rem;
+  }
+
+  .tag-romantic { background: #fce4ec; color: var(--rust); }
+  .tag-history { background: #e8eaf6; color: #3949ab; }
+  .tag-nature { background: var(--moss-pale); color: var(--moss); }
+  .tag-food { background: #fff3e0; color: #e65100; }
+  .tag-shopping { background: #f3e5f5; color: #7b1fa2; }
+  .tag-whiskey { background: #efebe9; color: #4e342e; }
+  .tag-music { background: #e8eaf6; color: #283593; }
+
+  @media (max-width: 480px) {
+    .hero h1 { font-size: 1.7rem; }
+    .content { padding: 1.5rem 1rem 3rem; }
+    .option { padding: 0.8rem 1rem; }
+    .btn-group { flex-direction: column; }
+    .btn { text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>The West Coast</h1>
+  <div class="subtitle">Galway, Aran Islands &amp; the Cliffs of Moher</div>
+  <div class="dates">March 18 -- 24, 2026</div>
+</div>
+
+<nav class="nav-bar">
+  <a href="index.html">Start</a>
+  <a href="west-coast.html" class="active">West Coast</a>
+  <a href="cork-weekend.html">Cork Weekend</a>
+  <a href="heading-home.html">Getting Home</a>
+  <a href="packing.html">Packing</a>
+  <a href="map.html">Map</a>
+</nav>
+
+<div class="content">
+
+  <a href="index.html" class="back-link">&larr; Back to Start</a>
+
+  <p>Three days, one car, the wild Atlantic coast. You'll land in Dublin before dawn on Wednesday, drive straight west to Galway, spend a day on the Aran Islands, then push south through the Cliffs of Moher to Cork. It's a lot of ground, but the distances are manageable and every stop earns its place.</p>
+
+  <p>This page covers Wednesday through Friday -- arrival to the moment you roll into Cork for the weekend.</p>
+
+  <!-- ================================================================== -->
+  <!-- WEDNESDAY: DUBLIN TO GALWAY -->
+  <!-- ================================================================== -->
+
+  <h2>Wednesday, March 18: Dublin to Galway</h2>
+
+  <p><span class="tag tag-nature">Driving</span> <span class="tag tag-whiskey">Whiskey</span> <span class="tag tag-history">History</span></p>
+
+  <p>Your flight lands at Dublin Airport at 4:20 AM. You'll clear immigration, collect bags, and pick up the rental car between 5:00 and 6:00 AM. Then it's straight onto the M6 motorway headed west. Ireland is still dark, the roads are empty, and Galway is waiting.</p>
+
+  <div class="facts-strip">
+    <div class="fact-card">
+      <span class="number">208 km</span>
+      <span class="label">Dublin to Galway</span>
+    </div>
+    <div class="fact-card">
+      <span class="number">2.5--3 hr</span>
+      <span class="label">Drive Time</span>
+    </div>
+    <div class="fact-card">
+      <span class="number">&euro;5.90</span>
+      <span class="label">Tolls (M4 + N6)</span>
+    </div>
+    <div class="fact-card">
+      <span class="number">11&deg;C</span>
+      <span class="label">Forecast High</span>
+    </div>
+  </div>
+
+  <div class="info-box">
+    <div class="label">Driving Notes</div>
+    <strong>Leave Dublin Airport by 6:00 AM, arrive Galway ~8:30--9:00 AM.</strong> The M6 is motorway the whole way. Two toll plazas: M4 near Enfield (&euro;3.60) and N6 between Ballinasloe and Loughrea (&euro;2.30). Cash or card at both. The midlands are flat green fields -- save your scenery appetite for what comes later. Drive on the left.
+  </div>
+
+  <h3>Optional stop: Kilbeggan Distillery</h3>
+
+  <div class="spot">
+    <div class="spot-name">Kilbeggan Distillery Experience</div>
+    <div class="spot-type"><span class="tag tag-whiskey">Whiskey</span> <span class="tag tag-history">History</span> Right off M6, Junction 5</div>
+    <div class="spot-detail">Ireland's oldest licensed distillery, established <strong>1757</strong>. About one hour from Dublin Airport. Shut down in 1957, revived and distilling again since 2007. The guided tour (1.5 hours, &euro;35/person) walks you through original mash tuns, oak fermentation vats, and ancient pot stills, ending with a four-whiskey tasting.</div>
+    <div class="spot-detail"><strong>Fill your own bottle:</strong> For an extra &euro;35, fill a 70cl bottle directly from an aged cask using a valinch (whiskey-drawing tube) and attach a personalized label. This is unique -- nothing else like it on the route.</div>
+    <div class="spot-hours">Open daily. First tours typically 9:30 AM. kilbegganwhiskey.com</div>
+  </div>
+
+  <div class="tradeoff">
+    <div class="tradeoff-title">Stop or push on?</div>
+    <ul>
+      <li><strong>If you stop:</strong> Budget 1.5--2 hours. You'll arrive in Galway around 11:00 AM instead of 9:00 AM. You definitely miss the morning ferry to the Aran Islands.</li>
+      <li><strong>If you skip:</strong> Micil Distillery in Galway is your backup whiskey experience. But Kilbeggan's fill-your-own-bottle from the cask is one of a kind.</li>
+      <li><strong>Recommendation:</strong> If catching the 10:30 AM ferry is your priority, skip Kilbeggan. If the ferry isn't in play today, stop here.</li>
+    </ul>
+  </div>
+
+  <h3>Optional stop: Athenry</h3>
+
+  <div class="spot">
+    <div class="spot-name">Athenry</div>
+    <div class="spot-type"><span class="tag tag-history">Medieval</span> 30 min east of Galway, right on the M6</div>
+    <div class="spot-detail">The best-preserved medieval walled town in Ireland. <strong>Athenry Castle</strong> (Anglo-Norman, ~1250) is open from March 13, daily 9:30 AM -- 6:00 PM, &euro;5 admission. The Heritage Centre opens for the 2026 season on your arrival day, March 18.</div>
+    <div class="spot-detail"><strong>The song:</strong> "The Fields of Athenry" -- the famous Famine ballad you'll hear in every pub this week -- is about this town. Written in the 1970s but set in the 1840s, about a man transported to Australia for stealing corn to feed his starving family.</div>
+    <div class="spot-hours">A quick 30-minute walkabout covers the walls and castle exterior. Add 45 min if you go inside.</div>
+  </div>
+
+  <div class="divider">&bull; &bull; &bull;</div>
+
+  <!-- WEDNESDAY: ARRIVAL TIMELINE -->
+
+  <h3>Arrival timeline</h3>
+
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="timeline-time">~8:30--9:00 AM</div>
+      <div class="timeline-event"><strong>Drove straight.</strong> No stops. You're in Galway with the whole morning ahead. The 10:30 AM Aran Islands ferry is within reach.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-time">~10:00 AM</div>
+      <div class="timeline-event"><strong>Stopped at Athenry only.</strong> Quick walkabout. You've missed the ferry window but have a full day in Galway.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-time">~11:00 AM</div>
+      <div class="timeline-event"><strong>Stopped at Kilbeggan.</strong> You've got whiskey and a personalized bottle. Galway afternoon is yours.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-time">~Noon</div>
+      <div class="timeline-event"><strong>Both Kilbeggan + Athenry.</strong> Full morning of experiences. You'll want lunch when you arrive.</div>
+    </div>
+  </div>
+
+  <div class="divider">&bull; &bull; &bull;</div>
+
+  <!-- WEDNESDAY: THE BIG DECISION -->
+
+  <div class="decision">
+    <div class="decision-header">
+      <span class="icon">&#9670;</span>
+      DECISION POINT: FERRY TODAY OR GALWAY FIRST?
+    </div>
+    <div class="decision-body">
+
+      <p>The Aran Island Ferries winter schedule runs one morning departure from Rossaveel to Inis M&oacute;r:</p>
+
+      <div class="facts-strip">
+        <div class="fact-card">
+          <span class="number">10:30 AM</span>
+          <span class="label">Ferry Departs Rossaveel</span>
+        </div>
+        <div class="fact-card">
+          <span class="number">~40 min</span>
+          <span class="label">Crossing</span>
+        </div>
+        <div class="fact-card">
+          <span class="number">30 min</span>
+          <span class="label">Galway to Rossaveel</span>
+        </div>
+        <div class="fact-card">
+          <span class="number">&euro;7</span>
+          <span class="label">Pier Parking / 24 hr</span>
+        </div>
+      </div>
+
+      <p><strong>The math:</strong> If you left Dublin Airport at 6:00 AM and drove straight, you'd reach Galway by ~8:30 AM. Rossaveel is 30 minutes further west. That puts you at the pier by ~9:00 AM -- 90 minutes to check in. Tight, but it works.</p>
+
+      <p>There's also an <strong>evening ferry at 6:00 PM</strong> (Sat--Thu, which includes Wednesday). You'd arrive on Inis M&oacute;r at ~6:40 PM, in time for dinner but with no daylight for sightseeing.</p>
+
+      <div class="option adventure">
+        <div class="option-title">Rush for the 10:30 AM Ferry</div>
+        <div class="option-desc">Drive straight to Rossaveel. No stops. On Inis M&oacute;r by 11:10 AM with the whole day ahead. Requires leaving Dublin by 6:00 AM sharp and pre-booking island accommodation.</div>
+        <div class="option-meta">
+          <span>Tight but doable</span>
+          <span>Maximizes island time</span>
+        </div>
+      </div>
+
+      <div class="option cultural">
+        <div class="option-title">Explore Galway Today, Ferry Tomorrow</div>
+        <div class="option-desc">Take the pressure off. Stop at Kilbeggan if you want. Spend the afternoon walking Galway's Latin Quarter. Catch the 10:30 AM ferry Thursday morning, well-rested.</div>
+        <div class="option-meta">
+          <span>Relaxed pace</span>
+          <span>Best for jet-lag recovery</span>
+        </div>
+      </div>
+
+      <div class="option">
+        <div class="option-title">Skip the Islands Entirely</div>
+        <div class="option-desc">Not everyone needs to go. If rough seas, tight schedules, or limited island accommodation make it impractical, spend your time in Galway and head for the Cliffs of Moher Thursday instead.</div>
+        <div class="option-meta">
+          <span>More flexibility</span>
+          <span>Frees up a full day</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="divider">&bull; &bull; &bull;</div>
+
+  <!-- WEDNESDAY: GALWAY AFTERNOON & EVENING -->
+
+  <h2>Wednesday Afternoon &amp; Evening in Galway</h2>
+
+  <p>However you got here -- straight from Dublin Airport or after a morning stop -- you're now in Galway. The city is compact and walkable. Most of what follows is within a 15-minute stroll of Eyre Square.</p>
+
+  <h3>Shopping</h3>
+
+  <div class="spot">
+    <div class="spot-name">O'Maille's (O Maille -- The Original House of Style)</div>
+    <div class="spot-type"><span class="tag tag-shopping">Shopping</span> 16 High Street, Galway</div>
+    <div class="spot-detail">Founded 1938. Handknit Aran sweaters marked with each knitter's name, tweed caps, wool throws. Tailored costumes for the cast of <em>The Quiet Man</em>. One of the last places selling genuinely handknit Aran sweaters.</div>
+    <div class="spot-detail"><strong>Heads up:</strong> The owners announced retirement in late 2025 after 86 years. Confirm they're still open -- check their Facebook page or call ahead.</div>
+    <div class="spot-hours">If open: typically Mon--Sat, hours vary</div>
+  </div>
+
+  <div class="spot">
+    <div class="spot-name">Standun</div>
+    <div class="spot-type"><span class="tag tag-shopping">Shopping</span> Spiddal, Connemara (20 min west of Galway)</div>
+    <div class="spot-detail">Family-run since 1946, three generations. The first shop to export Aran sweaters to the US. Huge selection of hand-knit knitwear, tweed, and Irish crafts. On the road to the Rossaveel ferry -- stop on your way to the islands.</div>
+    <div class="spot-hours">Mon--Sat 9:30 AM -- 6:30 PM, Sun 12:00 -- 6:00 PM</div>
+  </div>
+
+  <div class="spot">
+    <div class="spot-name">Charlie Byrne's Bookshop</div>
+    <div class="spot-type"><span class="tag tag-shopping">Shopping</span> Middle Street, Galway</div>
+    <div class="spot-detail">One of Ireland's best independent bookshops. A labyrinth of rooms crammed floor to ceiling with new, secondhand, and rare books. Their Irish literature and history section is massive. Pick up something for the ferry ride.</div>
+    <div class="spot-hours">Mon--Sat 10 AM -- 6 PM, Sun 12 -- 6 PM</div>
+  </div>
+
+  <h3>Whiskey &amp; Poitin</h3>
+
+  <div class="spot">
+    <div class="spot-name">Micil Distillery</div>
+    <div class="spot-type"><span class="tag tag-whiskey">Whiskey</span> Salthill, Galway</div>
+    <div class="spot-detail">A sixth-generation family operation that started as illicit poitin makers in Connemara and went legit. They distill poitin, gin, and whiskey using traditional methods. The tour covers family history, distilling process, and ends with a tasting. Small-batch, genuinely interesting.</div>
+    <div class="spot-detail"><strong>Tours daily:</strong> 12 PM, 2 PM, 4 PM, 6 PM. About 75 minutes. <strong>Pre-book</strong> at micildistillery.com -- they fill up.</div>
+    <div class="spot-hours">The 4 PM tour works well if you shop in the afternoon and walk out to Salthill after.</div>
+  </div>
+
+  <h3>Culture &amp; Walking</h3>
+
+  <div class="spot">
+    <div class="spot-name">Galway City Museum</div>
+    <div class="spot-type"><span class="tag tag-history">History</span> Spanish Arch, Galway</div>
+    <div class="spot-detail">Free admission. Modern building on the banks of the River Corrib overlooking the Spanish Arch. The "Revolution in Galway" exhibition covers the War of Independence and Civil War. Plan 45 min to 1.5 hours.</div>
+    <div class="spot-hours">Tue--Sat 10:00 AM -- 5:00 PM. Free. (March 18 is a Wednesday -- you're good.)</div>
+  </div>
+
+  <div class="spot">
+    <div class="spot-name">Spanish Arch, Latin Quarter &amp; The Long Walk</div>
+    <div class="spot-type"><span class="tag tag-history">History</span> <span class="tag tag-romantic">Romantic</span></div>
+    <div class="spot-detail">The medieval heart of Galway. The Spanish Arch dates to 1584, built to protect merchant ships unloading wine from Spain. Walk from Eyre Square down Shop Street to the Arch, then along the Long Walk on the harbor. In March it won't be wall-to-wall tourists -- you'll see the real city.</div>
+  </div>
+
+  <div class="spot">
+    <div class="spot-name">Galway Famine Ship Memorial</div>
+    <div class="spot-type"><span class="tag tag-history">History</span> Salthill Promenade</div>
+    <div class="spot-detail">A short walk along the Salthill prom from the Micil Distillery. Lists the names of over 100 emigrant ships that sailed from Galway during the Great Famine. A sobering, beautiful piece of public art right on the waterfront. Free, always open.</div>
+    <div class="spot-detail">Walk the prom itself -- Galway Bay stretches out to the west, and on a clear evening you can see the Aran Islands you'll visit tomorrow.</div>
+  </div>
+
+  <h3>Dinner</h3>
+
+  <p>Galway punches well above its weight for food. All four of these are independent, locally owned, and have strong vegetarian options -- not afterthoughts, but genuine dishes worth ordering.</p>
+
+  <div class="spot">
+    <div class="spot-name">Ard Bia at Nimmo's</div>
+    <div class="spot-type"><span class="tag tag-food">Dinner</span> <span class="tag tag-romantic">Date Night</span> Spanish Arch, Long Walk</div>
+    <div class="spot-detail">Set in an 18th-century customs house overlooking the River Corrib. Seasonal menu with Middle Eastern and North African touches -- roast carrots with romesco and whipped feta, chickpea pancakes, wild mushroom tacos. Candlelit and atmospheric. <strong>The most romantic dinner option in Galway.</strong></div>
+    <div class="spot-detail"><strong>Dinner:</strong> Tue--Sun 6--9 PM. Closed Mondays. <strong>Book ahead:</strong> ardbiagalway@gmail.com or +353 91 561 114.</div>
+    <div class="spot-hours"><span class="spot-veg">Strong Veg Options</span></div>
+  </div>
+
+  <div class="spot">
+    <div class="spot-name">Kai Restaurant</div>
+    <div class="spot-type"><span class="tag tag-food">Dinner</span> 22 Sea Road, Westend</div>
+    <div class="spot-detail">Michelin Bib Gourmand and Green Star holder -- one of only three restaurants in Ireland with the Green Star for sustainable practices. Menu changes daily. Vegetarian and vegan dishes always well represented. Starters ~&euro;11--16, mains ~&euro;29--40. Small, rustic-charming room.</div>
+    <div class="spot-detail"><strong>Dinner:</strong> Tue--Sat. Reservations essential -- book via website or +353 91 526 003.</div>
+    <div class="spot-hours"><span class="spot-veg">Strong Veg Options</span> <span class="spot-veg">Michelin Green Star</span></div>
+  </div>
+
+  <div class="spot">
+    <div class="spot-name">Dela</div>
+    <div class="spot-type"><span class="tag tag-food">Dinner</span> 51 Lower Dominick Street, Westend</div>
+    <div class="spot-detail">"Seed to feed" -- they grow their own vegetables and bring them straight to the kitchen. Scandinavian-inflected modern Irish cooking. Reviewers consistently single out the veg food as standout. Natural and organic wine list.</div>
+    <div class="spot-detail"><strong>Dinner:</strong> Thu--Sat evening from 6 PM only. Email letseat@dela.ie for dinner reservations.</div>
+    <div class="spot-hours"><span class="spot-veg">Strong Veg Options</span> <span class="spot-veg">Own Farm</span></div>
+  </div>
+
+  <div class="spot">
+    <div class="spot-name">Bierhaus</div>
+    <div class="spot-type"><span class="tag tag-food">Casual Dinner</span> 2 Henry Street, Westend</div>
+    <div class="spot-detail">Galway's original craft beer bar with a <strong>fully vegetarian kitchen</strong>. 24 taps of craft beer paired with smash burgers, the locally famous grilled cheese, spicebag quesadillas, veggie hotdogs. Not fine dining -- pub food where everything happens to be meat-free. Live music most evenings. Walk-in, no reservations.</div>
+    <div class="spot-hours"><span class="spot-veg">100% Vegetarian</span></div>
+  </div>
+
+  <div class="tradeoff">
+    <div class="tradeoff-title">Which dinner?</div>
+    <ul>
+      <li><strong>For a special night:</strong> Ard Bia at Nimmo's. The candlelit customs house over the river makes it the most romantic option.</li>
+      <li><strong>For the best food:</strong> Kai. The Michelin recognition is earned.</li>
+      <li><strong>Wednesday night specifically:</strong> Ard Bia and Kai are both open. Dela only does dinner Thu--Sat, so save it if you're here mid-week.</li>
+      <li><strong>Casual / low-key:</strong> Bierhaus. Walk in, grab a craft beer and a burger, no fuss. Savannah can eat literally everything on the menu.</li>
+    </ul>
+  </div>
+
+  <h3>Where to stay</h3>
+
+  <div class="spot">
+    <div class="spot-name">The Heron's Rest</div>
+    <div class="spot-type">Boutique B&amp;B &mdash; 16 The Long Walk</div>
+    <div class="spot-detail">Right on the waterfront near the Spanish Arch. Small, charming boutique B&amp;B. Steps from Quay Street and Ard Bia. No car needed tonight -- walk everywhere. ~&euro;120--160/night.</div>
+  </div>
+
+  <div class="spot">
+    <div class="spot-name">Avalon House B&amp;B</div>
+    <div class="spot-type">B&amp;B &mdash; Near Eyre Square</div>
+    <div class="spot-detail">Steps from Eyre Square. Free private parking (useful with a rental car). Highly rated for warmth and breakfast. 10% discount when booking direct with code AVALON. ~&euro;100--140/night.</div>
+  </div>
+
+  <div class="spot">
+    <div class="spot-name">St Judes B&amp;B</div>
+    <div class="spot-type">4-Star B&amp;B &mdash; 110 Lower Salthill</div>
+    <div class="spot-detail">Close to the prom, Micil Distillery, and the Famine Memorial. Private parking. Salthill location means a quieter night and slightly closer to the road west to Rossaveel in the morning. ~&euro;100--130/night.</div>
+  </div>
+
+  <div class="divider">&bull; &bull; &bull;</div>
+
+  <!-- ================================================================== -->
+  <!-- THURSDAY: ARAN ISLANDS -->
+  <!-- ================================================================== -->
+
+  <h2>Thursday, March 19: Aran Islands</h2>
+
+  <p><span class="tag tag-nature">Nature</span> <span class="tag tag-history">History</span> <span class="tag tag-romantic">Romantic</span></p>
+
+  <p>This is the emotional heart of the trip. A Bronze Age fort on a cliff edge, Atlantic wind, stone walls running to the sea, a language older than English. If you do one thing in Ireland that makes you feel like you've left the modern world behind, it's this.</p>
+
+  <div class="info-box opportunity">
+    <div class="label">Don't waste Thursday</div>
+    Thursday March 19 is the best weather day of the entire trip -- clear/partly cloudy, dry, up to 15&deg;C in Galway. If there's one day to be outside all day, this is it. Plan your biggest outdoor activity here.
+  </div>
+
+  <div class="facts-strip">
+    <div class="fact-card">
+      <span class="number">&euro;34</span>
+      <span class="label">Return Ferry</span>
+    </div>
+    <div class="fact-card">
+      <span class="number">40 min</span>
+      <span class="label">Crossing</span>
+    </div>
+    <div class="fact-card">
+      <span class="number">&euro;20/&euro;40</span>
+      <span class="label">Bike / E-Bike</span>
+    </div>
+    <div class="fact-card">
+      <span class="number">12 km</span>
+      <span class="label">Island Length</span>
+    </div>
+  </div>
+
+  <h3>Getting there</h3>
+
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="timeline-time">~9:00 AM</div>
+      <div class="timeline-event">Leave Galway. Drive west on R336 through the Gaeltacht, 37 km to Rossaveel. Stop at <strong>Standun</strong> in Spiddal on the way if you haven't already.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-time">~9:45 AM</div>
+      <div class="timeline-event">Arrive Rossaveel. Leave the car at the pier car park (&euro;7/24 hours). Check in at least 30 min before sailing.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-time">10:30 AM</div>
+      <div class="timeline-event"><strong>Ferry departs.</strong> Aran Island Ferries to Inis M&oacute;r. 40-minute crossing. Sit on the right side for views of the Burren and the islands.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-time">~11:10 AM</div>
+      <div class="timeline-event"><strong>Arrive Kilronan.</strong> Rent bikes at <strong>Aran Bike Hire</strong> right at the pier. &euro;20/day standard, &euro;40/day e-bike. E-bikes sell out 60+ days ahead -- book early.</div>
+    </div>
+  </div>
+
+  <h3>Key sights on Inis M&oacute;r</h3>
+
+  <div class="spot">
+    <div class="spot-name">D&uacute;n Aonghasa (Dun Aengus)</div>
+    <div class="spot-type"><span class="tag tag-history">Bronze Age</span> <span class="tag tag-nature">Cliffs</span> <span class="tag tag-romantic">Romantic</span></div>
+    <div class="spot-detail">A Bronze Age stone fort perched on the edge of an 87-metre cliff, with nothing between you and the Atlantic. No barriers, no railings. You crawl to the edge on your belly and look straight down at the sea. Over 3,000 years old. About 4 km from Kilronan (20--30 min by bike), then a 1 km walk uphill over rough limestone to the fort. Allow 2--3 hours total.</div>
+    <div class="spot-detail"><strong>March hours:</strong> 9:30 AM -- 4:00 PM. Admission &euro;5. Many accommodations provide a free voucher.</div>
+  </div>
+
+  <div class="spot">
+    <div class="spot-name">The Worm Hole (Poll na bP&eacute;ist)</div>
+    <div class="spot-type"><span class="tag tag-nature">Nature</span></div>
+    <div class="spot-detail">A nearly perfect rectangle carved into the limestone by the sea. Water surges in through underground channels and crashes over the lip at high tide. "Hole of the serpent" in Irish -- legend says a sea monster emerged here until Saint Enda killed it. Red Bull used it for cliff diving. About 1.6 km south of D&uacute;n Aonghasa along the cliff path.</div>
+  </div>
+
+  <div class="spot">
+    <div class="spot-name">Na Seacht dTeampaill (The Seven Churches)</div>
+    <div class="spot-type"><span class="tag tag-history">7th Century</span></div>
+    <div class="spot-detail">Early Christian monastic ruins dating to the 7th or 8th century. Two churches still stand, plus a beehive stone hut, holy well, ancient Celtic crosses, and graves said to belong to saints. About 3 km from Kilronan. Free, always open.</div>
+  </div>
+
+  <div class="spot">
+    <div class="spot-name">Seal Colony at Kilmurvey Beach</div>
+    <div class="spot-type"><span class="tag tag-nature">Nature</span> <span class="tag tag-romantic">Romantic</span></div>
+    <div class="spot-detail">On the road to D&uacute;n Aonghasa, grey Atlantic seals haul out onto the rocks near the beach. At low tide you might see a dozen or more. Bring binoculars. The mountains of Connemara fill the horizon across the water. In Irish folklore, seals are selkies -- creatures who shed their seal skin to walk on land as humans.</div>
+  </div>
+
+  <h3>Food on the island</h3>
+
+  <div class="info-box warning">
+    <div class="label">March reality check</div>
+    Inis M&oacute;r in March is off-season. Many restaurants close for winter or keep very limited hours. <strong>Bring snacks from Galway.</strong> Pack sandwiches, fruit, chocolate. You don't want to be hungry on a cliff edge 4 km from the nearest kitchen.
+  </div>
+
+  <div class="spot">
+    <div class="spot-name">T&iacute; Joe Watty's</div>
+    <div class="spot-type"><span class="tag tag-food">Pub</span> <span class="tag tag-music">Trad Music</span> Kilronan</div>
+    <div class="spot-detail">The island's best-known pub. Locally caught seafood, coal fire, warming soups and stews. Voted top 10 pubs in Ireland for live music by Lonely Planet. Walk-in only. Call ahead to confirm March hours.</div>
+    <div class="spot-hours"><span class="spot-veg">Veggie Options Available</span></div>
+  </div>
+
+  <div class="spot">
+    <div class="spot-name">Bayview Restaurant</div>
+    <div class="spot-type"><span class="tag tag-food">Restaurant</span> Kilronan Pier</div>
+    <div class="spot-detail">Views of the bay. Chef Byron Godoy blends Latin and Irish cooking. Sources seaweed, Aran Island goat cheese, organic produce, and fish from local boats. Check their Facebook page for March availability -- unconfirmed for off-season.</div>
+    <div class="spot-hours"><span class="spot-veg">Veggie-Friendly</span></div>
+  </div>
+
+  <h3>Staying overnight vs. day trip</h3>
+
+  <div class="decision">
+    <div class="decision-header">
+      <span class="icon">&#9670;</span>
+      DECISION POINT: STAY ON THE ISLAND OR RETURN TO GALWAY?
+    </div>
+    <div class="decision-body">
+
+      <div class="option romantic">
+        <div class="option-title">Stay Overnight on Inis M&oacute;r</div>
+        <div class="option-desc">The day-trippers leave on the last ferry, and suddenly the island belongs to you. Walk back up toward the cliffs at sunset. The light changes everything. This is the deeper, more romantic version -- but you'll need to leave on the 8:15 AM ferry Friday morning to keep the schedule south.</div>
+        <div class="option-meta">
+          <span>Tigh Fitz ~$162/night</span>
+          <span>Ard Einne ~$141/night</span>
+          <span>Clai Ban ~$131/night</span>
+        </div>
+      </div>
+
+      <div class="option adventure">
+        <div class="option-title">Day Trip, Return to Galway</div>
+        <div class="option-desc">Take the 12:00 PM return ferry if you caught the early morning, or stay until the last return. Sleep in Galway, leave for the Cliffs of Moher first thing Friday morning. More flexible, and you keep Galway as your base.</div>
+        <div class="option-meta">
+          <span>Return ferries: 12:00 PM daily, 5:00 PM Fri</span>
+        </div>
+      </div>
+
+      <div class="tradeoff">
+        <div class="tradeoff-title">The honest answer</div>
+        <ul>
+          <li><strong>Overnight:</strong> You get the sunset, the quiet evening, the pub by the fire after the tourists leave. The island at its most magical. But you must catch the 8:15 AM ferry Friday to stay on schedule for the Cliffs and the drive to Cork.</li>
+          <li><strong>Day trip:</strong> You see the highlights and get back to Galway. Less romantic, more practical. Easier to manage the Friday drive south.</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="info-box warning">
+    <div class="label">Book island accommodation NOW</div>
+    Inis M&oacute;r has limited beds in March. Port Aran House ($116/night, 9.6 rating) had only 1 room left as of planning. <strong>Do not get on the ferry without a bed confirmed.</strong>
+  </div>
+
+  <div class="info-box">
+    <div class="label">Full island guide</div>
+    For the complete island breakdown -- hour-by-hour timeline, all accommodation options, detailed sight descriptions, and the 1-night vs. 2-night decision -- see the <a href="aran-islands.html" style="color: var(--sea); font-weight: bold;">Aran Islands page</a>.
+  </div>
+
+  <h3>If you're skipping the islands</h3>
+
+  <p>Not everyone needs to go, and that's fine. If the weather turns, the ferry gets cancelled, or you'd rather not deal with island logistics after a red-eye, here's your Thursday instead:</p>
+
+  <div class="option cultural">
+    <div class="option-title">Alternative Thursday: Galway + Drive to Cliffs Area</div>
+    <div class="option-desc">Spend the morning in Galway -- Charlie Byrne's, the museum, the Latin Quarter. After lunch, drive south into County Clare. Stop at Poulnabrone Dolmen in the Burren, then continue to Doolin or the Cliffs area for the evening. You'll be perfectly positioned for a morning cliff walk Friday.</div>
+    <div class="option-meta">
+      <span>~1.5 hrs Galway to Cliffs area</span>
+      <span>Relaxed pace</span>
+    </div>
+  </div>
+
+  <div class="divider">&bull; &bull; &bull;</div>
+
+  <!-- ================================================================== -->
+  <!-- FRIDAY: CLIFFS OF MOHER & SOUTH TO CORK -->
+  <!-- ================================================================== -->
+
+  <h2>Friday, March 20: Cliffs of Moher &amp; South to Cork</h2>
+
+  <p><span class="tag tag-nature">Nature</span> <span class="tag tag-history">Archaeology</span> <span class="tag tag-music">Music</span></p>
+
+  <p>This is a full day. You'll drive from Galway (or the Aran Islands ferry) through the Burren's alien limestone landscape, stand on the edge of the Cliffs of Moher, then push south through Limerick to Cork. It's the day that ties the west coast together and delivers you to your weekend.</p>
+
+  <div class="info-box warning">
+    <div class="label">Time management is everything today</div>
+    <strong>Leave Galway by 9:00 AM</strong> to have time at the Burren, the Cliffs, and still arrive in Cork by evening. If you're coming from the Aran Islands on the 8:15 AM ferry, you'll be back in Galway by ~9:30 AM -- still workable, but tight. Every stop you add pushes Cork arrival later.
+  </div>
+
+  <div class="facts-strip">
+    <div class="fact-card">
+      <span class="number">~1.5 hr</span>
+      <span class="label">Galway to Cliffs</span>
+    </div>
+    <div class="fact-card">
+      <span class="number">214 m</span>
+      <span class="label">Cliff Height</span>
+    </div>
+    <div class="fact-card">
+      <span class="number">&euro;10</span>
+      <span class="label">Cliffs Entry (Online)</span>
+    </div>
+    <div class="fact-card">
+      <span class="number">~3.5 hr</span>
+      <span class="label">Doolin to Cork</span>
+    </div>
+  </div>
+
+  <h3>The Burren</h3>
+
+  <p>The road from Galway to the Cliffs passes through the Burren -- 250 square kilometres of karst limestone that looks like another planet. Bare grey rock stretching to the horizon, fissured and cracked, yet hosting one of the richest wildflower concentrations in Europe. Arctic, Mediterranean, and alpine species grow side by side in the limestone crevices. In March, early spring gentians may already be blooming blue in the cracks.</p>
+
+  <div class="spot">
+    <div class="spot-name">Poulnabrone Dolmen</div>
+    <div class="spot-type"><span class="tag tag-history">Neolithic</span> <span class="tag tag-nature">Nature</span> R480, The Burren</div>
+    <div class="spot-detail">A 5,000-year-old portal tomb standing alone on a bare limestone plateau. "Poulnabrone" means "the hole of sorrows" in Irish. Excavations found the remains of at least 33 people along with a polished stone axe, bone pendants, quartz crystals, and pottery. Older than the pyramids at Giza.</div>
+    <div class="spot-detail"><strong>Free. Always open.</strong> Right off the R480, 8 km south of Ballyvaughan. Small car park. 5-minute walk from the road. Allow 15--20 minutes.</div>
+  </div>
+
+  <div class="info-box">
+    <div class="label">Don't skip this</div>
+    Poulnabrone is free, always open, right off the road, and takes 15 minutes. You're standing next to something older than written history in a landscape that looks purpose-built for it. Wear sturdy shoes even for the short path.
+  </div>
+
+  <h3>Cliffs of Moher</h3>
+
+  <p>Two hundred and fourteen metres high. Eight kilometres long. The most visited natural attraction in Ireland. The scale doesn't register from photos -- you have to stand at the edge, look straight down at the Atlantic hammering the cliff base, and feel the wind trying to push you back. On a clear day you can see the Aran Islands to the north and the mountains of Kerry to the south.</p>
+
+  <div class="spot">
+    <div class="spot-name">Cliffs of Moher</div>
+    <div class="spot-type"><span class="tag tag-nature">Nature</span> <span class="tag tag-romantic">Romantic</span> Liscannor, Co. Clare</div>
+    <div class="spot-detail">The visitor centre is built into the hillside. Inside: Atlantic Edge exhibition, two cafes, gift shop. O'Brien's Tower (1835) sits at the highest point with 360-degree views. <strong>Walk south from the visitor centre toward Hag's Head</strong> for fewer crowds and arguably more dramatic views.</div>
+    <div class="spot-detail"><strong>March hours:</strong> 8 AM -- 7 PM daily. Adult admission &euro;10 (online at cliffsofmoher.ie) or &euro;12 at the gate. Children under 12 free. Includes parking, exhibition, and O'Brien's Tower. Allow 1--1.5 hours.</div>
+  </div>
+
+  <div class="info-box warning">
+    <div class="label">Weather-dependent</div>
+    The cliffs are fully exposed to the Atlantic. In heavy rain or fog, you can't see anything -- the cliff edge vanishes into grey mist and you're paying &euro;10 to stand in a cloud. Check conditions that morning before committing. Friday March 20 forecast: 12--13&deg;C, cloudy but DRY, almost no wind (2 m/s). That's a good cliff day.
+  </div>
+
+  <h3>Doolin</h3>
+
+  <p>A tiny village 15 minutes from the Cliffs that somehow became the spiritual home of traditional Irish music. Three pubs, all within walking distance, all hosting live trad sessions most nights -- even in March. Good for lunch before the drive south.</p>
+
+  <div class="spot">
+    <div class="spot-name">Gus O'Connor's Pub</div>
+    <div class="spot-type"><span class="tag tag-food">Lunch</span> <span class="tag tag-music">Trad Music</span> Fisher Street, Doolin</div>
+    <div class="spot-detail">Established 1832. The most famous of Doolin's three music pubs. Nightly trad sessions. Also serves lunch and dinner. Un-amplified sessions -- the real thing.</div>
+    <div class="spot-hours"><span class="spot-veg">Vegetarian Options</span></div>
+  </div>
+
+  <div class="spot">
+    <div class="spot-name">McGann's Pub</div>
+    <div class="spot-type"><span class="tag tag-food">Lunch</span> <span class="tag tag-music">Trad Music</span> Main Street, Doolin</div>
+    <div class="spot-detail">Family-run since 1975. More intimate than Gus O'Connor's. Proper pub food -- stew with soda bread, fish and chips. Cozy stone fireplace.</div>
+    <div class="spot-hours"><span class="spot-veg">Vegetarian Options</span></div>
+  </div>
+
+  <h3>The drive south to Cork</h3>
+
+  <p>From Doolin, the route to Cork goes inland through Ennis and Limerick, then south on the motorway. It's about 3.5 hours of driving, most of it on fast roads.</p>
+
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="timeline-time">Doolin &rarr; Ennis</div>
+      <div class="timeline-event"><strong>~30 minutes</strong> via R478/N85. Ennis is a charming market town if you need a quick stop or stretch. County town of Clare.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-time">Ennis &rarr; Limerick</div>
+      <div class="timeline-event"><strong>~40 minutes</strong> on the N18 dual carriageway. Fast, easy driving. The route bypasses the city centre.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-time">Limerick &rarr; Cork</div>
+      <div class="timeline-event"><strong>~1 hour 50 minutes</strong> on the N20/M20 motorway. Flat, fast, uneventful. You'll cross into County Cork before you know it.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-time">Total: Doolin to Cork</div>
+      <div class="timeline-event"><strong>~3 hours driving.</strong> Add stops and you're looking at 3.5--4 hours door to door.</div>
+    </div>
+  </div>
+
+  <div class="divider">&bull; &bull; &bull;</div>
+
+  <h3>Suggested Friday timeline</h3>
+
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="timeline-time">9:00 AM</div>
+      <div class="timeline-event">Leave Galway (or 9:30 AM if coming off the 8:15 AM Aran Islands ferry).</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-time">10:00 AM</div>
+      <div class="timeline-event"><strong>Poulnabrone Dolmen</strong> -- 15--20 min at the 5,000-year-old portal tomb.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-time">10:45 AM</div>
+      <div class="timeline-event"><strong>Cliffs of Moher.</strong> Arrive before the midday rush. Walk south toward Hag's Head. Allow 1--1.5 hours.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-time">12:15 PM</div>
+      <div class="timeline-event">Drive to <strong>Doolin</strong> (15 min). Lunch at Gus O'Connor's or McGann's.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-time">1:30 PM</div>
+      <div class="timeline-event">Hit the road south. Doolin &rarr; Ennis &rarr; Limerick &rarr; Cork.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-time">~5:00 PM</div>
+      <div class="timeline-event"><strong>Arrive Cork.</strong> Check in. Rest. You've earned a quiet evening before the weekend.</div>
+    </div>
+  </div>
+
+  <div class="info-box warning">
+    <div class="label">Running late after the Cliffs?</div>
+    If it's past 2:00 PM when you leave the Cliffs of Moher, skip Doolin and drive straight to Ennis. You can pick up food in Ennis instead. The priority is arriving in Cork before dark (sunset ~6:40 PM in late March). Every 30 minutes you linger adds 30 minutes of dark driving on unfamiliar roads.
+  </div>
+
+  <div class="info-box">
+    <div class="label">If you left the Aran Islands Friday morning</div>
+    The 8:15 AM ferry gets you back to Rossaveel by ~9:00 AM. Drive to Galway, grab coffee, and you're heading south by 9:30--10:00 AM. You can still fit in Poulnabrone and the Cliffs, but lunch in Doolin becomes tight. Consider grabbing food to go in Ennis instead of sitting down in Doolin.
+  </div>
+
+  <div class="divider">&bull; &bull; &bull;</div>
+
+  <!-- ================================================================== -->
+  <!-- NEXT: CORK WEEKEND -->
+  <!-- ================================================================== -->
+
+  <h2>What's Next</h2>
+
+  <p>You're in Cork. The west coast is behind you -- Galway's pubs, the Aran Islands' cliffs, the Burren's ancient stone, and the edge of Europe at Moher. Now it's time for the weekend.</p>
+
+  <div class="btn-group">
+    <a href="cork-weekend.html" class="btn btn-primary">Your Weekend in Cork &amp; Kinsale &rarr;</a>
+    <a href="index.html" class="btn btn-secondary">&larr; Back to Start</a>
+    <a href="map.html" class="btn btn-gold">View Map</a>
+  </div>
+
+</div>
+
+<div class="footer">
+  <p>Built with care for Spencer &amp; Savannah's anniversary adventure.</p>
+  <p>Every fact verified. Hours, availability, and transport current as of March 2026.</p>
+  <p style="margin-top: 0.5rem;">Works offline. No internet needed once loaded.</p>
+</div>
+
+</body>
+</html>

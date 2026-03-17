@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ireland Adventure — The Slow South</title>
+<style>
+  :root {
+    --parchment: #f4efe1;
+    --parchment-dark: #e8e0cc;
+    --ink: #2c1810;
+    --ink-light: #5a3e2b;
+    --moss: #4a6741;
+    --moss-light: #6b8f5e;
+    --moss-pale: #e8f0e4;
+    --sea: #2e6b7e;
+    --sea-light: #4a9bb5;
+    --sea-pale: #dceef3;
+    --gold: #c4a35a;
+    --gold-light: #e8d5a0;
+    --rust: #8b4513;
+    --storm: #536878;
+    --warning: #b8860b;
+    --white: #fefdfb;
+    --shadow: rgba(44, 24, 16, 0.12);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Georgia', 'Times New Roman', serif;
+    background: var(--parchment);
+    color: var(--ink);
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+
+  .hero {
+    background: linear-gradient(135deg, var(--moss) 0%, var(--sea) 50%, var(--storm) 100%);
+    color: var(--white);
+    padding: 3rem 1.5rem 2.5rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0 Q45 15 30 30 Q15 15 30 0z' fill='rgba(255,255,255,0.03)'/%3E%3C/svg%3E") repeat;
+  }
+
+  .hero h1 {
+    font-size: 2.2rem;
+    font-weight: normal;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.3rem;
+    position: relative;
+  }
+
+  .hero .subtitle {
+    font-style: italic;
+    opacity: 0.85;
+    font-size: 1.05rem;
+    position: relative;
+  }
+
+  .hero .dates {
+    margin-top: 1rem;
+    font-size: 0.9rem;
+    opacity: 0.7;
+    position: relative;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .nav-bar {
+    background: var(--ink);
+    padding: 0.6rem 1.5rem;
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  .nav-bar a {
+    color: var(--gold-light);
+    text-decoration: none;
+    font-size: 0.85rem;
+    letter-spacing: 0.05em;
+    transition: color 0.2s;
+  }
+
+  .nav-bar a:hover { color: var(--white); }
+  .nav-bar a.active { color: var(--white); border-bottom: 1px solid var(--gold); }
+
+  .content {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem 4rem;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+    color: var(--moss);
+    margin: 2.5rem 0 1rem;
+    padding-bottom: 0.4rem;
+    border-bottom: 2px solid var(--gold-light);
+    font-weight: normal;
+  }
+
+  h3 {
+    font-size: 1.15rem;
+    color: var(--sea);
+    margin: 1.8rem 0 0.6rem;
+    font-weight: normal;
+    font-style: italic;
+  }
+
+  p { margin-bottom: 1rem; }
+
+  .info-box {
+    background: var(--sea-pale);
+    border-left: 4px solid var(--sea);
+    border-radius: 0 6px 6px 0;
+    padding: 1rem 1.2rem;
+    margin: 1.2rem 0;
+    font-size: 0.9rem;
+  }
+
+  .info-box.warning {
+    background: #fdf3e0;
+    border-left-color: var(--warning);
+  }
+
+  .info-box.opportunity {
+    background: #fdf2f0;
+    border-left-color: var(--rust);
+  }
+
+  .info-box .label {
+    font-weight: bold;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 0.3rem;
+    color: var(--sea);
+  }
+
+  .info-box.warning .label { color: var(--warning); }
+  .info-box.opportunity .label { color: var(--rust); }
+
+
+  .facts-strip {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 0.8rem;
+    margin: 1.5rem 0;
+  }
+
+  .fact-card {
+    background: var(--white);
+    border: 1px solid var(--parchment-dark);
+    border-radius: 6px;
+    padding: 0.8rem;
+    text-align: center;
+  }
+
+  .fact-card .number {
+    font-size: 1.4rem;
+    color: var(--moss);
+    display: block;
+  }
+
+  .fact-card .label {
+    font-size: 0.75rem;
+    color: var(--storm);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .btn {
+    display: inline-block;
+    padding: 0.7rem 1.5rem;
+    border-radius: 6px;
+    text-decoration: none;
+    font-family: 'Georgia', serif;
+    font-size: 0.95rem;
+    transition: all 0.2s;
+    cursor: pointer;
+    border: none;
+  }
+
+  .btn-primary {
+    background: var(--moss);
+    color: var(--white);
+  }
+
+  .btn-primary:hover { background: var(--moss-light); }
+
+  .btn-secondary {
+    background: var(--white);
+    color: var(--moss);
+    border: 1px solid var(--moss);
+  }
+
+  .btn-secondary:hover { background: var(--moss-pale); }
+
+  .btn-gold {
+    background: linear-gradient(135deg, var(--gold) 0%, var(--warning) 100%);
+    color: var(--white);
+  }
+
+  .btn-group {
+    display: flex;
+    gap: 0.8rem;
+    flex-wrap: wrap;
+    margin: 1.5rem 0;
+  }
+
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    color: var(--storm);
+    text-decoration: none;
+    font-size: 0.85rem;
+    margin-bottom: 1rem;
+    transition: color 0.2s;
+  }
+
+  .back-link:hover { color: var(--moss); }
+
+  .footer {
+    text-align: center;
+    padding: 2rem 1.5rem;
+    font-size: 0.8rem;
+    color: var(--storm);
+    border-top: 1px solid var(--parchment-dark);
+    margin-top: 3rem;
+  }
+
+  .divider {
+    text-align: center;
+    margin: 2rem 0;
+    color: var(--gold);
+    font-size: 1.2rem;
+    letter-spacing: 0.5rem;
+  }
+
+  .timeline {
+    position: relative;
+    padding-left: 2rem;
+    margin: 1.5rem 0;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 0.5rem;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: var(--gold-light);
+  }
+
+  .timeline-item {
+    position: relative;
+    margin-bottom: 1.2rem;
+    padding-bottom: 0.5rem;
+  }
+
+  .timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -1.65rem;
+    top: 0.5rem;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--gold);
+    border: 2px solid var(--parchment);
+  }
+
+  .timeline-time {
+    font-size: 0.8rem;
+    color: var(--storm);
+    font-style: italic;
+    margin-bottom: 0.2rem;
+  }
+
+  .timeline-event {
+    font-size: 0.95rem;
+  }
+
+  .spot {
+    background: var(--white);
+    border: 1px solid var(--parchment-dark);
+    border-radius: 6px;
+    padding: 1rem 1.2rem;
+    margin: 0.8rem 0;
+  }
+
+  .spot-name {
+    font-size: 1.05rem;
+    color: var(--moss);
+    margin-bottom: 0.2rem;
+  }
+
+  .spot-type {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--storm);
+    margin-bottom: 0.4rem;
+  }
+
+  .spot-detail {
+    font-size: 0.9rem;
+    color: var(--ink-light);
+    margin-bottom: 0.3rem;
+  }
+
+  .spot-hours {
+    font-size: 0.8rem;
+    color: var(--moss);
+    font-style: italic;
+  }
+
+  .spot-veg {
+    display: inline-block;
+    background: var(--moss-pale);
+    color: var(--moss);
+    font-size: 0.7rem;
+    padding: 0.15rem 0.5rem;
+    border-radius: 3px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-top: 0.3rem;
+  }
+
+  .tradeoff {
+    background: var(--parchment-dark);
+    border-radius: 6px;
+    padding: 1rem 1.2rem;
+    margin: 1rem 0;
+    font-size: 0.9rem;
+  }
+
+  .tradeoff-title {
+    font-weight: bold;
+    color: var(--rust);
+    margin-bottom: 0.4rem;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .tradeoff ul {
+    margin-left: 1.2rem;
+    margin-top: 0.3rem;
+  }
+
+  .tradeoff li {
+    margin-bottom: 0.3rem;
+    font-size: 0.88rem;
+  }
+
+  .tag {
+    display: inline-block;
+    font-size: 0.7rem;
+    padding: 0.1rem 0.4rem;
+    border-radius: 3px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-right: 0.3rem;
+  }
+
+  .tag-romantic { background: #fce4ec; color: var(--rust); }
+  .tag-history { background: #e8eaf6; color: #3949ab; }
+  .tag-nature { background: var(--moss-pale); color: var(--moss); }
+  .tag-food { background: #fff3e0; color: #e65100; }
+  .tag-shopping { background: #f3e5f5; color: #7b1fa2; }
+
+  .decision {
+    background: var(--white);
+    border: 1px solid var(--gold-light);
+    border-radius: 8px;
+    margin: 1.5rem 0;
+    overflow: hidden;
+    box-shadow: 0 2px 8px var(--shadow);
+  }
+
+  .decision-header {
+    background: linear-gradient(135deg, var(--ink) 0%, var(--ink-light) 100%);
+    color: var(--gold-light);
+    padding: 0.8rem 1.2rem;
+    font-size: 0.85rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .decision-header .icon { font-size: 1.1rem; }
+
+  .decision-body {
+    padding: 1.2rem;
+  }
+
+  .option {
+    display: block;
+    background: var(--parchment);
+    border: 1px solid var(--parchment-dark);
+    border-left: 4px solid var(--moss);
+    border-radius: 6px;
+    padding: 1rem 1.2rem;
+    margin: 0.8rem 0;
+    text-decoration: none;
+    color: var(--ink);
+    transition: all 0.2s ease;
+  }
+
+  .option-title {
+    font-size: 1.1rem;
+    color: var(--moss);
+    margin-bottom: 0.3rem;
+  }
+
+  .option-desc {
+    font-size: 0.9rem;
+    color: var(--ink-light);
+    line-height: 1.5;
+  }
+
+  .option-meta {
+    display: flex;
+    gap: 1rem;
+    margin-top: 0.5rem;
+    font-size: 0.8rem;
+    color: var(--storm);
+    flex-wrap: wrap;
+  }
+
+  @media (max-width: 480px) {
+    .hero h1 { font-size: 1.7rem; }
+    .content { padding: 1.5rem 1rem 3rem; }
+    .btn-group { flex-direction: column; }
+    .btn { text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>The Slow South</h1>
+  <div class="subtitle">Dublin, Medieval Kilkenny &amp; Maximum Cork Time</div>
+  <div class="dates">March 18 -- 24, 2026</div>
+</div>
+
+<nav class="nav-bar">
+  <a href="index.html">Start</a>
+  <a href="easy-south.html" class="active">Slow South</a>
+  <a href="cork-weekend.html">Cork Weekend</a>
+  <a href="heading-home.html">Getting Home</a>
+  <a href="packing.html">Packing</a>
+  <a href="map.html">Map</a>
+</nav>
+
+<div class="content">
+
+  <a href="index.html" class="back-link">&larr; Back to Start</a>
+
+  <p>This route trades the wild west coast for <strong>time</strong>. Instead of racing from Galway to the Cliffs to Kerry to Cork in a jet-lagged blur, you take the direct motorway south and arrive in Cork/Kinsale by Wednesday evening or Thursday morning. That gives you three or four full days in the Cork area instead of two. Less driving, more living. The best anniversary pace.</p>
+
+  <p>You still get Dublin's best sights on arrival day, and you can break the drive with some of Ireland's most striking medieval sites. You just don't try to see the entire country in a week.</p>
+
+  <div class="facts-strip">
+    <div class="fact-card">
+      <span class="number">~3 hr</span>
+      <span class="label">Dublin to Cork (M7/M8)</span>
+    </div>
+    <div class="fact-card">
+      <span class="number">3--4</span>
+      <span class="label">Full Days in Cork Area</span>
+    </div>
+    <div class="fact-card">
+      <span class="number">265 km</span>
+      <span class="label">Motorway, Not Boreens</span>
+    </div>
+    <div class="fact-card">
+      <span class="number">Minimal</span>
+      <span class="label">Driving After Day 1</span>
+    </div>
+  </div>
+
+  <div class="divider">&bull; &bull; &bull;</div>
+
+  <!-- ============================================ -->
+  <h2>Wednesday: Dublin Morning + Drive South</h2>
+  <!-- ============================================ -->
+
+  <p>You land at 4:20 AM, pick up the rental car, and have a full morning in Dublin before heading south after lunch. The M7/M8 motorway to Cork is fast and straightforward -- wide, well-signed, mostly straight. You'll arrive in Cork or Kinsale by evening, or you can break the drive in Kilkenny and arrive Thursday morning.</p>
+
+  <h3>Early Breakfast (5:30--8 AM)</h3>
+
+  <p>You'll clear customs and get the car by 5:30--6:00 AM. The airport is 30 minutes from Dublin city centre. Most cafes don't open until 8, so your early options are limited.</p>
+
+  <div class="spot">
+    <div class="spot-name">Keogh's Cafe</div>
+    <div class="spot-type"><span class="tag tag-food">Breakfast</span> 1--2 Trinity Street, Dublin 2</div>
+    <div class="spot-detail">Opens at 6:30 AM on weekdays -- one of the earliest independent cafes in the city. Right next to Trinity College. Good coffee, full Irish breakfast, and the kind of no-fuss spot where you can stare at the wall for twenty minutes while your brain catches up with your body.</div>
+    <div class="spot-hours">Mon--Sat 6:30 AM -- 6:30 PM</div>
+    <span class="spot-veg">Vegetarian options available</span>
+  </div>
+
+  <div class="spot">
+    <div class="spot-name">Cornucopia</div>
+    <div class="spot-type"><span class="tag tag-food">Breakfast / Lunch</span> 19/20 Wicklow Street, Dublin 2</div>
+    <div class="spot-detail">Fully vegetarian and vegan since 1986. Opens at 8 AM on weekdays, so this works if you take it slow and arrive in the city around 7:30. Self-service counter with hot dishes, soups, pastries -- all made fresh. Two floors, relaxed atmosphere. Savannah would love this place.</div>
+    <div class="spot-hours">Wed: 8:00 AM -- 7:00 PM</div>
+    <span class="spot-veg">100% Vegetarian &amp; Vegan</span>
+  </div>
+
+  <h3>Dublin Highlights (9 AM -- 12:30 PM)</h3>
+
+  <p>You have about three and a half hours. You won't do all of these, but you can fit two or three depending on how deep you go.</p>
+
+  <div class="spot">
+    <div class="spot-name">Kilmainham Gaol</div>
+    <div class="spot-type"><span class="tag tag-history">History</span> Inchicore Road, Kilmainham, Dublin 8</div>
+    <div class="spot-detail">The single most powerful political history site in Ireland. This is where the leaders of the 1916 Rising were held and executed -- Pearse, Connolly, Plunkett (who married Grace Gifford in the chapel hours before his execution). The guided tour walks through the cells, the yards, and the execution courtyard. Devastating and unforgettable.</div>
+    <div class="spot-detail"><strong>Access is by guided tour only.</strong> Tours take about 60 minutes, plus 30 minutes for the museum. Tickets are &euro;8 per adult.</div>
+    <div class="spot-hours">Generally open from 9:30 AM. Tours run throughout the day.</div>
+  </div>
+
+  <div class="info-box warning">
+    <div class="label">Tickets may be sold out</div>
+    Kilmainham releases tickets exactly 28 days in advance. For Wednesday March 18, those tickets dropped on February 18 and likely sold out within hours. <strong>But:</strong> cancellation tickets are released online each morning between 9:15 and 9:30 AM. Refresh <em>kilmainhamgaolmuseum.ie</em> at 9:15 sharp. Only buy from the official OPW site -- third-party tickets aren't valid.
+  </div>
+
+  <div class="info-box">
+    <div class="label">If Kilmainham is sold out</div>
+    <strong>National Museum of Ireland -- Collins Barracks</strong> is free, 15 minutes from Kilmainham, and houses the <em>Proclaiming a Republic: The 1916 Rising</em> exhibition. It covers the same ground through personal belongings, uniforms, bullets, and first-aid kits from rebels, British soldiers, and civilians. Genuinely excellent, and you can walk in without a ticket. <strong>Hours:</strong> Tue--Sat 10 AM -- 5 PM. Benburb Street, Dublin 7.
+  </div>
+
+  <div class="spot">
+    <div class="spot-name">Kevin &amp; Howlin</div>
+    <div class="spot-type"><span class="tag tag-shopping">Tweed</span> 31 Nassau Street, Dublin 2</div>
+    <div class="spot-detail">The gold standard for Donegal tweed in Ireland. Founded in 1936, specializing exclusively in handwoven Donegal tweed since 1973. Jackets, caps, scarves -- heritage shop, not a tourist trap. Old-world service with incredibly knowledgeable staff who'll walk you through different weights and weaves. Opposite Trinity College.</div>
+    <div class="spot-hours">Mon--Sat 9:30 AM -- 5:30 PM</div>
+  </div>
+
+  <div class="spot">
+    <div class="spot-name">GPO / O'Connell Street</div>
+    <div class="spot-type"><span class="tag tag-history">History</span> O'Connell Street, Dublin 1</div>
+    <div class="spot-detail">The General Post Office was rebel headquarters during the 1916 Rising -- where Pearse read the Proclamation of the Republic from the front steps. The bullet marks in the columns are original. The museum inside is interactive and well-produced. Allow about 90 minutes if you go in, or just walk past and see the facade.</div>
+    <div class="spot-hours">Mon--Sat 10:00 AM -- 5:00 PM. Closed Sundays.</div>
+  </div>
+
+  <div class="spot">
+    <div class="spot-name">Trinity College</div>
+    <div class="spot-type"><span class="tag tag-history">Culture</span> College Green, Dublin 2</div>
+    <div class="spot-detail">Walk the grounds for free -- the cobblestone front square is beautiful even without going inside any buildings. The Book of Kells and the Long Room are worth the visit if you have 90 minutes to spare (tickets &euro;18--25, book at <em>visittrinity.ie</em>), but if time is tight, just walk through the grounds on your way between Kevin &amp; Howlin and lunch.</div>
+    <div class="spot-hours">Grounds open from early morning. Book of Kells: Wed 9:30 AM -- 5:00 PM.</div>
+  </div>
+
+  <h3>Suggested Wednesday Morning Timeline</h3>
+
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="timeline-time">4:20 AM</div>
+      <div class="timeline-event">Land at Dublin Airport. Clear customs, pick up rental car.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-time">~6:30 AM</div>
+      <div class="timeline-event">Breakfast at <strong>Keogh's Cafe</strong> near Trinity (opens 6:30), or grab something at the airport and drive in for Cornucopia at 8.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-time">9:15 AM</div>
+      <div class="timeline-event">Refresh Kilmainham's booking page for cancellation tickets. If you get them, head to Kilmainham. If not, start at Celtic Tweed (opens 9) and Kevin &amp; Howlin (opens 9:30).</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-time">~11:00 AM</div>
+      <div class="timeline-event">Finish at Kilmainham (or Collins Barracks). Head to Grafton Street area for the tweed shops.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-time">12:00 PM</div>
+      <div class="timeline-event">Walk through Trinity's front square. Quick look at the GPO facade on O'Connell Street if time allows.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-time">12:30 PM</div>
+      <div class="timeline-event">Lunch. On the road by 1:30--2:00 PM.</div>
+    </div>
+  </div>
+
+  <h3>Lunch Before Driving</h3>
+
+  <p>Eat before you drive. Hunger plus jet lag plus left-side driving is a bad combination.</p>
+
+  <div class="spot">
+    <div class="spot-name">Glas Restaurant</div>
+    <div class="spot-type"><span class="tag tag-food">Lunch</span> 15/16 Chatham Street, Dublin 2</div>
+    <div class="spot-detail">Ireland's premier plant-based restaurant, just off Grafton Street. Won Best Vegetarian Restaurant (RAI Awards 2023) and Best Sustainable Restaurant (RAI Awards 2025). Also 100% gluten-free. Creative, beautifully plated dishes -- proper fine dining, not a hippie buffet. Perfect for Savannah. Reserve via OpenTable or call +353 1 672 4534.</div>
+    <div class="spot-hours">Wed lunch: 12:00 PM -- 3:30 PM</div>
+    <span class="spot-veg">100% Vegetarian, Vegan &amp; Gluten-Free</span>
+  </div>
+
+  <div class="spot">
+    <div class="spot-name">Cornucopia</div>
+    <div class="spot-type"><span class="tag tag-food">Lunch</span> 19/20 Wicklow Street, Dublin 2</div>
+    <div class="spot-detail">If you didn't hit Cornucopia for breakfast, it's a great lunch option too. Self-service counter with rotating hot dishes, soups, salads, and excellent baked goods. More casual and faster than Glas -- good if you want to eat and get on the road.</div>
+    <div class="spot-hours">Wed: 8:00 AM -- 7:00 PM</div>
+    <span class="spot-veg">100% Vegetarian &amp; Vegan</span>
+  </div>
+
+  <div class="divider">&bull; &bull; &bull;</div>
+
+  <!-- ============================================ -->
+  <h2>Wednesday Afternoon: The Drive South</h2>
+  <!-- ============================================ -->
+
+  <p>Leave Dublin by early afternoon, take the M7/M8 motorway south. It's about 2.5--3 hours to Cork without stops. The motorway is fast and forgiving -- wide, well-signed, mostly straight. This is where you choose your pace.</p>
+
+  <div class="decision">
+    <div class="decision-header">
+      <span class="icon">&#9670;</span>
+      EN ROUTE: PICK YOUR STOPS
+    </div>
+    <div class="decision-body">
+
+      <div class="option">
+        <div class="option-title">Option A: Drive Straight to Cork/Kinsale</div>
+        <div class="option-desc">Leave Dublin by 1:30 PM, arrive Cork by 4:30--5:00 PM, Kinsale by 5:30. You're settled in for dinner. Maximum Cork time starts now.</div>
+        <div class="option-meta">
+          <span>~2.5--3 hr drive</span>
+          <span>Arrive Wed evening</span>
+          <span>4 full days in Cork area</span>
+        </div>
+      </div>
+
+      <div class="option">
+        <div class="option-title">Option B: Stop at Rock of Cashel</div>
+        <div class="option-desc">45--60 minutes off the motorway for one of Ireland's most iconic sights. Then continue to Cork, arriving by early evening.</div>
+        <div class="option-meta">
+          <span>Adds ~1 hr</span>
+          <span>Right off the M8</span>
+          <span>Arrive Cork ~6:00 PM</span>
+        </div>
+      </div>
+
+      <div class="option">
+        <div class="option-title">Option C: Overnight in Kilkenny</div>
+        <div class="option-desc">Take the M9 fork to Kilkenny (about 1.5 hrs from Dublin). Explore the Medieval Mile, have dinner in a proper Irish town, sleep there. Drive to Cork Thursday morning -- only 1.5 hours. You still get 3 full days in the Cork area.</div>
+        <div class="option-meta">
+          <span>~1.5 hr to Kilkenny</span>
+          <span>Medieval city</span>
+          <span>Arrive Cork Thu AM</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <h3>Rock of Cashel</h3>
+
+  <div class="spot">
+    <div class="spot-name">Rock of Cashel</div>
+    <div class="spot-type"><span class="tag tag-history">Heritage Site</span> Cashel, Co. Tipperary -- ~1.5 hrs from Dublin on the M8</div>
+    <div class="spot-detail">One of Ireland's most iconic silhouettes. A cluster of 12th-century ruins on a dramatic hilltop -- cathedral, round tower, Romanesque chapel, all of it exposed to the wind on a limestone outcrop rising from the Tipperary plain. This was the seat of the Kings of Munster for centuries before it became an ecclesiastical site. You can see it from the motorway. Pull off, walk up, spend an hour, get back on the road.</div>
+    <div class="spot-hours">Open 9 AM -- 5 PM in March &mdash; &euro;8 &mdash; allow 45--60 min</div>
+  </div>
+
+  <h3>Cahir Castle</h3>
+
+  <div class="spot">
+    <div class="spot-name">Cahir Castle</div>
+    <div class="spot-type"><span class="tag tag-history">Castle</span> Cahir, Co. Tipperary -- ~20 min north of Cashel</div>
+    <div class="spot-detail">One of the largest and best-preserved medieval castles in Ireland, sitting on a rock island in the River Suir. Curtain walls, keep, great hall -- all intact. Cromwell besieged it in 1599 and barely dented it. If you're already stopping at Cashel, Cahir is a quick add-on just up the road. Smaller but atmospheric.</div>
+    <div class="spot-hours">Open daily &mdash; &euro;5 &mdash; allow ~45 min</div>
+  </div>
+
+  <h3>Kilkenny (Overnight Option)</h3>
+
+  <div class="spot">
+    <div class="spot-name">Kilkenny</div>
+    <div class="spot-type"><span class="tag tag-history">Medieval City</span> Co. Kilkenny -- ~1.5 hrs from Dublin, ~1.5 hrs from Cork</div>
+    <div class="spot-detail">The Medieval Mile connects Kilkenny Castle (13th century, free grounds) to St. Canice's Cathedral through narrow lanes lined with craft shops, pubs, and the Smithwick's brewery. It's one of the most walkable towns in Ireland and feels more like a small European city than a county town. A proper overnight gives you time to explore instead of rushing through.</div>
+    <div class="spot-hours">Kilkenny Castle: open daily, &euro;8 &mdash; St. Canice's Cathedral: &euro;6</div>
+  </div>
+
+  <div class="info-box">
+    <div class="label">The Kilkenny option</div>
+    If you're fading from jet lag by mid-afternoon (you will be -- you've been up since 4 AM Irish time), Kilkenny is a smart call. Stop driving at a reasonable hour, explore a beautiful medieval town, have a relaxed dinner, sleep. Then drive to Cork on Thursday morning feeling human. You trade one Cork evening for a much better first day.
+  </div>
+
+  <div class="divider">&bull; &bull; &bull;</div>
+
+  <!-- ============================================ -->
+  <h2>Thursday: Arrive Cork (or Bonus Day)</h2>
+  <!-- ============================================ -->
+
+  <p>This is where the Slow South route pays off. Depending on what you chose Wednesday, you're either arriving fresh from Kilkenny or already waking up in Cork with a full bonus day ahead of you.</p>
+
+  <h3>If You Overnighted in Kilkenny</h3>
+
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="timeline-time">Morning</div>
+      <div class="timeline-event">Walk the Medieval Mile one more time. Morning light on the castle grounds. Breakfast at a local cafe.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-time">Late Morning</div>
+      <div class="timeline-event">Drive to Cork -- only 1.5 hours on the M8. Straight shot, no narrow roads.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-time">Early Afternoon</div>
+      <div class="timeline-event">Arrive in Kinsale or Cork City. Check into your B&amp;B, settle in. Your weekend base starts now.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-time">Afternoon</div>
+      <div class="timeline-event">First wander around Kinsale's harbor and colorful streets, or hit the English Market in Cork City (Mon--Sat, 8 AM -- 6 PM).</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-time">Evening</div>
+      <div class="timeline-event">First Cork-area dinner. You've arrived.</div>
+    </div>
+  </div>
+
+  <h3>If You Arrived Cork on Wednesday Night</h3>
+
+  <p>Full bonus day. This is the luxury of the Slow South route. Some options:</p>
+
+  <div class="spot">
+    <div class="spot-name">Cobh</div>
+    <div class="spot-type"><span class="tag tag-history">Heritage Town</span> 20 min from Cork City</div>
+    <div class="spot-detail">The last port of call for the Titanic. The Cobh Heritage Centre tells the story of Irish emigration -- millions left from this harbor and never came back. St. Colman's Cathedral sits on the hill above the town, visible from everywhere. The harbor walk is deeply atmospheric. A genuinely moving half-day trip.</div>
+    <div class="spot-hours">Heritage Centre: daily 9:30 AM -- 5:00 PM. Adults ~&euro;10.</div>
+  </div>
+
+  <div class="spot">
+    <div class="spot-name">West Cork Coast</div>
+    <div class="spot-type"><span class="tag tag-nature">Scenic Drive</span> <span class="tag tag-history">Michael Collins Country</span></div>
+    <div class="spot-detail">Drive the West Cork coast through Timoleague, Clonakilty, and toward Bantry Bay. <strong>Timoleague Friary</strong> is a 13th-century Franciscan ruin on the banks of the Argideen River -- the largest medieval ruin in West Cork, free entry, always accessible. <strong>Michael Collins House</strong> in Clonakilty covers the War of Independence through guided tours and artifacts from Collins' home town.</div>
+    <div class="spot-hours">Michael Collins House: Tue--Sat 10 AM -- 5 PM. Timoleague Friary: free, daylight hours.</div>
+  </div>
+
+  <div class="spot">
+    <div class="spot-name">Early Kinsale Exploration</div>
+    <div class="spot-type"><span class="tag tag-romantic">Anniversary Pace</span></div>
+    <div class="spot-detail">Get a head start on your weekend base. Walk to Charles Fort via the Scilly Walk (35 min along the harbor, fort is &euro;5 entry). Browse Kinsale's galleries and shops. Have lunch at Fishy Fishy on Crowley's Quay. No schedule, no driving, just settling in.</div>
+  </div>
+
+  <div class="divider">&bull; &bull; &bull;</div>
+
+  <!-- ============================================ -->
+  <h2>Friday: Another Full Day</h2>
+  <!-- ============================================ -->
+
+  <p>This is the day that doesn't exist on the west coast route. If you'd gone through Galway and Kerry, you'd be driving to Cork right now. Instead, you're waking up with nowhere to be.</p>
+
+  <p>Options, all of them optional:</p>
+
+  <div class="spot">
+    <div class="spot-name">Cork City</div>
+    <div class="spot-type"><span class="tag tag-food">Food Capital</span></div>
+    <div class="spot-detail">Hit the <strong>English Market</strong> (Mon--Sat, 8 AM -- 6 PM) -- one of Europe's oldest covered food markets, Cork's beating heart. Lunch at the <strong>Farmgate Cafe</strong> on the mezzanine level overlooking the stalls. Climb <strong>Shandon Bells &amp; Tower</strong> and ring the bells yourself over Cork's rooftops (&euro;5). Walk the River Lee through the UCC campus.</div>
+    <span class="spot-veg">Farmgate Cafe: good vegetarian options</span>
+  </div>
+
+  <div class="spot">
+    <div class="spot-name">Blarney Castle</div>
+    <div class="spot-type"><span class="tag tag-history">Castle &amp; Gardens</span> 15 min from Cork City</div>
+    <div class="spot-detail">Yes, the Blarney Stone is touristy. But the castle grounds and gardens are genuinely beautiful, and the castle itself is a proper medieval tower house with interesting rooms to explore. If you're curious, go -- you're not in a rush. If it doesn't appeal, skip it without guilt.</div>
+  </div>
+
+  <div class="spot">
+    <div class="spot-name">Slow Kinsale Wandering</div>
+    <div class="spot-type"><span class="tag tag-romantic">Anniversary Pace</span></div>
+    <div class="spot-detail">Sleep in. Breakfast at <strong>The Lemon Leaf Cafe</strong> on Main Street. Walk the harbor. Browse galleries. Have a long lunch at <strong>The Black Pig</strong> with wine and sharing plates. Nap. Dinner at <strong>Bastion</strong> (Michelin star, book ahead) or <strong>Cafe Paradiso</strong> in Cork City (Ireland's most celebrated vegetarian restaurant). This is the luxury of this route: no rushing, no "we have to leave by 9 AM."</div>
+    <span class="spot-veg">Lemon Leaf, Black Pig, Cafe Paradiso: all excellent veg options</span>
+  </div>
+
+  <div class="info-box opportunity">
+    <div class="label">This is the point</div>
+    The whole argument for the Slow South is right here: a Friday with no obligations. You've been in Ireland for two days, you're over the worst of the jet lag, and you have three more full days in this area. No one is driving four hours today. No one is catching a ferry. You're just <em>here</em>.
+  </div>
+
+  <div class="divider">&bull; &bull; &bull;</div>
+
+  <!-- ============================================ -->
+  <h2>The Honest Tradeoffs</h2>
+  <!-- ============================================ -->
+
+  <div class="tradeoff">
+    <div class="tradeoff-title">What you gain</div>
+    <ul>
+      <li><strong>1--2 extra full days in the Cork/Kinsale area</strong> -- more meals, more wandering, more anniversary pace</li>
+      <li><strong>Kilmainham Gaol on Day 1</strong> -- the most important political history site in Ireland, which you'd miss entirely on the west coast route</li>
+      <li><strong>Kevin &amp; Howlin and the Dublin tweed shops</strong> -- your only chance if you're doing a one-way rental to Cork</li>
+      <li><strong>Less driving overall</strong> -- the M7/M8 is fast motorway, not narrow coastal roads</li>
+      <li><strong>Less jet-lag pressure</strong> -- you're not navigating mountain passes on three hours of sleep</li>
+      <li><strong>Time for Cobh, West Cork, or Blarney</strong> -- day trips that don't exist when you're rushing through Kerry</li>
+    </ul>
+  </div>
+
+  <div class="tradeoff">
+    <div class="tradeoff-title">What you miss</div>
+    <ul>
+      <li><strong>Galway</strong> -- the bohemian west coast city, the pubs, the buskers on Shop Street</li>
+      <li><strong>Aran Islands</strong> -- Inis Mor, the stone forts, the sweater shops, the ferry crossing</li>
+      <li><strong>Cliffs of Moher</strong> -- the most dramatic coastal scenery in Ireland</li>
+      <li><strong>Kerry and Dingle</strong> -- the Ring of Kerry, Skellig Michael views, Dingle's fishing-village charm</li>
+      <li>The wild west coast in general -- you can't get these on another trip easily, but you also can't get back the energy you'd spend chasing them jet-lagged</li>
+    </ul>
+  </div>
+
+  <div class="info-box">
+    <div class="label">The real question</div>
+    Do you want to <em>see</em> Ireland or <em>feel</em> Ireland? The west coast route is about seeing as much as possible. The Slow South is about settling into a place and letting it come to you. Neither is wrong. But for an anniversary trip after a red-eye, slowing down might be the move that makes the whole week feel like a holiday instead of a tour.
+  </div>
+
+  <div class="divider">&bull; &bull; &bull;</div>
+
+  <div class="btn-group">
+    <a href="cork-weekend.html" class="btn btn-primary">Cork Weekend Details &rarr;</a>
+    <a href="index.html" class="btn btn-secondary">&larr; Back to Start</a>
+  </div>
+
+</div>
+
+<div class="footer">
+  <p>Built with care for Spencer &amp; Savannah's anniversary adventure.</p>
+  <p>Every fact in these pages has been verified. Hours, availability, and driving times are current as of March 2026.</p>
+  <p style="margin-top: 0.5rem;">Works offline. No internet needed once downloaded.</p>
+</div>
+
+</body>
+</html>
