@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ireland Adventure — Weather &amp; Packing Guide</title>
+<style>
+  :root {
+    --parchment: #f4efe1;
+    --parchment-dark: #e8e0cc;
+    --ink: #2c1810;
+    --ink-light: #5a3e2b;
+    --moss: #4a6741;
+    --moss-light: #6b8f5e;
+    --moss-pale: #e8f0e4;
+    --sea: #2e6b7e;
+    --sea-light: #4a9bb5;
+    --sea-pale: #dceef3;
+    --gold: #c4a35a;
+    --gold-light: #e8d5a0;
+    --rust: #8b4513;
+    --storm: #536878;
+    --warning: #b8860b;
+    --white: #fefdfb;
+    --shadow: rgba(44, 24, 16, 0.12);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Georgia', 'Times New Roman', serif;
+    background: var(--parchment);
+    color: var(--ink);
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+
+  .hero {
+    background: linear-gradient(135deg, var(--moss) 0%, var(--sea) 50%, var(--storm) 100%);
+    color: var(--white);
+    padding: 3rem 1.5rem 2.5rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0 Q45 15 30 30 Q15 15 30 0z' fill='rgba(255,255,255,0.03)'/%3E%3C/svg%3E") repeat;
+  }
+
+  .hero h1 {
+    font-size: 2.2rem;
+    font-weight: normal;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.3rem;
+    position: relative;
+  }
+
+  .hero .subtitle {
+    font-style: italic;
+    opacity: 0.85;
+    font-size: 1.05rem;
+    position: relative;
+  }
+
+  .hero .dates {
+    margin-top: 1rem;
+    font-size: 0.9rem;
+    opacity: 0.7;
+    position: relative;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .nav-bar {
+    background: var(--ink);
+    padding: 0.6rem 1.5rem;
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  .nav-bar a {
+    color: var(--gold-light);
+    text-decoration: none;
+    font-size: 0.85rem;
+    letter-spacing: 0.05em;
+    transition: color 0.2s;
+  }
+
+  .nav-bar a:hover { color: var(--white); }
+  .nav-bar a.active { color: var(--white); border-bottom: 1px solid var(--gold); }
+
+  .content {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem 4rem;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+    color: var(--moss);
+    margin: 2.5rem 0 1rem;
+    padding-bottom: 0.4rem;
+    border-bottom: 2px solid var(--gold-light);
+    font-weight: normal;
+  }
+
+  h3 {
+    font-size: 1.15rem;
+    color: var(--sea);
+    margin: 1.8rem 0 0.6rem;
+    font-weight: normal;
+    font-style: italic;
+  }
+
+  p { margin-bottom: 1rem; }
+
+  .info-box {
+    background: var(--sea-pale);
+    border-left: 4px solid var(--sea);
+    border-radius: 0 6px 6px 0;
+    padding: 1rem 1.2rem;
+    margin: 1.2rem 0;
+    font-size: 0.9rem;
+  }
+
+  .info-box.warning {
+    background: #fdf3e0;
+    border-left-color: var(--warning);
+  }
+
+  .info-box.opportunity {
+    background: #fdf2f0;
+    border-left-color: var(--rust);
+  }
+
+  .info-box .label {
+    font-weight: bold;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 0.3rem;
+    color: var(--sea);
+  }
+
+  .info-box.warning .label { color: var(--warning); }
+  .info-box.opportunity .label { color: var(--rust); }
+
+
+  .facts-strip {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 0.8rem;
+    margin: 1.5rem 0;
+  }
+
+  .fact-card {
+    background: var(--white);
+    border: 1px solid var(--parchment-dark);
+    border-radius: 6px;
+    padding: 0.8rem;
+    text-align: center;
+  }
+
+  .fact-card .number {
+    font-size: 1.4rem;
+    color: var(--moss);
+    display: block;
+  }
+
+  .fact-card .label {
+    font-size: 0.75rem;
+    color: var(--storm);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .btn {
+    display: inline-block;
+    padding: 0.7rem 1.5rem;
+    border-radius: 6px;
+    text-decoration: none;
+    font-family: 'Georgia', serif;
+    font-size: 0.95rem;
+    transition: all 0.2s;
+    cursor: pointer;
+    border: none;
+  }
+
+  .btn-primary {
+    background: var(--moss);
+    color: var(--white);
+  }
+
+  .btn-primary:hover { background: var(--moss-light); }
+
+  .btn-secondary {
+    background: var(--white);
+    color: var(--moss);
+    border: 1px solid var(--moss);
+  }
+
+  .btn-secondary:hover { background: var(--moss-pale); }
+
+  .btn-gold {
+    background: linear-gradient(135deg, var(--gold) 0%, var(--warning) 100%);
+    color: var(--white);
+  }
+
+  .btn-group {
+    display: flex;
+    gap: 0.8rem;
+    flex-wrap: wrap;
+    margin: 1.5rem 0;
+  }
+
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    color: var(--storm);
+    text-decoration: none;
+    font-size: 0.85rem;
+    margin-bottom: 1rem;
+    transition: color 0.2s;
+  }
+
+  .back-link:hover { color: var(--moss); }
+
+  .footer {
+    text-align: center;
+    padding: 2rem 1.5rem;
+    font-size: 0.8rem;
+    color: var(--storm);
+    border-top: 1px solid var(--parchment-dark);
+    margin-top: 3rem;
+  }
+
+  .divider {
+    text-align: center;
+    margin: 2rem 0;
+    color: var(--gold);
+    font-size: 1.2rem;
+    letter-spacing: 0.5rem;
+  }
+
+
+  .weather-card {
+    background: var(--white);
+    border: 1px solid var(--parchment-dark);
+    border-radius: 8px;
+    margin: 1rem 0;
+    overflow: hidden;
+    box-shadow: 0 2px 6px var(--shadow);
+  }
+
+  .weather-card-header {
+    padding: 0.6rem 1rem;
+    font-size: 0.85rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--parchment);
+    border-bottom: 1px solid var(--parchment-dark);
+  }
+
+  .weather-card-header .day-label {
+    font-weight: bold;
+    color: var(--moss);
+  }
+
+  .weather-card-header .temp {
+    color: var(--ink);
+    font-size: 0.9rem;
+  }
+
+  .weather-card-body {
+    padding: 0.8rem 1rem;
+    font-size: 0.88rem;
+    color: var(--ink-light);
+  }
+
+  .weather-card-body .conditions {
+    margin-bottom: 0.4rem;
+    color: var(--ink);
+  }
+
+  .weather-card-body .activity {
+    font-style: italic;
+    color: var(--storm);
+    font-size: 0.83rem;
+  }
+
+  .weather-card.best {
+    border-left: 4px solid var(--moss);
+  }
+
+  .weather-card.best .weather-card-header {
+    background: var(--moss-pale);
+  }
+
+  .weather-card.rain {
+    border-left: 4px solid var(--warning);
+  }
+
+  .weather-card.rain .weather-card-header {
+    background: #fdf3e0;
+  }
+
+  .weather-badge {
+    display: inline-block;
+    font-size: 0.65rem;
+    padding: 0.1rem 0.4rem;
+    border-radius: 3px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-left: 0.3rem;
+  }
+
+  .weather-badge.best {
+    background: var(--moss-pale);
+    color: var(--moss);
+  }
+
+  .weather-badge.rain {
+    background: #fdf3e0;
+    color: var(--warning);
+  }
+
+
+  .pack-list {
+    list-style: none;
+    padding: 0;
+    margin: 1rem 0;
+  }
+
+  .pack-list li {
+    position: relative;
+    padding: 0.5rem 0 0.5rem 1.8rem;
+    border-bottom: 1px solid var(--parchment-dark);
+    font-size: 0.93rem;
+  }
+
+  .pack-list li::before {
+    content: '\2713';
+    position: absolute;
+    left: 0;
+    top: 0.5rem;
+    color: var(--moss);
+    font-weight: bold;
+    font-size: 1rem;
+  }
+
+  .pack-list li .pack-note {
+    display: block;
+    font-size: 0.82rem;
+    color: var(--ink-light);
+    margin-top: 0.15rem;
+  }
+
+  .pack-list li.skip {
+    color: var(--storm);
+    text-decoration: line-through;
+  }
+
+  .pack-list li.skip::before {
+    content: '\2717';
+    color: var(--storm);
+  }
+
+  @media (max-width: 480px) {
+    .hero h1 { font-size: 1.7rem; }
+    .content { padding: 1.5rem 1rem 3rem; }
+    .btn-group { flex-direction: column; }
+    .btn { text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>Packing &amp; Weather</h1>
+  <div class="subtitle">What to Bring, What to Expect, What to Know</div>
+  <div class="dates">March 18 -- 24, 2026</div>
+</div>
+
+<nav class="nav-bar">
+  <a href="index.html">Start</a>
+  <a href="map.html">Full Map</a>
+  <a href="day1-west.html">Day 1</a>
+  <a href="packing.html" class="active">Packing &amp; Weather</a>
+</nav>
+
+<div class="content">
+
+  <a href="index.html" class="back-link">&larr; Back to Start</a>
+
+  <h2>Temperature at a Glance</h2>
+
+  <div class="facts-strip">
+    <div class="fact-card">
+      <span class="number">10--15&deg;C</span>
+      <span class="label">Daily Highs (50--59&deg;F)</span>
+    </div>
+    <div class="fact-card">
+      <span class="number">3--8&deg;C</span>
+      <span class="label">Lows (37--46&deg;F)</span>
+    </div>
+    <div class="fact-card">
+      <span class="number">2--9 m/s</span>
+      <span class="label">Wind (4--20 mph)</span>
+    </div>
+    <div class="fact-card">
+      <span class="number">Mostly Dry</span>
+      <span class="label">Rain Only Tue 24</span>
+    </div>
+  </div>
+
+  <p>Good news: you're getting a solid week. The only real rain day is Tuesday -- and you'll be heading to the airport. Wind is constant (this is the Atlantic coast), and the west is typically 1--3&deg;C cooler than Dublin. The strategy is simple: layers plus waterproof shell.</p>
+
+  <div class="info-box">
+    <div class="label">Ireland's weather changes fast</div>
+    You can get sun, rain, and wind in the same hour. Don't plan around "rain days" vs. "dry days" -- plan around having the right gear at all times. A waterproof outer layer plus layers you can add or remove is the entire strategy.
+  </div>
+
+  <div class="divider">&bull; &bull; &bull;</div>
+
+  <h2>Day-by-Day Forecast</h2>
+
+  <p>Verified from yr.no (Norwegian Meteorological Institute). Updated March 17, 2026.</p>
+
+  <!-- Wednesday -->
+  <div class="weather-card">
+    <div class="weather-card-header">
+      <span class="day-label">Wednesday, March 18</span>
+      <span class="temp">11&deg;C / 8&deg;C (52&deg;F / 46&deg;F)</span>
+    </div>
+    <div class="weather-card-body">
+      <div class="conditions">Cloudy, trace rain (0.2mm), wind 4 m/s</div>
+      <div class="activity">Arrival day. Overcast and mild -- fine for driving west to Galway. The drizzle is negligible. You won't need more than a light jacket for getting in and out of the car.</div>
+    </div>
+  </div>
+
+  <!-- Thursday -->
+  <div class="weather-card best">
+    <div class="weather-card-header">
+      <span class="day-label">Thursday, March 19 <span class="weather-badge best">Best Day</span></span>
+      <span class="temp">12--15&deg;C / 5--6&deg;C (54--59&deg;F / 41--43&deg;F)</span>
+    </div>
+    <div class="weather-card-body">
+      <div class="conditions">Clear to partly cloudy, DRY, wind 4--6 m/s. Galway highs up to 15&deg;C.</div>
+      <div class="activity">The best day of the trip. Clear skies, warmest temperatures. Perfect for the Aran Islands or Cliffs of Moher. If there's one day to be outside all day, this is it.</div>
+    </div>
+  </div>
+
+  <div class="info-box opportunity">
+    <div class="label">Don't waste Thursday</div>
+    Thursday March 19 is the best weather day -- clear/partly cloudy, dry, 15&deg;C in Galway. If there's one day to be outside on the Cliffs or Aran Islands, this is it. Plan your biggest outdoor activity here.
+  </div>
+
+  <!-- Friday -->
+  <div class="weather-card">
+    <div class="weather-card-header">
+      <span class="day-label">Friday, March 20</span>
+      <span class="temp">12--13&deg;C / 4--5&deg;C (54--55&deg;F / 39--41&deg;F)</span>
+    </div>
+    <div class="weather-card-body">
+      <div class="conditions">Cloudy, DRY, wind only 2 m/s (very calm for Ireland)</div>
+      <div class="activity">Cloudy but dry with almost no wind. Good for outdoor activities -- cliff walks, exploring towns, coastal drives. The calm wind is unusual for the west coast; take advantage.</div>
+    </div>
+  </div>
+
+  <!-- Saturday -->
+  <div class="weather-card">
+    <div class="weather-card-header">
+      <span class="day-label">Saturday, March 21</span>
+      <span class="temp">10--12&deg;C / 3--6&deg;C (50--54&deg;F / 37--43&deg;F)</span>
+    </div>
+    <div class="weather-card-body">
+      <div class="conditions">Partly cloudy, trace rain (0.1mm), wind 2 m/s. Galway cooler: 12&deg;C / 3&deg;C.</div>
+      <div class="activity">Cooler than the previous days, especially if you're still on the west coast. Layer up for cliff walks -- the low of 3&deg;C with any wind will feel sharp. The hat and gloves earn their space in your bag today.</div>
+    </div>
+  </div>
+
+  <!-- Sunday -->
+  <div class="weather-card">
+    <div class="weather-card-header">
+      <span class="day-label">Sunday, March 22</span>
+      <span class="temp">10--11&deg;C / 3--5&deg;C (50--52&deg;F / 37--41&deg;F)</span>
+    </div>
+    <div class="weather-card-body">
+      <div class="conditions">Cloudy, DRY, wind 5 m/s. Galway 11&deg;C / 3&deg;C.</div>
+      <div class="activity">Decent outdoor day. Overcast but dry. The wind picks up a bit. If you're visiting coastal areas, the windchill will feel colder than the numbers suggest.</div>
+    </div>
+  </div>
+
+  <!-- Monday -->
+  <div class="weather-card">
+    <div class="weather-card-header">
+      <span class="day-label">Monday, March 23</span>
+      <span class="temp">10&deg;C / 7&deg;C (50&deg;F / 45&deg;F)</span>
+    </div>
+    <div class="weather-card-body">
+      <div class="conditions">Partly cloudy, trace rain (0.1mm), wind 4 m/s</div>
+      <div class="activity">Fine for travel. If you're working your way back toward Dublin, conditions are mild and manageable. No weather concerns for driving.</div>
+    </div>
+  </div>
+
+  <!-- Tuesday -->
+  <div class="weather-card rain">
+    <div class="weather-card-header">
+      <span class="day-label">Tuesday, March 24 <span class="weather-badge rain">Rain Day</span></span>
+      <span class="temp">8--11&deg;C / 4&deg;C (46--52&deg;F / 39&deg;F)</span>
+    </div>
+    <div class="weather-card-body">
+      <div class="conditions">RAIN -- 14mm in Dublin, 24mm in Galway. Wind 5--9 m/s (11--20 mph). Worst day of the week.</div>
+      <div class="activity">The one genuinely bad day, but you're heading to the airport. Rain will be steady and heavy by Irish standards. Allow extra driving time -- wet roads, reduced visibility, and wind gusts on exposed stretches.</div>
+    </div>
+  </div>
+
+  <div class="info-box warning">
+    <div class="label">Tuesday March 24: Airport day warning</div>
+    14--24mm of rain and strong winds (up to 20 mph). Allow extra driving time to Dublin Airport. Your flight is at 4:45 PM, so you need to be there by 2:00 PM -- factor in slower driving conditions and potentially worse visibility on motorways. If you're coming from anywhere west of Dublin, add 30--45 minutes to your usual drive time.
+  </div>
+
+  <div class="divider">&bull; &bull; &bull;</div>
+
+  <h2>What to Pack</h2>
+
+  <h3>Layers -- the key strategy</h3>
+
+  <p>Ireland in March doesn't get properly cold, but it doesn't get warm either. The temperature hovers in a narrow band (8--15&deg;C) all week. The trick is layering so you can adapt as conditions shift throughout the day.</p>
+
+  <ul class="pack-list">
+    <li>
+      <strong>Base layer: long-sleeve tee or merino wool</strong>
+      <span class="pack-note">Worn under everything else. Merino regulates temperature and doesn't get clammy. A simple long-sleeve tee works too -- just avoid cotton if possible.</span>
+    </li>
+    <li>
+      <strong>Mid layer: fleece or light sweater (2--3)</strong>
+      <span class="pack-note">The workhorse layer. A fleece or wool sweater over a base layer handles most of the day. Pack two or three so you can rotate.</span>
+    </li>
+    <li>
+      <strong>Outer layer: waterproof/windproof jacket</strong>
+      <span class="pack-note">THE most important item you'll pack. Not water-resistant -- properly waterproof, with sealed seams. This blocks Atlantic wind, sheds horizontal drizzle, and turns any sweater into all the warmth you need. Get one with a hood.</span>
+    </li>
+  </ul>
+
+  <div class="info-box opportunity">
+    <div class="label">Buy an Aran sweater on Inis Mor</div>
+    The Aran Islands are the authentic origin of the Aran sweater. Prices on the island are good, the quality is the real deal, and it doubles as your mid-layer for the rest of the trip. One less thing to pack, one great souvenir to bring home.
+  </div>
+
+  <h3>Footwear</h3>
+
+  <ul class="pack-list">
+    <li>
+      <strong>Waterproof walking shoes or boots</strong>
+      <span class="pack-note">Essential for cliff walks, island paths, and cobblestone streets. You'll walk through wet grass, mud, and damp stone. If your feet get cold and wet, the whole day is ruined. This is a non-negotiable item.</span>
+    </li>
+    <li>
+      <strong>Second pair for dry days / city walking (optional)</strong>
+      <span class="pack-note">Nice to have but not essential. If you're tight on luggage space, the waterproof boots can do everything.</span>
+    </li>
+  </ul>
+
+  <div class="info-box warning">
+    <div class="label">Aran Islands footing</div>
+    The stone paths on Inis Mor are uneven, cracked, and often wet. No heels, no flip-flops, no smooth-soled shoes. You'll be walking and cycling on rough limestone. Proper grip matters.
+  </div>
+
+  <h3>Rain gear</h3>
+
+  <ul class="pack-list">
+    <li>
+      <strong>Waterproof jacket (properly waterproof, not "water-resistant")</strong>
+      <span class="pack-note">Already listed under layers -- this is both your rain gear and your wind shell. One jacket, two jobs.</span>
+    </li>
+    <li>
+      <strong>Small travel umbrella</strong>
+      <span class="pack-note">Useful in Dublin and Galway city. Completely useless on the Cliffs of Moher or Aran Islands -- the wind will destroy it. Leave it in the car on cliff days.</span>
+    </li>
+    <li>
+      <strong>Rain pants (optional)</strong>
+      <span class="pack-note">Useful for cliff walks in drizzle. Not essential if you don't mind damp jeans, but a lightweight pair packs small and keeps you comfortable in sustained light rain.</span>
+    </li>
+  </ul>
+
+  <h3>Accessories</h3>
+
+  <ul class="pack-list">
+    <li>
+      <strong>Warm hat and light gloves</strong>
+      <span class="pack-note">For island/cliff walks where the wind chill cuts through. Saturday's low is 3&deg;C -- add 15 mph wind on an exposed cliff and you'll want these. Don't need to be heavy; a light beanie and thin gloves are enough.</span>
+    </li>
+    <li>
+      <strong>Scarf or neck gaiter</strong>
+      <span class="pack-note">A buff you can pull over your face is ideal for the Aran Islands ferry and cliff edges. Wind on the west coast is persistent.</span>
+    </li>
+    <li>
+      <strong>Sunglasses</strong>
+      <span class="pack-note">Yes, even in Ireland. When the sun breaks through the clouds, it can be sharp and low-angled in March. Also cuts the wind on exposed walks.</span>
+    </li>
+  </ul>
+
+  <h3>Practical items</h3>
+
+  <ul class="pack-list">
+    <li>
+      <strong>Portable phone charger</strong>
+      <span class="pack-note">Google Maps navigation drains your battery fast, and you'll be using it all day while driving. A full charge backup is essential.</span>
+    </li>
+    <li>
+      <strong>Car phone mount</strong>
+      <span class="pack-note">For navigation. You'll be driving unfamiliar roads on the left side. You need hands-free, eyes-up directions.</span>
+    </li>
+    <li>
+      <strong>Travel adapter: Type G (UK-style 3-pin)</strong>
+      <span class="pack-note">Ireland uses the same plug as the UK -- three rectangular pins. This is NOT the standard European 2-pin plug. If you already have a European adapter, it won't work. Get a Type G specifically.</span>
+    </li>
+    <li>
+      <strong>Reusable water bottle</strong>
+      <span class="pack-note">Irish tap water is safe and good. No need to buy bottled. Fill up at your accommodation each morning.</span>
+    </li>
+  </ul>
+
+  <h3>What NOT to pack</h3>
+
+  <ul class="pack-list">
+    <li class="skip">
+      Heavy winter coat
+      <span class="pack-note">Temperatures are 8--15&deg;C. A rain jacket over a sweater handles everything. A heavy coat is dead weight you won't use.</span>
+    </li>
+    <li class="skip">
+      Formal clothes
+      <span class="pack-note">Ireland is casual, even at nice restaurants. Smart casual is the dressiest you'd ever need, and even that's optional. No one will be in a suit or dress.</span>
+    </li>
+    <li class="skip">
+      Lots of cotton
+      <span class="pack-note">Cotton dries slowly when damp, and you'll be in damp air all week. Wool and synthetics are warmer, lighter, and dry faster. One cotton tee is fine for sleeping; don't hike in it.</span>
+    </li>
+    <li class="skip">
+      Thermal underwear
+      <span class="pack-note">Overkill for these temperatures. A merino base layer handles the coldest mornings without the bulk.</span>
+    </li>
+  </ul>
+
+  <div class="divider">&bull; &bull; &bull;</div>
+
+  <h2>The Bottom Line</h2>
+
+  <div class="info-box">
+    <div class="label">Packing philosophy</div>
+    You're not packing for cold weather. You're packing for changeable weather. A waterproof shell, two or three mid-layers, warm accessories for exposed walks, and waterproof footwear covers every scenario this week throws at you. When in doubt, leave it out -- you can always buy a sweater on Inis Mor.
+  </div>
+
+  <div class="divider">&bull; &bull; &bull;</div>
+
+  <div class="btn-group">
+    <a href="departure.html" class="btn btn-primary">Departure Day &rarr;</a>
+    <a href="index.html" class="btn btn-secondary">&larr; Back to Start</a>
+  </div>
+
+</div>
+
+<div class="footer">
+  <p>Built with care for Spencer &amp; Savannah's anniversary adventure.</p>
+  <p>Every fact in these pages has been verified. Hours, availability, and ferry schedules are current as of March 2026.</p>
+  <p style="margin-top: 0.5rem;">Works offline. No internet needed once downloaded.</p>
+</div>
+
+</body>
+</html>

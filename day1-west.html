@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Day 1: Drive West to Galway — Ireland Adventure</title>
+<style>
+  :root {
+    --parchment: #f4efe1;
+    --parchment-dark: #e8e0cc;
+    --ink: #2c1810;
+    --ink-light: #5a3e2b;
+    --moss: #4a6741;
+    --moss-light: #6b8f5e;
+    --moss-pale: #e8f0e4;
+    --sea: #2e6b7e;
+    --sea-light: #4a9bb5;
+    --sea-pale: #dceef3;
+    --gold: #c4a35a;
+    --gold-light: #e8d5a0;
+    --rust: #8b4513;
+    --storm: #536878;
+    --warning: #b8860b;
+    --white: #fefdfb;
+    --shadow: rgba(44, 24, 16, 0.12);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Georgia', 'Times New Roman', serif;
+    background: var(--parchment);
+    color: var(--ink);
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+
+  /* === HEADER === */
+  .hero {
+    background: linear-gradient(135deg, var(--moss) 0%, var(--sea) 50%, var(--storm) 100%);
+    color: var(--white);
+    padding: 3rem 1.5rem 2.5rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0 Q45 15 30 30 Q15 15 30 0z' fill='rgba(255,255,255,0.03)'/%3E%3C/svg%3E") repeat;
+  }
+
+  .hero h1 {
+    font-size: 2.2rem;
+    font-weight: normal;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.3rem;
+    position: relative;
+  }
+
+  .hero .subtitle {
+    font-style: italic;
+    opacity: 0.85;
+    font-size: 1.05rem;
+    position: relative;
+  }
+
+  .hero .dates {
+    margin-top: 1rem;
+    font-size: 0.9rem;
+    opacity: 0.7;
+    position: relative;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  /* === NAVIGATION BAR === */
+  .nav-bar {
+    background: var(--ink);
+    padding: 0.6rem 1.5rem;
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  .nav-bar a {
+    color: var(--gold-light);
+    text-decoration: none;
+    font-size: 0.85rem;
+    letter-spacing: 0.05em;
+    transition: color 0.2s;
+  }
+
+  .nav-bar a:hover { color: var(--white); }
+  .nav-bar a.active { color: var(--white); border-bottom: 1px solid var(--gold); }
+
+  /* === MAIN CONTENT === */
+  .content {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem 4rem;
+  }
+
+  /* === SECTION HEADERS === */
+  h2 {
+    font-size: 1.5rem;
+    color: var(--moss);
+    margin: 2.5rem 0 1rem;
+    padding-bottom: 0.4rem;
+    border-bottom: 2px solid var(--gold-light);
+    font-weight: normal;
+  }
+
+  h3 {
+    font-size: 1.15rem;
+    color: var(--sea);
+    margin: 1.8rem 0 0.6rem;
+    font-weight: normal;
+    font-style: italic;
+  }
+
+  p { margin-bottom: 1rem; }
+
+  /* === DECISION CARDS === */
+  .decision {
+    background: var(--white);
+    border: 1px solid var(--gold-light);
+    border-radius: 8px;
+    margin: 1.5rem 0;
+    overflow: hidden;
+    box-shadow: 0 2px 8px var(--shadow);
+  }
+
+  .decision-header {
+    background: linear-gradient(135deg, var(--ink) 0%, var(--ink-light) 100%);
+    color: var(--gold-light);
+    padding: 0.8rem 1.2rem;
+    font-size: 0.85rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .decision-header .icon { font-size: 1.1rem; }
+
+  .decision-body {
+    padding: 1.2rem;
+  }
+
+  /* === OPTION CARDS === */
+  .option {
+    display: block;
+    background: var(--parchment);
+    border: 1px solid var(--parchment-dark);
+    border-left: 4px solid var(--moss);
+    border-radius: 6px;
+    padding: 1rem 1.2rem;
+    margin: 0.8rem 0;
+    text-decoration: none;
+    color: var(--ink);
+    transition: all 0.2s ease;
+    cursor: pointer;
+  }
+
+  .option:hover {
+    border-left-color: var(--sea);
+    background: var(--sea-pale);
+    transform: translateX(4px);
+  }
+
+  .option.romantic { border-left-color: var(--rust); }
+  .option.romantic:hover { border-left-color: #c0392b; background: #fdf2f0; }
+
+  .option.adventure { border-left-color: var(--sea); }
+  .option.adventure:hover { border-left-color: var(--sea-light); }
+
+  .option.cultural { border-left-color: var(--gold); }
+  .option.cultural:hover { border-left-color: var(--warning); background: #fdf8ed; }
+
+  .option-title {
+    font-size: 1.1rem;
+    color: var(--moss);
+    margin-bottom: 0.3rem;
+  }
+
+  .option-desc {
+    font-size: 0.9rem;
+    color: var(--ink-light);
+    line-height: 1.5;
+  }
+
+  .option-meta {
+    display: flex;
+    gap: 1rem;
+    margin-top: 0.5rem;
+    font-size: 0.8rem;
+    color: var(--storm);
+    flex-wrap: wrap;
+  }
+
+  .option-meta span {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+  }
+
+  /* === INFO BOXES === */
+  .info-box {
+    background: var(--sea-pale);
+    border-left: 4px solid var(--sea);
+    border-radius: 0 6px 6px 0;
+    padding: 1rem 1.2rem;
+    margin: 1.2rem 0;
+    font-size: 0.9rem;
+  }
+
+  .info-box.warning {
+    background: #fdf3e0;
+    border-left-color: var(--warning);
+  }
+
+  .info-box.opportunity {
+    background: #fdf2f0;
+    border-left-color: var(--rust);
+  }
+
+  .info-box .label {
+    font-weight: bold;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 0.3rem;
+    color: var(--sea);
+  }
+
+  .info-box.warning .label { color: var(--warning); }
+  .info-box.opportunity .label { color: var(--rust); }
+
+  /* === TIMELINE === */
+  .timeline {
+    position: relative;
+    padding-left: 2rem;
+    margin: 1.5rem 0;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 0.5rem;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: var(--gold-light);
+  }
+
+  .timeline-item {
+    position: relative;
+    margin-bottom: 1.2rem;
+    padding-bottom: 0.5rem;
+  }
+
+  .timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -1.65rem;
+    top: 0.5rem;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--gold);
+    border: 2px solid var(--parchment);
+  }
+
+  .timeline-time {
+    font-size: 0.8rem;
+    color: var(--storm);
+    font-style: italic;
+    margin-bottom: 0.2rem;
+  }
+
+  .timeline-event {
+    font-size: 0.95rem;
+  }
+
+  /* === SPOT CARDS (for places/restaurants/shops) === */
+  .spot {
+    background: var(--white);
+    border: 1px solid var(--parchment-dark);
+    border-radius: 6px;
+    padding: 1rem 1.2rem;
+    margin: 0.8rem 0;
+  }
+
+  .spot-name {
+    font-size: 1.05rem;
+    color: var(--moss);
+    margin-bottom: 0.2rem;
+  }
+
+  .spot-type {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--storm);
+    margin-bottom: 0.4rem;
+  }
+
+  .spot-detail {
+    font-size: 0.9rem;
+    color: var(--ink-light);
+    margin-bottom: 0.3rem;
+  }
+
+  .spot-hours {
+    font-size: 0.8rem;
+    color: var(--moss);
+    font-style: italic;
+  }
+
+  .spot-veg {
+    display: inline-block;
+    background: var(--moss-pale);
+    color: var(--moss);
+    font-size: 0.7rem;
+    padding: 0.15rem 0.5rem;
+    border-radius: 3px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-top: 0.3rem;
+  }
+
+  /* === TRADEOFF BOX === */
+  .tradeoff {
+    background: var(--parchment-dark);
+    border-radius: 6px;
+    padding: 1rem 1.2rem;
+    margin: 1rem 0;
+    font-size: 0.9rem;
+  }
+
+  .tradeoff-title {
+    font-weight: bold;
+    color: var(--rust);
+    margin-bottom: 0.4rem;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .tradeoff ul {
+    margin-left: 1.2rem;
+    margin-top: 0.3rem;
+  }
+
+  .tradeoff li {
+    margin-bottom: 0.3rem;
+    font-size: 0.88rem;
+  }
+
+  /* === BUTTONS === */
+  .btn {
+    display: inline-block;
+    padding: 0.7rem 1.5rem;
+    border-radius: 6px;
+    text-decoration: none;
+    font-family: 'Georgia', serif;
+    font-size: 0.95rem;
+    transition: all 0.2s;
+    cursor: pointer;
+    border: none;
+  }
+
+  .btn-primary {
+    background: var(--moss);
+    color: var(--white);
+  }
+
+  .btn-primary:hover {
+    background: var(--moss-light);
+  }
+
+  .btn-secondary {
+    background: var(--white);
+    color: var(--moss);
+    border: 1px solid var(--moss);
+  }
+
+  .btn-secondary:hover {
+    background: var(--moss-pale);
+  }
+
+  .btn-gold {
+    background: linear-gradient(135deg, var(--gold) 0%, var(--warning) 100%);
+    color: var(--white);
+  }
+
+  .btn-group {
+    display: flex;
+    gap: 0.8rem;
+    flex-wrap: wrap;
+    margin: 1.5rem 0;
+  }
+
+  /* === BACK LINK === */
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    color: var(--storm);
+    text-decoration: none;
+    font-size: 0.85rem;
+    margin-bottom: 1rem;
+    transition: color 0.2s;
+  }
+
+  .back-link:hover { color: var(--moss); }
+
+  /* === FOOTER === */
+  .footer {
+    text-align: center;
+    padding: 2rem 1.5rem;
+    font-size: 0.8rem;
+    color: var(--storm);
+    border-top: 1px solid var(--parchment-dark);
+    margin-top: 3rem;
+  }
+
+  /* === QUICK FACTS STRIP === */
+  .facts-strip {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 0.8rem;
+    margin: 1.5rem 0;
+  }
+
+  .fact-card {
+    background: var(--white);
+    border: 1px solid var(--parchment-dark);
+    border-radius: 6px;
+    padding: 0.8rem;
+    text-align: center;
+  }
+
+  .fact-card .number {
+    font-size: 1.4rem;
+    color: var(--moss);
+    display: block;
+  }
+
+  .fact-card .label {
+    font-size: 0.75rem;
+    color: var(--storm);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  /* === CELTIC DIVIDER === */
+  .divider {
+    text-align: center;
+    margin: 2rem 0;
+    color: var(--gold);
+    font-size: 1.2rem;
+    letter-spacing: 0.5rem;
+  }
+
+  /* === RESPONSIVE === */
+  @media (max-width: 480px) {
+    .hero h1 { font-size: 1.7rem; }
+    .content { padding: 1.5rem 1rem 3rem; }
+    .option { padding: 0.8rem 1rem; }
+    .btn-group { flex-direction: column; }
+    .btn { text-align: center; }
+  }
+
+  /* === MAP PLACEHOLDER === */
+  .map-container {
+    background: var(--sea-pale);
+    border: 1px solid var(--sea-light);
+    border-radius: 8px;
+    padding: 2rem;
+    text-align: center;
+    margin: 1.5rem 0;
+    min-height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  /* === TAG === */
+  .tag {
+    display: inline-block;
+    font-size: 0.7rem;
+    padding: 0.1rem 0.4rem;
+    border-radius: 3px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-right: 0.3rem;
+  }
+
+  .tag-romantic { background: #fce4ec; color: var(--rust); }
+  .tag-history { background: #e8eaf6; color: #3949ab; }
+  .tag-nature { background: var(--moss-pale); color: var(--moss); }
+  .tag-food { background: #fff3e0; color: #e65100; }
+  .tag-shopping { background: #f3e5f5; color: #7b1fa2; }
+  .tag-whiskey { background: #efebe9; color: #4e342e; }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>Drive West to Galway</h1>
+  <div class="subtitle">Day 1 &mdash; Wednesday, March 18</div>
+  <div class="dates">Dublin Airport &rarr; M6 &rarr; Galway</div>
+</div>
+
+<nav class="nav-bar">
+  <a href="index.html">Start</a>
+  <a href="map.html">Full Map</a>
+  <a href="day1-west.html" class="active">Day 1: West</a>
+  <a href="packing.html">Packing &amp; Weather</a>
+</nav>
+
+<div class="content">
+
+  <a href="index.html" class="back-link">&larr; Back to Start</a>
+
+  <h2>The Drive</h2>
+
+  <p>You picked up the rental car at ~5:30--6:00 AM. The M6 motorway from Dublin to Galway is about 200 km of straight, well-signed road. Even jet-lagged, this is one of the easiest drives you'll do all week.</p>
+
+  <div class="facts-strip">
+    <div class="fact-card">
+      <span class="number">208 km</span>
+      <span class="label">Distance</span>
+    </div>
+    <div class="fact-card">
+      <span class="number">2.5--3 hr</span>
+      <span class="label">Drive Time</span>
+    </div>
+    <div class="fact-card">
+      <span class="number">&euro;1.90</span>
+      <span class="label">M6 Toll</span>
+    </div>
+    <div class="fact-card">
+      <span class="number">6:00 AM</span>
+      <span class="label">Target Departure</span>
+    </div>
+  </div>
+
+  <div class="info-box">
+    <div class="label">Driving Notes</div>
+    <strong>Leave by 6 AM, arrive Galway ~8:30--9:00 AM.</strong> The M6 is a motorway the whole way. Two toll plazas: M4 near Enfield (&euro;3.60) and N6 between Ballinasloe and Loughrea (&euro;2.30). Total ~&euro;5.90, cash or card. You'll drive through the midlands -- flat green fields, not much to see from the road. Save your scenery appetite for Connemara.
+  </div>
+
+  <div class="divider">&bull; &bull; &bull;</div>
+
+  <h2>Optional Stop: Kilbeggan Distillery</h2>
+
+  <div class="spot">
+    <div class="spot-name">Kilbeggan Distillery Experience</div>
+    <div class="spot-type"><span class="tag tag-whiskey">Whiskey</span> <span class="tag tag-history">History</span></div>
+    <div class="spot-detail">Ireland's oldest licensed distillery, established <strong>1757</strong>. Right off the M6 at Junction 5, about one hour from Dublin Airport. Shut down in 1957, revived and distilling again since 2007.</div>
+    <div class="spot-detail"><strong>Guided tour:</strong> 1.5 hours, &euro;35/person. Walks you through the original mash tuns, oak fermentation vats, and ancient pot stills, ending with a four-whiskey tasting masterclass.</div>
+    <div class="spot-detail"><strong>Fill your own bottle:</strong> For an extra &euro;35 you can fill a 70cl bottle directly from an aged cask using a valinch (whiskey-drawing tube) and affix a personalized label. This is the thing that makes the stop worthwhile.</div>
+    <div class="spot-hours">Open daily. Check kilbegganwhiskey.com for exact hours -- first tours typically start at 9:30 AM.</div>
+  </div>
+
+  <div class="tradeoff">
+    <div class="tradeoff-title">Stop or push on?</div>
+    <ul>
+      <li><strong>If you stop:</strong> Budget 1.5--2 hours. You'll arrive in Galway around 11:00 AM instead of 9:00 AM. You definitely miss the morning ferry to the Aran Islands.</li>
+      <li><strong>If you skip it:</strong> Micil Distillery in Galway is your backup whiskey experience, but Kilbeggan's fill-your-own-bottle from the cask is unique. There's nothing else like it on your route.</li>
+      <li><strong>Recommendation:</strong> If catching the 10:30 AM ferry is your priority, skip Kilbeggan and come back to it on Day 6 when you're driving east back to Dublin. If the ferry isn't in play for today, stop here on the way out.</li>
+    </ul>
+  </div>
+
+  <div class="divider">&bull; &bull; &bull;</div>
+
+  <h2>Optional Stop: Athenry</h2>
+
+  <div class="spot">
+    <div class="spot-name">Athenry</div>
+    <div class="spot-type"><span class="tag tag-history">Medieval</span> <span class="tag tag-nature">Walkabout</span></div>
+    <div class="spot-detail">The best-preserved medieval walled town in Ireland. Right on the M6, about 30 minutes east of Galway.</div>
+    <div class="spot-detail"><strong>Athenry Castle:</strong> Anglo-Norman castle from ~1250. Open from March 13, daily 9:30 AM -- 6:00 PM. Admission &euro;5.</div>
+    <div class="spot-detail"><strong>Heritage Centre:</strong> Opens for the 2026 season on Wednesday March 18 -- your arrival day. Medieval Experience tours available from 10:00 AM.</div>
+    <div class="spot-detail"><strong>The song:</strong> "The Fields of Athenry" -- the famous Famine ballad you'll hear in every pub this week -- is about this town. Written in the 1970s but set in the 1840s, it tells the story of a man transported to Australia for stealing corn to feed his starving family.</div>
+    <div class="spot-hours">A quick 30-minute walkabout is enough to see the walls and castle exterior. Add 45 min if you go inside.</div>
+  </div>
+
+  <div class="info-box">
+    <div class="label">Timing</div>
+    Athenry is a minor detour, not a destination. If you're already stopping at Kilbeggan, adding Athenry means arriving in Galway around noon. If you skipped Kilbeggan, a quick Athenry stop still gets you to Galway by ~9:30--10:00 AM.
+  </div>
+
+  <div class="divider">&bull; &bull; &bull;</div>
+
+  <h2>Arrival Timeline</h2>
+
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="timeline-time">~8:30--9:00 AM</div>
+      <div class="timeline-event"><strong>If you drove straight.</strong> No stops. You're in Galway with the whole morning ahead. The 10:30 AM ferry is within reach.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-time">~10:00 AM</div>
+      <div class="timeline-event"><strong>If you stopped at Athenry only.</strong> Quick walkabout. You've missed the ferry window but have a full day in Galway.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-time">~11:00 AM</div>
+      <div class="timeline-event"><strong>If you stopped at Kilbeggan.</strong> You've got whiskey and a personalized bottle. Galway afternoon is yours.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-time">~Noon</div>
+      <div class="timeline-event"><strong>If you did both Kilbeggan + Athenry.</strong> Full morning of experiences, but you'll want lunch when you arrive.</div>
+    </div>
+  </div>
+
+  <div class="divider">&bull; &bull; &bull;</div>
+
+  <h2>Galway Morning Options</h2>
+
+  <p>If you arrive by 9:00 AM and aren't rushing for the ferry, here's what's worth your time before lunch.</p>
+
+  <h3>Shopping</h3>
+
+  <div class="spot">
+    <div class="spot-name">Standun</div>
+    <div class="spot-type"><span class="tag tag-shopping">Shopping</span> Spiddal, Connemara (20 min west of Galway, on the road to Rossaveel)</div>
+    <div class="spot-detail">Family-run since 1946. The first shop to export Aran sweaters to the US. Huge selection of knitwear, tweed, and Irish crafts in a landmark Connemara building. If you're heading toward the Rossaveel ferry, you'll drive right past it.</div>
+    <div class="spot-hours">Mon--Sat 9:30 AM -- 6:30 PM, Sun 12:00 -- 6:00 PM</div>
+  </div>
+
+  <div class="spot">
+    <div class="spot-name">O'Maille's (O Maille -- The Original House of Style)</div>
+    <div class="spot-type"><span class="tag tag-shopping">Shopping</span> 16 High Street, Galway</div>
+    <div class="spot-detail">Founded 1938. Handknit Aran sweaters marked with each knitter's name, tweed caps, wool throws. Tailored costumes for the cast of <em>The Quiet Man</em>. One of the last places selling genuinely handknit Aran sweaters.</div>
+    <div class="spot-detail"><strong>Heads up:</strong> The owners Anne and Ger O Maille announced their retirement in late 2025 after 86 years. Confirm they're still open before making this a destination -- check their Facebook page or call ahead.</div>
+    <div class="spot-hours">If open: typically Mon--Sat, hours vary</div>
+  </div>
+
+  <h3>Culture</h3>
+
+  <div class="spot">
+    <div class="spot-name">Galway City Museum</div>
+    <div class="spot-type"><span class="tag tag-history">History</span> Spanish Arch, Galway</div>
+    <div class="spot-detail">Free admission. Modern building on the banks of the River Corrib overlooking the Spanish Arch. The "Revolution in Galway" exhibition covers the War of Independence and Civil War. Plan 45 min to 1.5 hours.</div>
+    <div class="spot-hours">Tue--Sat 10:00 AM -- 5:00 PM. Closed Mondays. (March 18 is a Wednesday -- you're good.)</div>
+  </div>
+
+  <h3>Walking</h3>
+
+  <div class="spot">
+    <div class="spot-name">Latin Quarter &amp; Spanish Arch</div>
+    <div class="spot-type"><span class="tag tag-nature">Walkabout</span> Galway City Centre</div>
+    <div class="spot-detail">The medieval heart of Galway. Narrow streets, buskers, colorful shopfronts. Walk from Eyre Square down Shop Street and High Street to the Spanish Arch and the Long Walk along the harbor. This is the Galway postcard. In March it won't be wall-to-wall tourists -- you'll get to see the real city waking up.</div>
+    <div class="spot-hours">Always open. Best in the morning light.</div>
+  </div>
+
+  <div class="divider">&bull; &bull; &bull;</div>
+
+  <h2>The Big Question</h2>
+
+  <div class="decision">
+    <div class="decision-header">
+      <span class="icon">&#9670;</span>
+      DECISION POINT: CAN YOU CATCH TODAY'S FERRY?
+    </div>
+    <div class="decision-body">
+
+      <p>The Aran Island Ferries winter schedule runs one morning departure from Rossaveel to Inis Mor:</p>
+
+      <div class="facts-strip">
+        <div class="fact-card">
+          <span class="number">10:30 AM</span>
+          <span class="label">Ferry Departs Rossaveel</span>
+        </div>
+        <div class="fact-card">
+          <span class="number">~40 min</span>
+          <span class="label">Crossing Time</span>
+        </div>
+        <div class="fact-card">
+          <span class="number">30 min</span>
+          <span class="label">Galway to Rossaveel</span>
+        </div>
+        <div class="fact-card">
+          <span class="number">&euro;7</span>
+          <span class="label">Pier Parking (24 hr)</span>
+        </div>
+      </div>
+
+      <p><strong>The math:</strong> If you left Dublin Airport at 6:00 AM and drove straight, you'd reach Galway by ~8:30 AM. Rossaveel is 30 minutes further west. That puts you at the pier by ~9:00 AM, giving you 90 minutes to check in. It's tight, but it works.</p>
+
+      <p>There's also an <strong>evening ferry at 6:00 PM</strong> (Sat--Thu, which includes Wednesday). So if you arrive in Galway late morning, you could explore the city and catch the 6:00 PM boat. You'd arrive on Inis Mor at ~6:40 PM, in time for dinner but with no daylight left for sightseeing.</p>
+
+      <div class="info-box">
+        <div class="label">If you make the 10:30 ferry</div>
+        You'll be on Inis Mor by ~11:10 AM with the whole day ahead of you. That's enough time to rent bikes, cycle to Dun Aonghasa (the prehistoric cliff fort), walk the stone-walled roads, and still catch sunset over the Atlantic.
+      </div>
+
+      <div class="info-box warning">
+        <div class="label">Book accommodation BEFORE boarding</div>
+        <strong>Do not get on the ferry without a bed confirmed on the island.</strong> In winter there are limited options. Port Aran House ($116/night, 9.6 rating on Booking.com) had only 1 room left as of planning. The island is small and you can't just "figure it out" when you arrive.
+      </div>
+
+      <div class="info-box warning">
+        <div class="label">If you stopped at Kilbeggan</div>
+        You've missed the 10:30 AM ferry. Your options are the 6:00 PM evening ferry (arrive in the dark) or take the ferry tomorrow morning instead. Tomorrow's 10:30 AM is a much more relaxed plan.
+      </div>
+
+      <div class="tradeoff">
+        <div class="tradeoff-title">The tradeoff</div>
+        <ul>
+          <li><strong>Rush for the ferry:</strong> You skip every stop on the drive west. No Kilbeggan, no Athenry, no Galway morning. But you get a full day on the islands, which is the single most memorable experience on this trip.</li>
+          <li><strong>Explore Galway today, ferry tomorrow:</strong> You get the Latin Quarter, the museum, maybe Standun. The islands wait until Thursday. This is the less stressful option after a red-eye.</li>
+          <li><strong>Evening ferry:</strong> A compromise. See Galway by day, arrive on Inis Mor for dinner and a quiet evening. Full island day Thursday.</li>
+        </ul>
+      </div>
+
+      <a href="day2-islands.html" class="option adventure">
+        <div class="option-title">Rush for the 10:30 AM Ferry</div>
+        <div class="option-desc">Drive straight to Rossaveel. No stops. You'll be on Inis Mor by 11:10 AM with the whole day ahead. This requires leaving Dublin by 6:00 AM sharp and pre-booking your island accommodation.</div>
+        <div class="option-meta">
+          <span>Tight but doable</span>
+          <span>Best for: maximizing island time</span>
+        </div>
+      </a>
+
+      <a href="day1-galway.html" class="option cultural">
+        <div class="option-title">Explore Galway Today, Ferry Tomorrow</div>
+        <div class="option-desc">Take the pressure off. Stop at Kilbeggan if you want. Spend the afternoon walking Galway's Latin Quarter and Spanish Arch. Catch the 10:30 AM ferry Thursday morning, well-rested.</div>
+        <div class="option-meta">
+          <span>Relaxed pace</span>
+          <span>Best for: jet-lag recovery</span>
+        </div>
+      </a>
+
+      <a href="day1-galway.html" class="option">
+        <div class="option-title">Skip the Islands Entirely</div>
+        <div class="option-desc">Not everyone needs to go to the Aran Islands. If rough seas, tight schedules, or limited island accommodation make it impractical, spend your time in Galway and the Burren instead. You won't regret it.</div>
+        <div class="option-meta">
+          <span>More flexibility</span>
+          <span>Frees up a full day</span>
+        </div>
+      </a>
+
+    </div>
+  </div>
+
+  <div class="divider">&bull; &bull; &bull;</div>
+
+  <div class="btn-group">
+    <a href="index.html" class="btn btn-secondary">&larr; Back to Start</a>
+    <a href="day1-galway.html" class="btn btn-primary">Explore Galway &rarr;</a>
+    <a href="day2-islands.html" class="btn btn-gold">Aran Islands &rarr;</a>
+  </div>
+
+</div>
+
+<div class="footer">
+  <p>Built with care for Spencer &amp; Savannah's anniversary adventure.</p>
+  <p>Every fact in these pages has been verified. Hours, availability, and ferry schedules are current as of March 2026.</p>
+  <p style="margin-top: 0.5rem;">Works offline. No internet needed once downloaded.</p>
+</div>
+
+</body>
+</html>

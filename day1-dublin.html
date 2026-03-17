@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Day 1: Dublin Morning — Ireland Adventure</title>
+<style>
+  :root {
+    --parchment: #f4efe1;
+    --parchment-dark: #e8e0cc;
+    --ink: #2c1810;
+    --ink-light: #5a3e2b;
+    --moss: #4a6741;
+    --moss-light: #6b8f5e;
+    --moss-pale: #e8f0e4;
+    --sea: #2e6b7e;
+    --sea-light: #4a9bb5;
+    --sea-pale: #dceef3;
+    --gold: #c4a35a;
+    --gold-light: #e8d5a0;
+    --rust: #8b4513;
+    --storm: #536878;
+    --warning: #b8860b;
+    --white: #fefdfb;
+    --shadow: rgba(44, 24, 16, 0.12);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Georgia', 'Times New Roman', serif;
+    background: var(--parchment);
+    color: var(--ink);
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+
+  /* === HEADER === */
+  .hero {
+    background: linear-gradient(135deg, var(--moss) 0%, var(--sea) 50%, var(--storm) 100%);
+    color: var(--white);
+    padding: 3rem 1.5rem 2.5rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0 Q45 15 30 30 Q15 15 30 0z' fill='rgba(255,255,255,0.03)'/%3E%3C/svg%3E") repeat;
+  }
+
+  .hero h1 {
+    font-size: 2.2rem;
+    font-weight: normal;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.3rem;
+    position: relative;
+  }
+
+  .hero .subtitle {
+    font-style: italic;
+    opacity: 0.85;
+    font-size: 1.05rem;
+    position: relative;
+  }
+
+  .hero .dates {
+    margin-top: 1rem;
+    font-size: 0.9rem;
+    opacity: 0.7;
+    position: relative;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  /* === NAVIGATION BAR === */
+  .nav-bar {
+    background: var(--ink);
+    padding: 0.6rem 1.5rem;
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  .nav-bar a {
+    color: var(--gold-light);
+    text-decoration: none;
+    font-size: 0.85rem;
+    letter-spacing: 0.05em;
+    transition: color 0.2s;
+  }
+
+  .nav-bar a:hover { color: var(--white); }
+  .nav-bar a.active { color: var(--white); border-bottom: 1px solid var(--gold); }
+
+  /* === MAIN CONTENT === */
+  .content {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem 4rem;
+  }
+
+  /* === SECTION HEADERS === */
+  h2 {
+    font-size: 1.5rem;
+    color: var(--moss);
+    margin: 2.5rem 0 1rem;
+    padding-bottom: 0.4rem;
+    border-bottom: 2px solid var(--gold-light);
+    font-weight: normal;
+  }
+
+  h3 {
+    font-size: 1.15rem;
+    color: var(--sea);
+    margin: 1.8rem 0 0.6rem;
+    font-weight: normal;
+    font-style: italic;
+  }
+
+  p { margin-bottom: 1rem; }
+
+  /* === DECISION CARDS === */
+  .decision {
+    background: var(--white);
+    border: 1px solid var(--gold-light);
+    border-radius: 8px;
+    margin: 1.5rem 0;
+    overflow: hidden;
+    box-shadow: 0 2px 8px var(--shadow);
+  }
+
+  .decision-header {
+    background: linear-gradient(135deg, var(--ink) 0%, var(--ink-light) 100%);
+    color: var(--gold-light);
+    padding: 0.8rem 1.2rem;
+    font-size: 0.85rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .decision-header .icon { font-size: 1.1rem; }
+
+  .decision-body {
+    padding: 1.2rem;
+  }
+
+  /* === OPTION CARDS === */
+  .option {
+    display: block;
+    background: var(--parchment);
+    border: 1px solid var(--parchment-dark);
+    border-left: 4px solid var(--moss);
+    border-radius: 6px;
+    padding: 1rem 1.2rem;
+    margin: 0.8rem 0;
+    text-decoration: none;
+    color: var(--ink);
+    transition: all 0.2s ease;
+    cursor: pointer;
+  }
+
+  .option:hover {
+    border-left-color: var(--sea);
+    background: var(--sea-pale);
+    transform: translateX(4px);
+  }
+
+  .option.romantic { border-left-color: var(--rust); }
+  .option.romantic:hover { border-left-color: #c0392b; background: #fdf2f0; }
+
+  .option.adventure { border-left-color: var(--sea); }
+  .option.adventure:hover { border-left-color: var(--sea-light); }
+
+  .option.cultural { border-left-color: var(--gold); }
+  .option.cultural:hover { border-left-color: var(--warning); background: #fdf8ed; }
+
+  .option-title {
+    font-size: 1.1rem;
+    color: var(--moss);
+    margin-bottom: 0.3rem;
+  }
+
+  .option-desc {
+    font-size: 0.9rem;
+    color: var(--ink-light);
+    line-height: 1.5;
+  }
+
+  .option-meta {
+    display: flex;
+    gap: 1rem;
+    margin-top: 0.5rem;
+    font-size: 0.8rem;
+    color: var(--storm);
+    flex-wrap: wrap;
+  }
+
+  .option-meta span {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+  }
+
+  /* === INFO BOXES === */
+  .info-box {
+    background: var(--sea-pale);
+    border-left: 4px solid var(--sea);
+    border-radius: 0 6px 6px 0;
+    padding: 1rem 1.2rem;
+    margin: 1.2rem 0;
+    font-size: 0.9rem;
+  }
+
+  .info-box.warning {
+    background: #fdf3e0;
+    border-left-color: var(--warning);
+  }
+
+  .info-box.opportunity {
+    background: #fdf2f0;
+    border-left-color: var(--rust);
+  }
+
+  .info-box .label {
+    font-weight: bold;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 0.3rem;
+    color: var(--sea);
+  }
+
+  .info-box.warning .label { color: var(--warning); }
+  .info-box.opportunity .label { color: var(--rust); }
+
+  /* === TIMELINE === */
+  .timeline {
+    position: relative;
+    padding-left: 2rem;
+    margin: 1.5rem 0;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 0.5rem;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: var(--gold-light);
+  }
+
+  .timeline-item {
+    position: relative;
+    margin-bottom: 1.2rem;
+    padding-bottom: 0.5rem;
+  }
+
+  .timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -1.65rem;
+    top: 0.5rem;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--gold);
+    border: 2px solid var(--parchment);
+  }
+
+  .timeline-time {
+    font-size: 0.8rem;
+    color: var(--storm);
+    font-style: italic;
+    margin-bottom: 0.2rem;
+  }
+
+  .timeline-event {
+    font-size: 0.95rem;
+  }
+
+  /* === SPOT CARDS (for places/restaurants/shops) === */
+  .spot {
+    background: var(--white);
+    border: 1px solid var(--parchment-dark);
+    border-radius: 6px;
+    padding: 1rem 1.2rem;
+    margin: 0.8rem 0;
+  }
+
+  .spot-name {
+    font-size: 1.05rem;
+    color: var(--moss);
+    margin-bottom: 0.2rem;
+  }
+
+  .spot-type {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--storm);
+    margin-bottom: 0.4rem;
+  }
+
+  .spot-detail {
+    font-size: 0.9rem;
+    color: var(--ink-light);
+    margin-bottom: 0.3rem;
+  }
+
+  .spot-hours {
+    font-size: 0.8rem;
+    color: var(--moss);
+    font-style: italic;
+  }
+
+  .spot-veg {
+    display: inline-block;
+    background: var(--moss-pale);
+    color: var(--moss);
+    font-size: 0.7rem;
+    padding: 0.15rem 0.5rem;
+    border-radius: 3px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-top: 0.3rem;
+  }
+
+  /* === TRADEOFF BOX === */
+  .tradeoff {
+    background: var(--parchment-dark);
+    border-radius: 6px;
+    padding: 1rem 1.2rem;
+    margin: 1rem 0;
+    font-size: 0.9rem;
+  }
+
+  .tradeoff-title {
+    font-weight: bold;
+    color: var(--rust);
+    margin-bottom: 0.4rem;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .tradeoff ul {
+    margin-left: 1.2rem;
+    margin-top: 0.3rem;
+  }
+
+  .tradeoff li {
+    margin-bottom: 0.3rem;
+    font-size: 0.88rem;
+  }
+
+  /* === BUTTONS === */
+  .btn {
+    display: inline-block;
+    padding: 0.7rem 1.5rem;
+    border-radius: 6px;
+    text-decoration: none;
+    font-family: 'Georgia', serif;
+    font-size: 0.95rem;
+    transition: all 0.2s;
+    cursor: pointer;
+    border: none;
+  }
+
+  .btn-primary {
+    background: var(--moss);
+    color: var(--white);
+  }
+
+  .btn-primary:hover {
+    background: var(--moss-light);
+  }
+
+  .btn-secondary {
+    background: var(--white);
+    color: var(--moss);
+    border: 1px solid var(--moss);
+  }
+
+  .btn-secondary:hover {
+    background: var(--moss-pale);
+  }
+
+  .btn-gold {
+    background: linear-gradient(135deg, var(--gold) 0%, var(--warning) 100%);
+    color: var(--white);
+  }
+
+  .btn-group {
+    display: flex;
+    gap: 0.8rem;
+    flex-wrap: wrap;
+    margin: 1.5rem 0;
+  }
+
+  /* === BACK LINK === */
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    color: var(--storm);
+    text-decoration: none;
+    font-size: 0.85rem;
+    margin-bottom: 1rem;
+    transition: color 0.2s;
+  }
+
+  .back-link:hover { color: var(--moss); }
+
+  /* === FOOTER === */
+  .footer {
+    text-align: center;
+    padding: 2rem 1.5rem;
+    font-size: 0.8rem;
+    color: var(--storm);
+    border-top: 1px solid var(--parchment-dark);
+    margin-top: 3rem;
+  }
+
+  /* === QUICK FACTS STRIP === */
+  .facts-strip {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 0.8rem;
+    margin: 1.5rem 0;
+  }
+
+  .fact-card {
+    background: var(--white);
+    border: 1px solid var(--parchment-dark);
+    border-radius: 6px;
+    padding: 0.8rem;
+    text-align: center;
+  }
+
+  .fact-card .number {
+    font-size: 1.4rem;
+    color: var(--moss);
+    display: block;
+  }
+
+  .fact-card .label {
+    font-size: 0.75rem;
+    color: var(--storm);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  /* === CELTIC DIVIDER === */
+  .divider {
+    text-align: center;
+    margin: 2rem 0;
+    color: var(--gold);
+    font-size: 1.2rem;
+    letter-spacing: 0.5rem;
+  }
+
+  /* === RESPONSIVE === */
+  @media (max-width: 480px) {
+    .hero h1 { font-size: 1.7rem; }
+    .content { padding: 1.5rem 1rem 3rem; }
+    .option { padding: 0.8rem 1rem; }
+    .btn-group { flex-direction: column; }
+    .btn { text-align: center; }
+  }
+
+  /* === MAP PLACEHOLDER === */
+  .map-container {
+    background: var(--sea-pale);
+    border: 1px solid var(--sea-light);
+    border-radius: 8px;
+    padding: 2rem;
+    text-align: center;
+    margin: 1.5rem 0;
+    min-height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  /* === TAG === */
+  .tag {
+    display: inline-block;
+    font-size: 0.7rem;
+    padding: 0.1rem 0.4rem;
+    border-radius: 3px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-right: 0.3rem;
+  }
+
+  .tag-romantic { background: #fce4ec; color: var(--rust); }
+  .tag-history { background: #e8eaf6; color: #3949ab; }
+  .tag-nature { background: var(--moss-pale); color: var(--moss); }
+  .tag-food { background: #fff3e0; color: #e65100; }
+  .tag-shopping { background: #f3e5f5; color: #7b1fa2; }
+  .tag-whiskey { background: #efebe9; color: #4e342e; }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>Day 1: Dublin Morning</h1>
+  <div class="subtitle">Ease In Before Heading West</div>
+  <div class="dates">Wednesday, March 18, 2026</div>
+</div>
+
+<nav class="nav-bar">
+  <a href="index.html">Start</a>
+  <a href="map.html">Full Map</a>
+  <a href="day1-dublin.html" class="active">Day 1: Dublin</a>
+  <a href="packing.html">Packing &amp; Weather</a>
+</nav>
+
+<div class="content">
+
+  <a href="index.html" class="back-link">&larr; Back to Start</a>
+
+  <p>You've chosen to stay in Dublin for the morning. Smart. You just crossed the Atlantic on a red-eye, and the idea of immediately navigating Irish roundabouts on the left side of the road while half-asleep is... not ideal. Dublin won't blow you away the way the West will, but it has things you can't get anywhere else: the best political history sites in the country, and the best tweed shopping.</p>
+
+  <div class="info-box">
+    <div class="label">Your timeline</div>
+    <strong>4:20 AM:</strong> Land at Dublin Airport. <strong>5:00--6:00 AM:</strong> Pick up rental car. <strong>~6:30 AM:</strong> Breakfast. <strong>9:00 AM--12:30 PM:</strong> Dublin sights and shopping. <strong>12:30--1:30 PM:</strong> Lunch. <strong>~2:00 PM:</strong> Drive west to Galway.
+  </div>
+
+  <!-- ============================================ -->
+  <h2>Jet Lag Breakfast (5--7 AM)</h2>
+  <!-- ============================================ -->
+
+  <p>You'll have the car by 5:30 or 6. The airport is about 30 minutes from Dublin city centre. You've got two options: eat near the airport before driving in, or drive straight to the city and find something there. Most Dublin cafes don't open until 8, so truly early options are limited.</p>
+
+  <h3>Near the Airport</h3>
+
+  <div class="spot">
+    <div class="spot-name">Dublin Airport Terminal Eateries</div>
+    <div class="spot-type">Airport &bull; Open from ~5 AM</div>
+    <div class="spot-detail">Not glamorous, but you're not glamorous at 5 AM either. Harvest Market in the terminal has decent coffee and pastries. Eat here to take the edge off, then get a proper breakfast in the city once places open.</div>
+    <div class="spot-hours">Open from early morning, landside and airside options</div>
+  </div>
+
+  <h3>City Centre -- Early Openers</h3>
+
+  <div class="spot">
+    <div class="spot-name">Keogh's Cafe</div>
+    <div class="spot-type"><span class="tag tag-food">Breakfast</span> 1--2 Trinity Street, Dublin 2</div>
+    <div class="spot-detail">Opens at 6:30 AM on weekdays -- one of the earliest independent cafes in the city. Right next to Trinity College. Good coffee, full Irish breakfast, and the kind of no-fuss spot where you can stare at the wall for twenty minutes while your brain catches up with your body. Popular with locals heading to work.</div>
+    <div class="spot-hours">Mon--Sat 6:30 AM -- 6:30 PM</div>
+    <span class="spot-veg">Vegetarian options available</span>
+  </div>
+
+  <div class="spot">
+    <div class="spot-name">Cornucopia</div>
+    <div class="spot-type"><span class="tag tag-food">Breakfast</span> 19/20 Wicklow Street, Dublin 2</div>
+    <div class="spot-detail">Fully vegetarian/vegan since 1986. Opens at 8 AM on weekdays, so this works if you take it slow and arrive in the city around 7:30. Self-service counter with hot dishes, soups, and pastries -- all made fresh. Savannah would love this place. Two floors, relaxed atmosphere, good coffee.</div>
+    <div class="spot-hours">Wed: 8:00 AM -- 7:00 PM</div>
+    <span class="spot-veg">100% Vegetarian &amp; Vegan</span>
+  </div>
+
+  <div class="spot">
+    <div name="spot-name" class="spot-name">The Bretzel Bakery</div>
+    <div class="spot-type"><span class="tag tag-food">Bakery</span> 1 Lennox Street, Portobello, Dublin 8</div>
+    <div class="spot-detail">A Dublin institution since 1870. Jewish-Irish bakery known for sourdough, challah, and excellent pastries. Opens at 7 AM on weekdays. About a 10-minute drive south of the city centre, near the Grand Canal. If you're heading toward Kilmainham anyway, it's roughly on the way.</div>
+    <div class="spot-hours">Mon--Fri from 7:00 AM, Sat from 8:00 AM</div>
+    <span class="spot-veg">Vegetarian options available</span>
+  </div>
+
+  <div class="info-box warning">
+    <div class="label">Realistic expectation</div>
+    If you land at 4:20 and clear customs and car rental by 5:30--6:00, you'll reach the city centre around 6:30. Keogh's will just be opening. If you want Cornucopia or Bretzel, you could park near Trinity, walk around half-asleep for an hour, and eat at 8. Or just grab something at the airport and save the sit-down for later.
+  </div>
+
+  <div class="divider">&bull; &bull; &bull;</div>
+
+  <!-- ============================================ -->
+  <h2>Dublin Highlights (9 AM -- 12:30 PM)</h2>
+  <!-- ============================================ -->
+
+  <p>You have about three and a half hours. You can't do all of these, but you can do two or three depending on how deep you go. Here they are, roughly in order of how much they'd matter to you.</p>
+
+  <!-- KILMAINHAM -->
+  <h3>1. Kilmainham Gaol</h3>
+  <div class="spot">
+    <div class="spot-name">Kilmainham Gaol Museum</div>
+    <div class="spot-type"><span class="tag tag-history">History</span> Inchicore Road, Kilmainham, Dublin 8</div>
+    <div class="spot-detail">The single most powerful political history site in Ireland. This is where the leaders of the 1916 Rising were held and executed -- Pearse, Connolly, Plunkett (who married Grace Gifford in the chapel hours before his execution). Also held Parnell, de Valera, and countless others going back to 1796. The guided tour walks you through the cells, the yards, and the execution courtyard. It's devastating and unforgettable.</div>
+    <div class="spot-detail"><strong>Access is by guided tour only.</strong> Tours take about 60 minutes, plus 30 minutes for the museum. Arrive 15 minutes early. Tickets are &euro;8 per adult.</div>
+    <div class="spot-hours">Generally open from 9:30 AM. Tours run throughout the day.</div>
+  </div>
+
+  <div class="info-box warning">
+    <div class="label">Tickets may be sold out</div>
+    Kilmainham releases tickets exactly 28 days in advance. For Wednesday March 18, those tickets dropped on February 18 and likely sold out within hours. <strong>But:</strong> cancellation tickets are released online each morning between 9:15 and 9:30 AM. If you're serious about going, refresh <em>kilmainhamgaolmuseum.ie</em> at 9:15 sharp. Only buy from the official OPW site -- third-party tickets aren't valid.
+  </div>
+
+  <!-- COLLINS BARRACKS FALLBACK -->
+  <div class="info-box">
+    <div class="label">If Kilmainham is sold out</div>
+    <strong>National Museum of Ireland -- Collins Barracks</strong> is free, 15 minutes from Kilmainham, and houses the <em>Proclaiming a Republic: The 1916 Rising</em> exhibition. It tells the same story through personal belongings, uniforms, bullets, and first-aid kits from the rebels, British soldiers, and civilians caught in the crossfire. It's not as visceral as standing in the execution yard, but it's genuinely excellent and you can walk in without a ticket. <strong>Hours:</strong> Tue--Sat 10 AM -- 5 PM. Benburb Street, Dublin 7.
+  </div>
+
+  <!-- TWEED SHOPS -->
+  <h3>2. The Tweed Shops</h3>
+
+  <p>Dublin has the two best Donegal tweed shops in the country. If you're doing a one-way car rental ending in Cork, this is your only shot at these. Both are in the Grafton Street area, walkable from each other in about 5 minutes.</p>
+
+  <div class="spot">
+    <div class="spot-name">Kevin &amp; Howlin</div>
+    <div class="spot-type"><span class="tag tag-shopping">Tweed</span> 31 Nassau Street, Dublin 2</div>
+    <div class="spot-detail">The gold standard. Founded in 1936, specializing exclusively in handwoven Donegal tweed since 1973. Jackets run around &euro;450, trousers around &euro;240. They also do made-to-measure if you want to go deep. Old-world shop with incredibly knowledgeable staff who'll walk you through the different weights and weaves. Opposite Trinity College.</div>
+    <div class="spot-hours">Mon--Sat 10:00 AM -- 4:00 PM</div>
+  </div>
+
+  <div class="spot">
+    <div class="spot-name">Celtic Tweed</div>
+    <div class="spot-type"><span class="tag tag-shopping">Tweed</span> 28 South Anne's Lane (off Grafton Street), Dublin 2</div>
+    <div class="spot-detail">Award-winning tailors and craftsmen. Handmade tweed and linen clothing, produced in their own Dublin workshop. More contemporary cuts than Kevin &amp; Howlin while still using traditional fabrics. They also run guided tours of their workshop if you're interested in seeing how the garments are made.</div>
+    <div class="spot-hours">Mon--Sat 9:00 AM -- 5:00 PM</div>
+  </div>
+
+  <div class="info-box opportunity">
+    <div class="label">One-way rental warning</div>
+    If you're doing a one-way car to Cork, this is your only Dublin time. Stock up on tweed. You won't find shops like these in Galway or along the coast. O'Maille's in Galway carries Aran knits and some tweed, but for proper Donegal tweed tailoring, Dublin is the place.
+  </div>
+
+  <!-- GPO -->
+  <h3>3. GPO Witness History</h3>
+
+  <div class="spot">
+    <div class="spot-name">GPO Museum</div>
+    <div class="spot-type"><span class="tag tag-history">History</span> O'Connell Street, Dublin 1</div>
+    <div class="spot-detail">The General Post Office was the rebel headquarters during the 1916 Rising -- where Pearse read the Proclamation of the Republic from the front steps. The museum inside is interactive and well-produced, walking you through the week of the Rising from the rebels' perspective. The building itself still has bullet holes in the facade. Allow about 90 minutes.</div>
+    <div class="spot-detail">Book tickets in advance online to save &euro;2--5. Walk-ups accepted but advance booking recommended.</div>
+    <div class="spot-hours">Mon--Sat 10:00 AM -- 5:00 PM (last admission 4:00 PM). Closed Sundays.</div>
+  </div>
+
+  <!-- TRINITY / BOOK OF KELLS -->
+  <h3>4. Trinity College &amp; Book of Kells</h3>
+
+  <div class="spot">
+    <div class="spot-name">Book of Kells Experience</div>
+    <div class="spot-type"><span class="tag tag-history">Culture</span> Trinity College, College Green, Dublin 2</div>
+    <div class="spot-detail">The 9th-century illuminated manuscript, plus the Long Room -- one of the most beautiful libraries in the world. Timed entry tickets required, and March is off-peak so Wednesday morning slots should be available. Takes about 90 minutes total. If you're already at Kevin &amp; Howlin on Nassau Street, Trinity's front gate is a 2-minute walk.</div>
+    <div class="spot-detail">Tickets around &euro;18--25 for adults. Book at <em>visittrinity.ie</em>.</div>
+    <div class="spot-hours">Wed in March: 9:30 AM -- 5:00 PM</div>
+  </div>
+
+  <!-- GLASNEVIN -->
+  <h3>5. Glasnevin Cemetery</h3>
+
+  <div class="spot">
+    <div class="spot-name">Glasnevin Cemetery</div>
+    <div class="spot-type"><span class="tag tag-history">History</span> Finglas Road, Glasnevin, Dublin 11</div>
+    <div class="spot-detail">Ireland's national cemetery. De Valera, Michael Collins, Countess Markievicz, Brendan Behan, Daniel O'Connell -- they're all here. Guided history tours run at 11:30 and 1:30. The O'Connell Tower tour lets you climb Ireland's tallest round tower for a view over the city. About 3 km north of the city centre (bus 40 or 140 from O'Connell Street). This one is harder to fit in if you're also doing Kilmainham and the tweed shops, since it's on the opposite side of the city.</div>
+    <div class="spot-detail">Book tours in advance at <em>dctrust.ie</em>.</div>
+    <div class="spot-hours">Grounds: daily 9 AM -- 5 PM. Visitor Centre: Wed--Sun 10 AM -- 5 PM. First tour at 11:30.</div>
+  </div>
+
+  <div class="divider">&bull; &bull; &bull;</div>
+
+  <!-- ============================================ -->
+  <h2>Suggested Itinerary</h2>
+  <!-- ============================================ -->
+
+  <p>You won't do all six things above. Here's what actually fits in the morning, depending on what you prioritize.</p>
+
+  <h3>If you can get Kilmainham tickets:</h3>
+
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="timeline-time">6:30 AM</div>
+      <div class="timeline-event">Breakfast at Keogh's Cafe near Trinity, or grab something at the airport and drive in.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-time">9:15 AM</div>
+      <div class="timeline-event">Refresh Kilmainham's booking page for cancellation tickets. If you get them, head to Kilmainham for the earliest available tour.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-time">~11:00 AM</div>
+      <div class="timeline-event">Finish at Kilmainham. Drive or bus back to the city centre (15 min).</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-time">11:15 AM</div>
+      <div class="timeline-event">Kevin &amp; Howlin and Celtic Tweed. Both in the Grafton Street area. Budget 30--45 min total.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-time">12:00 PM</div>
+      <div class="timeline-event">Walk through Trinity's front square on the way to lunch. Skip the Book of Kells unless you're really drawn to it -- it adds 90 minutes.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-time">12:30 PM</div>
+      <div class="timeline-event">Lunch. On the road by 2 PM.</div>
+    </div>
+  </div>
+
+  <h3>If Kilmainham is sold out:</h3>
+
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="timeline-time">8:00 AM</div>
+      <div class="timeline-event">Breakfast at Cornucopia on Wicklow Street.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-time">9:30 AM</div>
+      <div class="timeline-event">Kevin &amp; Howlin (opens at 10, but Celtic Tweed opens at 9 -- start there).</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-time">10:15 AM</div>
+      <div class="timeline-event">Collins Barracks -- <em>Proclaiming a Republic</em> exhibition. Free, no ticket needed. Allow 45--60 min.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-time">11:15 AM</div>
+      <div class="timeline-event">GPO Witness History on O'Connell Street. 60--90 min.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-time">12:30 PM</div>
+      <div class="timeline-event">Lunch. On the road by 2 PM.</div>
+    </div>
+  </div>
+
+  <div class="divider">&bull; &bull; &bull;</div>
+
+  <!-- ============================================ -->
+  <h2>Lunch (12:30 -- 1:30 PM)</h2>
+  <!-- ============================================ -->
+
+  <p>Eat before you drive. You'll be on the M6 for two and a half hours, and hunger plus jet lag plus left-side driving is a bad combination.</p>
+
+  <div class="spot">
+    <div class="spot-name">Glas Restaurant</div>
+    <div class="spot-type"><span class="tag tag-food">Lunch</span> 15/16 Chatham Street, Dublin 2</div>
+    <div class="spot-detail">Ireland's premier vegetarian restaurant, just off Grafton Street. Won Best Vegetarian Restaurant (RAI Awards 2023) and Best Sustainable Restaurant (RAI Awards 2025). Also 100% gluten-free. Creative, beautifully plated dishes -- this is proper fine-dining vegetarian, not a hippie buffet. Lunch is a relaxed, set-menu affair. Perfect for Savannah. Reserve via OpenTable or call +353 1 672 4534 (they take a &euro;20/person deposit, deducted from the bill).</div>
+    <div class="spot-hours">Wed lunch: 12:00 PM -- 3:30 PM</div>
+    <span class="spot-veg">100% Vegetarian, Vegan &amp; Gluten-Free</span>
+  </div>
+
+  <div class="spot">
+    <div class="spot-name">Cornucopia</div>
+    <div class="spot-type"><span class="tag tag-food">Lunch</span> 19/20 Wicklow Street, Dublin 2</div>
+    <div class="spot-detail">If you didn't hit Cornucopia for breakfast, it's a great lunch option too. Self-service counter with rotating hot dishes, soups, salads, and excellent baked goods. More casual and faster than Glas -- good if you want to eat and get on the road. Family-run since 1986.</div>
+    <div class="spot-hours">Wed: 8:00 AM -- 7:00 PM</div>
+    <span class="spot-veg">100% Vegetarian &amp; Vegan</span>
+  </div>
+
+  <div class="divider">&bull; &bull; &bull;</div>
+
+  <!-- ============================================ -->
+  <h2>Head West</h2>
+  <!-- ============================================ -->
+
+  <div class="decision">
+    <div class="decision-header">
+      <span class="icon">&#9670;</span>
+      AFTERNOON: DRIVE TO GALWAY
+    </div>
+    <div class="decision-body">
+
+      <a href="day1-galway.html" class="option adventure">
+        <div class="option-title">Hit the M6 to Galway</div>
+        <div class="option-desc">Two and a half hours on the motorway, most of it flat midlands. Consider a stop at Kilbeggan Distillery (halfway) to break up the drive. Arrive Galway around 4:30--5:00 PM.</div>
+        <div class="option-meta">
+          <span>~2.5 hr drive</span>
+          <span>~210 km</span>
+          <span>Motorway the whole way</span>
+        </div>
+      </a>
+
+    </div>
+  </div>
+
+  <div class="info-box">
+    <div class="label">Galway arrival timing</div>
+    If you leave Dublin by 1 PM, you can reach Rossaveel by 4:00--4:30 PM -- in time for the <strong>18:00 evening ferry</strong> to Inis Mor (runs Sat-Thu in winter). That means you don't have to sacrifice island time by staying in Dublin. Leave by 2 PM and you'll arrive in Galway around 4:30--5:00 PM instead -- too late for the ferry, but perfect for an evening in Galway: <strong>Micil Distillery</strong> tour, <strong>O'Maille's</strong> for Aran knits, and dinner on the west coast.
+  </div>
+
+  <div class="info-box warning">
+    <div class="label">Driving tips</div>
+    You'll be driving on the left for the first time, probably exhausted. The M6 motorway is forgiving -- it's wide, well-signed, and mostly straight. Roundabouts are the main hazard. Go clockwise. Yield to the right. Take it slow the first few times. Caffeine is not optional.
+  </div>
+
+  <div class="divider">&bull; &bull; &bull;</div>
+
+  <!-- ============================================ -->
+  <h2>The Tradeoff</h2>
+  <!-- ============================================ -->
+
+  <div class="tradeoff">
+    <div class="tradeoff-title">What you gain by spending the morning in Dublin</div>
+    <ul>
+      <li>Kilmainham Gaol or Collins Barracks -- the most important political history sites in the country</li>
+      <li>Kevin &amp; Howlin and Celtic Tweed -- the best Donegal tweed shopping you'll find anywhere</li>
+      <li>A gentler start to the trip. You ease into jet lag instead of fighting it on a motorway at dawn.</li>
+      <li>GPO, Trinity, Glasnevin -- you can sample as much or as little of Dublin as you want</li>
+    </ul>
+  </div>
+
+  <div class="tradeoff">
+    <div class="tradeoff-title">What you miss</div>
+    <ul>
+      <li>If you leave by 1 PM, you can still catch the 18:00 evening ferry to Inis Mor -- but you'll arrive on the island after dark with no time to explore until morning</li>
+      <li>If you leave after 2 PM, you miss the ferry and need to wait until Thursday's 10:30 AM sailing</li>
+      <li>If the weather window for the Aran Islands is Wednesday and turns bad Thursday, a late Dublin departure means you'll have missed it</li>
+    </ul>
+  </div>
+
+  <div class="btn-group">
+    <a href="day1-galway.html" class="btn btn-primary">Continue to Galway &rarr;</a>
+    <a href="index.html" class="btn btn-secondary">&larr; Back to Start</a>
+  </div>
+
+</div>
+
+<div class="footer">
+  <p>Built with care for Spencer &amp; Savannah's anniversary adventure.</p>
+  <p>Every fact in these pages has been verified. Hours, availability, and ferry schedules are current as of March 2026.</p>
+  <p style="margin-top: 0.5rem;">Works offline. No internet needed once downloaded.</p>
+</div>
+
+</body>
+</html>

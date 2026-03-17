@@ -1,0 +1,976 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Aran Islands — Ireland Adventure</title>
+<style>
+  :root {
+    --parchment: #f4efe1;
+    --parchment-dark: #e8e0cc;
+    --ink: #2c1810;
+    --ink-light: #5a3e2b;
+    --moss: #4a6741;
+    --moss-light: #6b8f5e;
+    --moss-pale: #e8f0e4;
+    --sea: #2e6b7e;
+    --sea-light: #4a9bb5;
+    --sea-pale: #dceef3;
+    --gold: #c4a35a;
+    --gold-light: #e8d5a0;
+    --rust: #8b4513;
+    --storm: #536878;
+    --warning: #b8860b;
+    --white: #fefdfb;
+    --shadow: rgba(44, 24, 16, 0.12);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Georgia', 'Times New Roman', serif;
+    background: var(--parchment);
+    color: var(--ink);
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+
+  /* === HEADER === */
+  .hero {
+    background: linear-gradient(135deg, var(--sea) 0%, var(--storm) 40%, var(--ink) 100%);
+    color: var(--white);
+    padding: 3rem 1.5rem 2.5rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: url("data:image/svg+xml,%3Csvg width='80' height='40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 20 Q20 0 40 20 Q60 40 80 20' stroke='rgba(255,255,255,0.04)' fill='none' stroke-width='1'/%3E%3C/svg%3E") repeat;
+  }
+
+  .hero h1 {
+    font-size: 2.2rem;
+    font-weight: normal;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.3rem;
+    position: relative;
+  }
+
+  .hero .subtitle {
+    font-style: italic;
+    opacity: 0.85;
+    font-size: 1.05rem;
+    position: relative;
+  }
+
+  .hero .dates {
+    margin-top: 1rem;
+    font-size: 0.9rem;
+    opacity: 0.7;
+    position: relative;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .hero .island-gaelic {
+    font-size: 1.3rem;
+    font-style: italic;
+    opacity: 0.6;
+    margin-top: 0.5rem;
+    position: relative;
+    letter-spacing: 0.15em;
+  }
+
+  /* === NAVIGATION BAR === */
+  .nav-bar {
+    background: var(--ink);
+    padding: 0.6rem 1.5rem;
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  .nav-bar a {
+    color: var(--gold-light);
+    text-decoration: none;
+    font-size: 0.85rem;
+    letter-spacing: 0.05em;
+    transition: color 0.2s;
+  }
+
+  .nav-bar a:hover { color: var(--white); }
+  .nav-bar a.active { color: var(--white); border-bottom: 1px solid var(--gold); }
+
+  /* === MAIN CONTENT === */
+  .content {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem 4rem;
+  }
+
+  /* === SECTION HEADERS === */
+  h2 {
+    font-size: 1.5rem;
+    color: var(--moss);
+    margin: 2.5rem 0 1rem;
+    padding-bottom: 0.4rem;
+    border-bottom: 2px solid var(--gold-light);
+    font-weight: normal;
+  }
+
+  h3 {
+    font-size: 1.15rem;
+    color: var(--sea);
+    margin: 1.8rem 0 0.6rem;
+    font-weight: normal;
+    font-style: italic;
+  }
+
+  p { margin-bottom: 1rem; }
+
+  /* === DECISION CARDS === */
+  .decision {
+    background: var(--white);
+    border: 1px solid var(--gold-light);
+    border-radius: 8px;
+    margin: 1.5rem 0;
+    overflow: hidden;
+    box-shadow: 0 2px 8px var(--shadow);
+  }
+
+  .decision-header {
+    background: linear-gradient(135deg, var(--ink) 0%, var(--ink-light) 100%);
+    color: var(--gold-light);
+    padding: 0.8rem 1.2rem;
+    font-size: 0.85rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .decision-header .icon { font-size: 1.1rem; }
+
+  .decision-body {
+    padding: 1.2rem;
+  }
+
+  /* === OPTION CARDS === */
+  .option {
+    display: block;
+    background: var(--parchment);
+    border: 1px solid var(--parchment-dark);
+    border-left: 4px solid var(--moss);
+    border-radius: 6px;
+    padding: 1rem 1.2rem;
+    margin: 0.8rem 0;
+    text-decoration: none;
+    color: var(--ink);
+    transition: all 0.2s ease;
+    cursor: pointer;
+  }
+
+  .option:hover {
+    border-left-color: var(--sea);
+    background: var(--sea-pale);
+    transform: translateX(4px);
+  }
+
+  .option.romantic { border-left-color: var(--rust); }
+  .option.romantic:hover { border-left-color: #c0392b; background: #fdf2f0; }
+
+  .option.adventure { border-left-color: var(--sea); }
+  .option.adventure:hover { border-left-color: var(--sea-light); }
+
+  .option.cultural { border-left-color: var(--gold); }
+  .option.cultural:hover { border-left-color: var(--warning); background: #fdf8ed; }
+
+  .option-title {
+    font-size: 1.1rem;
+    color: var(--moss);
+    margin-bottom: 0.3rem;
+  }
+
+  .option-desc {
+    font-size: 0.9rem;
+    color: var(--ink-light);
+    line-height: 1.5;
+  }
+
+  .option-meta {
+    display: flex;
+    gap: 1rem;
+    margin-top: 0.5rem;
+    font-size: 0.8rem;
+    color: var(--storm);
+    flex-wrap: wrap;
+  }
+
+  .option-meta span {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+  }
+
+  /* === INFO BOXES === */
+  .info-box {
+    background: var(--sea-pale);
+    border-left: 4px solid var(--sea);
+    border-radius: 0 6px 6px 0;
+    padding: 1rem 1.2rem;
+    margin: 1.2rem 0;
+    font-size: 0.9rem;
+  }
+
+  .info-box.warning {
+    background: #fdf3e0;
+    border-left-color: var(--warning);
+  }
+
+  .info-box.opportunity {
+    background: #fdf2f0;
+    border-left-color: var(--rust);
+  }
+
+  .info-box.magic {
+    background: linear-gradient(135deg, #e8eaf6 0%, var(--sea-pale) 100%);
+    border-left-color: var(--storm);
+  }
+
+  .info-box .label {
+    font-weight: bold;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 0.3rem;
+    color: var(--sea);
+  }
+
+  .info-box.warning .label { color: var(--warning); }
+  .info-box.opportunity .label { color: var(--rust); }
+  .info-box.magic .label { color: var(--storm); }
+
+  /* === TIMELINE === */
+  .timeline {
+    position: relative;
+    padding-left: 2rem;
+    margin: 1.5rem 0;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 0.5rem;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: var(--gold-light);
+  }
+
+  .timeline-item {
+    position: relative;
+    margin-bottom: 1.2rem;
+    padding-bottom: 0.5rem;
+  }
+
+  .timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -1.65rem;
+    top: 0.5rem;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--gold);
+    border: 2px solid var(--parchment);
+  }
+
+  .timeline-time {
+    font-size: 0.8rem;
+    color: var(--storm);
+    font-style: italic;
+    margin-bottom: 0.2rem;
+  }
+
+  .timeline-event {
+    font-size: 0.95rem;
+  }
+
+  /* === SPOT CARDS (for places/restaurants/shops) === */
+  .spot {
+    background: var(--white);
+    border: 1px solid var(--parchment-dark);
+    border-radius: 6px;
+    padding: 1rem 1.2rem;
+    margin: 0.8rem 0;
+  }
+
+  .spot-name {
+    font-size: 1.05rem;
+    color: var(--moss);
+    margin-bottom: 0.2rem;
+  }
+
+  .spot-type {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--storm);
+    margin-bottom: 0.4rem;
+  }
+
+  .spot-detail {
+    font-size: 0.9rem;
+    color: var(--ink-light);
+    margin-bottom: 0.3rem;
+  }
+
+  .spot-hours {
+    font-size: 0.8rem;
+    color: var(--moss);
+    font-style: italic;
+  }
+
+  .spot-veg {
+    display: inline-block;
+    background: var(--moss-pale);
+    color: var(--moss);
+    font-size: 0.7rem;
+    padding: 0.15rem 0.5rem;
+    border-radius: 3px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-top: 0.3rem;
+  }
+
+  /* === ACCOMMODATION CARDS === */
+  .accommodation {
+    background: var(--white);
+    border: 1px solid var(--parchment-dark);
+    border-radius: 6px;
+    padding: 1rem 1.2rem;
+    margin: 0.8rem 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .accommodation-info { flex: 1; min-width: 200px; }
+
+  .accommodation-name {
+    font-size: 1.05rem;
+    color: var(--moss);
+    margin-bottom: 0.2rem;
+  }
+
+  .accommodation-detail {
+    font-size: 0.85rem;
+    color: var(--ink-light);
+    margin-bottom: 0.2rem;
+  }
+
+  .accommodation-price {
+    text-align: right;
+    min-width: 80px;
+  }
+
+  .accommodation-price .amount {
+    font-size: 1.2rem;
+    color: var(--moss);
+    display: block;
+  }
+
+  .accommodation-price .per-night {
+    font-size: 0.7rem;
+    color: var(--storm);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .accommodation-rating {
+    display: inline-block;
+    background: var(--moss);
+    color: var(--white);
+    font-size: 0.75rem;
+    padding: 0.15rem 0.4rem;
+    border-radius: 3px;
+    margin-right: 0.3rem;
+  }
+
+  .accommodation-availability {
+    font-size: 0.75rem;
+    color: var(--rust);
+    font-style: italic;
+  }
+
+  /* === TRADEOFF BOX === */
+  .tradeoff {
+    background: var(--parchment-dark);
+    border-radius: 6px;
+    padding: 1rem 1.2rem;
+    margin: 1rem 0;
+    font-size: 0.9rem;
+  }
+
+  .tradeoff-title {
+    font-weight: bold;
+    color: var(--rust);
+    margin-bottom: 0.4rem;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .tradeoff ul {
+    margin-left: 1.2rem;
+    margin-top: 0.3rem;
+  }
+
+  .tradeoff li {
+    margin-bottom: 0.3rem;
+    font-size: 0.88rem;
+  }
+
+  /* === BUTTONS === */
+  .btn {
+    display: inline-block;
+    padding: 0.7rem 1.5rem;
+    border-radius: 6px;
+    text-decoration: none;
+    font-family: 'Georgia', serif;
+    font-size: 0.95rem;
+    transition: all 0.2s;
+    cursor: pointer;
+    border: none;
+  }
+
+  .btn-primary {
+    background: var(--moss);
+    color: var(--white);
+  }
+
+  .btn-primary:hover {
+    background: var(--moss-light);
+  }
+
+  .btn-secondary {
+    background: var(--white);
+    color: var(--moss);
+    border: 1px solid var(--moss);
+  }
+
+  .btn-secondary:hover {
+    background: var(--moss-pale);
+  }
+
+  .btn-gold {
+    background: linear-gradient(135deg, var(--gold) 0%, var(--warning) 100%);
+    color: var(--white);
+  }
+
+  .btn-group {
+    display: flex;
+    gap: 0.8rem;
+    flex-wrap: wrap;
+    margin: 1.5rem 0;
+  }
+
+  /* === BACK LINK === */
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    color: var(--storm);
+    text-decoration: none;
+    font-size: 0.85rem;
+    margin-bottom: 1rem;
+    transition: color 0.2s;
+  }
+
+  .back-link:hover { color: var(--moss); }
+
+  /* === FOOTER === */
+  .footer {
+    text-align: center;
+    padding: 2rem 1.5rem;
+    font-size: 0.8rem;
+    color: var(--storm);
+    border-top: 1px solid var(--parchment-dark);
+    margin-top: 3rem;
+  }
+
+  /* === QUICK FACTS STRIP === */
+  .facts-strip {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 0.8rem;
+    margin: 1.5rem 0;
+  }
+
+  .fact-card {
+    background: var(--white);
+    border: 1px solid var(--parchment-dark);
+    border-radius: 6px;
+    padding: 0.8rem;
+    text-align: center;
+  }
+
+  .fact-card .number {
+    font-size: 1.4rem;
+    color: var(--moss);
+    display: block;
+  }
+
+  .fact-card .label {
+    font-size: 0.75rem;
+    color: var(--storm);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  /* === CELTIC DIVIDER === */
+  .divider {
+    text-align: center;
+    margin: 2rem 0;
+    color: var(--gold);
+    font-size: 1.2rem;
+    letter-spacing: 0.5rem;
+  }
+
+  /* === TAGS === */
+  .tag {
+    display: inline-block;
+    font-size: 0.7rem;
+    padding: 0.1rem 0.4rem;
+    border-radius: 3px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-right: 0.3rem;
+  }
+
+  .tag-romantic { background: #fce4ec; color: var(--rust); }
+  .tag-history { background: #e8eaf6; color: #3949ab; }
+  .tag-nature { background: var(--moss-pale); color: var(--moss); }
+  .tag-food { background: #fff3e0; color: #e65100; }
+  .tag-shopping { background: #f3e5f5; color: #7b1fa2; }
+  .tag-whiskey { background: #efebe9; color: #4e342e; }
+
+  /* === ISLAND PULL QUOTE === */
+  .pull-quote {
+    font-size: 1.15rem;
+    font-style: italic;
+    color: var(--ink-light);
+    border-left: 3px solid var(--gold);
+    padding: 0.8rem 0 0.8rem 1.2rem;
+    margin: 1.8rem 0;
+    line-height: 1.8;
+  }
+
+  /* === MAP PLACEHOLDER === */
+  .map-container {
+    background: var(--sea-pale);
+    border: 1px solid var(--sea-light);
+    border-radius: 8px;
+    padding: 2rem;
+    text-align: center;
+    margin: 1.5rem 0;
+    min-height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  /* === RESPONSIVE === */
+  @media (max-width: 480px) {
+    .hero h1 { font-size: 1.7rem; }
+    .content { padding: 1.5rem 1rem 3rem; }
+    .option { padding: 0.8rem 1rem; }
+    .btn-group { flex-direction: column; }
+    .btn { text-align: center; }
+    .accommodation { flex-direction: column; }
+    .accommodation-price { text-align: left; }
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>The Aran Islands</h1>
+  <div class="subtitle">Where the land ends and the story begins</div>
+  <div class="island-gaelic">Oileain Arann</div>
+  <div class="dates">Day 2 &mdash; Thursday, March 19</div>
+</div>
+
+<nav class="nav-bar">
+  <a href="index.html">Start</a>
+  <a href="map.html">Full Map</a>
+  <a href="day1-west.html">Day 1</a>
+  <a href="day2-islands.html" class="active">Aran Islands</a>
+  <a href="packing.html">Packing &amp; Weather</a>
+</nav>
+
+<div class="content">
+
+  <a href="index.html" class="back-link">&larr; Back to overview</a>
+
+  <div class="pull-quote">
+    This is the emotional heart of the trip. A Bronze Age fort on a cliff edge, Atlantic wind, stone walls running to the sea, a language older than English. If you do one thing in Ireland that makes you feel like you've left the modern world behind, it's this.
+  </div>
+
+  <div class="facts-strip">
+    <div class="fact-card">
+      <span class="number">Inis M&oacute;r</span>
+      <span class="label">Largest island</span>
+    </div>
+    <div class="fact-card">
+      <span class="number">12 km</span>
+      <span class="label">Long</span>
+    </div>
+    <div class="fact-card">
+      <span class="number">~900</span>
+      <span class="label">Residents</span>
+    </div>
+    <div class="fact-card">
+      <span class="number">Gaeltacht</span>
+      <span class="label">Irish spoken daily</span>
+    </div>
+  </div>
+
+  <h2>Getting There</h2>
+
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="timeline-time">~9:00 AM &mdash; Leave Galway</div>
+      <div class="timeline-event">Drive west on the R336 through the Gaeltacht. The road hugs the coast through Spiddal and into Connemara. About 37 km to Rossaveel.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-time">~9:20 AM &mdash; Spiddal (optional stop)</div>
+      <div class="timeline-event"><strong>Standun wool shop</strong> is right on the road. Family-run since 1946, it's one of the best places in Ireland for Aran knitwear, tweed, and Irish-made gifts. There's a cafe inside too. Open Mon&ndash;Sat 9:30&ndash;6:30, Sun 12&ndash;6. Stop here on the way if you haven't already.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-time">~9:45 AM &mdash; Arrive Rossaveel</div>
+      <div class="timeline-event">Leave the car at the pier car park (&euro;7/24 hours). Check in at least 30 minutes before sailing. The ferry terminal is small and straightforward.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-time">10:30 AM &mdash; Ferry departs</div>
+      <div class="timeline-event"><strong>Aran Island Ferries</strong> from Rossaveel to Inis M&oacute;r. A 40-minute crossing. Sit on the right side for views of the Burren and the islands materializing out of the Atlantic.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-time">~11:10 AM &mdash; Arrive Kilronan</div>
+      <div class="timeline-event">You step off the ferry onto Inis M&oacute;r. The pier at Kilronan is the only village of any size. This is where the bike rental shops, pubs, and your accommodation will be.</div>
+    </div>
+  </div>
+
+  <div class="info-box">
+    <div class="label">Ferry details</div>
+    <strong>Aran Island Ferries</strong> &mdash; <em>aranislandferries.com</em><br>
+    <strong>Cost:</strong> ~&euro;34 return per person<br>
+    <strong>March schedule (Jan 1 &ndash; Apr 2):</strong><br>
+    Outbound: 10:30 AM daily<br>
+    Evening outbound: 6:00 PM Sat&ndash;Thu, 6:30 PM Fri<br>
+    Return morning: 8:15 AM Mon&ndash;Sat, 9:00 AM Sun<br>
+    Return midday: 12:00 PM daily<br>
+    Return evening: 5:00 PM Fri only<br>
+    <strong>Tip:</strong> If you're staying overnight, you don't need the bus. Drive to Rossaveel and park.
+  </div>
+
+  <div class="divider">&bull; &bull; &bull;</div>
+
+  <h2>On the Island</h2>
+
+  <p>Rent bikes at the pier and you're free. The island is 12 km long with one main road and a web of stone-walled lanes. There are no traffic lights. Barely any cars. Just stone, grass, sky, and sea.</p>
+
+  <div class="info-box">
+    <div class="label">Bike rental</div>
+    <strong>Aran Bike Hire</strong> &mdash; right at the end of the pier in Kilronan. &euro;20/day for a standard bike, &euro;40/day for an e-bike. Includes helmet, map, and roadside assistance if you get a flat. E-bikes are only available from this shop &mdash; book ahead, they sell out 60+ days in advance. Bikes due back by 6 PM.<br><br>
+    <em>Alternative:</em> Pony traps (horse-drawn carts) wait at the pier too. More romantic, but you're on someone else's schedule and they won't take you to the Worm Hole.
+  </div>
+
+  <h3>D&uacute;n Aonghasa (Dun Aengus)</h3>
+
+  <span class="tag tag-nature">Nature</span>
+  <span class="tag tag-history">History</span>
+  <span class="tag tag-romantic">Romantic</span>
+
+  <p>The main event. A Bronze Age stone fort perched on the edge of an 87-metre cliff, with nothing between you and the Atlantic Ocean below. There are no barriers, no railings, no safety nets. You crawl to the edge on your belly and look straight down into the sea. It's been here for over 3,000 years.</p>
+
+  <p>The fort is about 4 km from Kilronan (20&ndash;30 minutes by bike, longer on foot). From the visitor centre, it's another 1 km walk uphill over rough limestone pavement to reach the fort itself. Wear proper shoes. Allow 2&ndash;3 hours for the full visit including the ride out and back.</p>
+
+  <div class="spot">
+    <div class="spot-name">D&uacute;n Aonghasa</div>
+    <div class="spot-type">Heritage Site &mdash; Bronze Age Cliff Fort</div>
+    <div class="spot-detail">March hours: 9:30 AM &ndash; 4:00 PM (last admission earlier). Admission &euro;5. Many overnight accommodations provide a free voucher.</div>
+    <div class="spot-detail">The final approach is over bare karst limestone. Boots or sturdy walking shoes essential. The cliff edge is unfenced.</div>
+    <div class="spot-hours">Open daily year-round (closed Dec 24&ndash;30)</div>
+  </div>
+
+  <h3>The Seal Colony at Kilmurvey Beach</h3>
+
+  <span class="tag tag-nature">Nature</span>
+  <span class="tag tag-romantic">Romantic</span>
+
+  <p>On the road to D&uacute;n Aonghasa, about 7 km from Kilronan, a colony of grey Atlantic seals hauls out onto the rocks near Kilmurvey Beach. At low tide you might see a dozen or more. At high tide, just their round heads bobbing in the water. Bring binoculars. There's a viewing point with picnic tables, and the mountains of Connemara fill the horizon across the water.</p>
+
+  <p>In Irish folklore, seals are selkies &mdash; creatures who shed their seal skin to walk on land as humans. The Oscar-nominated animated film <em>Song of the Sea</em> was based on this tradition.</p>
+
+  <h3>Na Seacht dTeampaill (The Seven Churches)</h3>
+
+  <span class="tag tag-history">History</span>
+
+  <p>About 3 km from Kilronan, these early Christian monastic ruins date to the 7th or 8th century. Despite the name, only two churches still stand &mdash; Teampall Brecan and Teampall an Phoill &mdash; but the site includes a beehive stone hut, a holy well, ancient Celtic crosses, and graves said to belong to saints. For centuries this was one of the largest monastic foundations in western Ireland and a major pilgrimage site.</p>
+
+  <div class="spot">
+    <div class="spot-name">Na Seacht dTeampaill</div>
+    <div class="spot-type">Early Christian Monastic Ruins</div>
+    <div class="spot-detail">Open 24 hours. Free admission. No guided tours, but information panels explain the site. About 3 km from Kilronan &mdash; an easy cycle.</div>
+  </div>
+
+  <h3>The Worm Hole (Poll na bP&eacute;ist)</h3>
+
+  <span class="tag tag-nature">Nature</span>
+
+  <p>A nearly perfect rectangle carved into the limestone by the sea. It looks man-made but isn't. Water surges in through underground channels and crashes over the lip at high tide. The name means "hole of the serpent" in Irish &mdash; legend says a sea monster once emerged here to terrorize the island until Saint Enda killed it. Red Bull used it for their cliff diving world series.</p>
+
+  <p>It's about 1.6 km south of D&uacute;n Aonghasa along the cliff path (5 km from Kilronan). The path is marked with painted rocks. The coastline here is exposed and dangerous &mdash; don't swim, don't get close to the edge when waves are running.</p>
+
+  <div class="info-box warning">
+    <div class="label">Safety note</div>
+    The entire western coast of the island is exposed to the open Atlantic. Strong, hidden currents around the Worm Hole make it extremely dangerous. Unexpected waves can overtop the pool without warning. Enjoy it from a safe distance.
+  </div>
+
+  <div class="divider">&bull; &bull; &bull;</div>
+
+  <h2>Food on the Island</h2>
+
+  <div class="info-box warning">
+    <div class="label">March reality check</div>
+    Inis M&oacute;r in March is off-season. Many restaurants and cafes close for winter or keep very limited hours. There are only about 8 restaurants on the whole island even in peak season. <strong>Bring snacks.</strong> Pack sandwiches, fruit, chocolate. You don't want to be hungry on a cliff edge 4 km from the nearest kitchen.
+  </div>
+
+  <div class="spot">
+    <div class="spot-name">T&iacute; Joe Watty's</div>
+    <div class="spot-type">Pub &amp; Seafood Restaurant</div>
+    <div class="spot-detail">The island's best-known pub, right at the crossroads in Kilronan on the road to D&uacute;n Aonghasa. Locally caught seafood &mdash; lobster, crab claws, salmon, oysters. Coal fire on cold days. Warming soups and stews. No reservations &mdash; walk-in only. Voted top 10 pubs in Ireland for live music by Lonely Planet.</div>
+    <div class="spot-detail"><strong>March status:</strong> Likely open but call ahead to confirm hours. May have reduced menu.</div>
+    <div class="spot-hours">joewattys.ie</div>
+    <div class="spot-veg">Veggie options available</div>
+  </div>
+
+  <div class="spot">
+    <div class="spot-name">Bayview Restaurant</div>
+    <div class="spot-type">Restaurant &mdash; Seafood &amp; Irish</div>
+    <div class="spot-detail">Right off the pier in Kilronan with views of the bay. Chef Byron Godoy blends Latin and Irish cooking. Sources seaweed from Blath na Mara, Aran Island goat cheese, organic produce from The Aran Artisan, and fish from local boats. Lunch and dinner menus daily.</div>
+    <div class="spot-detail"><strong>March status:</strong> Unconfirmed for March &mdash; check their Facebook page or call before relying on it.</div>
+    <div class="spot-hours">exploreinismor.com/places-to-eat-drink/bayview-restaurant</div>
+    <div class="spot-veg">Veggie-friendly</div>
+  </div>
+
+  <div class="tradeoff">
+    <div class="tradeoff-title">The food plan</div>
+    <ul>
+      <li>Bring snacks and water from Galway. Assume nothing will be open.</li>
+      <li>If T&iacute; Joe Watty's is open, that's dinner sorted &mdash; seafood, stew, and a pint by the fire.</li>
+      <li>Your accommodation may offer breakfast (check when booking).</li>
+      <li>Some B&Bs will do a packed lunch if you ask nicely.</li>
+    </ul>
+  </div>
+
+  <div class="divider">&bull; &bull; &bull;</div>
+
+  <h2>Where to Stay</h2>
+
+  <p>Staying overnight is what makes this special. The day-trippers leave on the 5 PM ferry, and suddenly the island belongs to you. These were the best options as of research time &mdash; book quickly, especially the higher-rated ones.</p>
+
+  <div class="accommodation">
+    <div class="accommodation-info">
+      <div class="accommodation-name">Tigh Fitz Apartments</div>
+      <div class="accommodation-detail"><span class="accommodation-rating">9.7</span> Ocean view, self-catering</div>
+      <div class="accommodation-detail">Self-catering means you can cook your own dinner if restaurants are closed. Ocean views.</div>
+    </div>
+    <div class="accommodation-price">
+      <span class="amount">~$162</span>
+      <span class="per-night">per night</span>
+    </div>
+  </div>
+
+  <div class="accommodation">
+    <div class="accommodation-info">
+      <div class="accommodation-name">Ard Einne House</div>
+      <div class="accommodation-detail"><span class="accommodation-rating">9.5</span> Beach views, adults-only</div>
+      <div class="accommodation-detail">Adults-only with beach views. 5 rooms left.</div>
+    </div>
+    <div class="accommodation-price">
+      <span class="amount">~$141</span>
+      <span class="per-night">per night</span>
+    </div>
+  </div>
+
+  <div class="accommodation">
+    <div class="accommodation-info">
+      <div class="accommodation-name">Clai Ban</div>
+      <div class="accommodation-detail"><span class="accommodation-rating">9.2</span> 2 rooms left</div>
+    </div>
+    <div class="accommodation-price">
+      <span class="amount">~$131</span>
+      <span class="per-night">per night</span>
+    </div>
+  </div>
+
+  <div class="accommodation">
+    <div class="accommodation-info">
+      <div class="accommodation-name">Port Aran House</div>
+      <div class="accommodation-detail"><span class="accommodation-rating">9.6</span> <span class="accommodation-availability">Only 1 room left</span></div>
+    </div>
+    <div class="accommodation-price">
+      <span class="amount">~$116</span>
+      <span class="per-night">per night</span>
+    </div>
+  </div>
+
+  <div class="info-box">
+    <div class="label">Accommodation tip</div>
+    <strong>Tigh Fitz</strong> is the most expensive but self-catering is a real advantage in March when restaurants may be closed. You can grab groceries in Galway before the ferry and cook dinner with an ocean view. <strong>Ard Einne</strong> is the romantic pick &mdash; adults-only, beach views, and reportedly one of the friendliest hosts on the island. <strong>Port Aran</strong> is the best value but nearly gone.
+  </div>
+
+  <div class="divider">&bull; &bull; &bull;</div>
+
+  <h2>The Big Decision: 1 Night or 2?</h2>
+
+  <div class="decision">
+    <div class="decision-header">
+      <span class="icon">&#9670;</span>
+      DECISION POINT: HOW LONG ON THE ISLAND
+    </div>
+    <div class="decision-body">
+
+      <div class="option adventure">
+        <div class="option-title">1 Night (Thu night, leave Fri morning)</div>
+        <div class="option-desc">Arrive Thursday, explore the island, stay one night. Take the <strong>8:15 AM ferry Friday morning</strong> (Mon&ndash;Sat schedule). Back in Galway by 9:30 AM. Full day Friday to start heading south. You see the highlights, you get the sunset, you get the quiet evening &mdash; and you keep the rest of the trip open.</div>
+        <div class="option-meta">
+          <span>More of Ireland</span>
+          <span>Fri AM departure</span>
+          <span>Can do Cliffs of Moher AND Kerry</span>
+        </div>
+      </div>
+
+      <div class="option romantic">
+        <div class="option-title">2 Nights (Thu + Fri nights, leave Sat morning)</div>
+        <div class="option-desc">Arrive Thursday. All of Friday is yours &mdash; no ferry to catch, no clock to watch. Cycle the whole island. Return to D&uacute;n Aonghasa in different light. Find the Worm Hole. Sit on a wall and do nothing. Leave on the <strong>8:15 AM ferry Saturday morning</strong>. This is the deeper, slower, more romantic version.</div>
+        <div class="option-meta">
+          <span>Deeper experience</span>
+          <span>Sat AM departure</span>
+          <span>Lose a day of the southern route</span>
+        </div>
+      </div>
+
+      <div class="tradeoff">
+        <div class="tradeoff-title">What's at stake</div>
+        <ul>
+          <li><strong>1 night:</strong> You get the island's best moments (D&uacute;n Aonghasa, the evening after day-trippers leave, the cliffs at sunset). You keep Friday fully open for the southern route and can potentially fit in both the Cliffs of Moher and the Kerry/Dingle Peninsula.</li>
+          <li><strong>2 nights:</strong> You get to actually <em>live</em> on the island instead of just visiting. Time to wander, time to sit in the pub, time to go back to a place that caught your eye. But you lose a full day from the south, which means tough choices ahead.</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="info-box magic">
+    <div class="label">After the day-trippers leave</div>
+    The island is at its most magical in the evening. The last ferry back to Rossaveel departs at 5:00 PM, and with it goes every tourist who didn't book a bed. By 6 PM the island is yours. Walk back up toward the cliffs at sunset. The light changes everything. This is why you stay overnight.
+  </div>
+
+  <div class="info-box opportunity">
+    <div class="label">Opportunity cost</div>
+    If you stay 2 nights, you probably can't do both the Cliffs of Moher <em>and</em> Kerry/Dingle on the southern route. You'll need to pick one or the other. If you stay 1 night, you can potentially do both. This is the tradeoff that shapes the entire back half of the trip.
+  </div>
+
+  <div class="divider">&bull; &bull; &bull;</div>
+
+  <h2>A Day on the Island</h2>
+
+  <p>However long you stay, here's how a day unfolds:</p>
+
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="timeline-time">11:10 AM</div>
+      <div class="timeline-event">Arrive Kilronan. Rent bikes. Drop bags at accommodation if check-in allows.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-time">11:30 AM</div>
+      <div class="timeline-event">Cycle west toward D&uacute;n Aonghasa. Stop at the seal colony near Kilmurvey Beach on the way.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-time">12:00 PM &ndash; 2:00 PM</div>
+      <div class="timeline-event"><strong>D&uacute;n Aonghasa.</strong> Walk up to the fort. Crawl to the cliff edge. Sit there as long as you want. This is not a place to rush.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-time">2:00 PM &ndash; 3:00 PM</div>
+      <div class="timeline-event">Walk south along the cliff path to the Worm Hole (1.6 km). Or cycle back toward the Seven Churches (detour on the way home).</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-time">3:00 PM &ndash; 4:00 PM</div>
+      <div class="timeline-event">Cycle back to Kilronan. Snack break. Warm up.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-time">Late afternoon</div>
+      <div class="timeline-event">Check into accommodation. Rest. Read.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-time">Sunset</div>
+      <div class="timeline-event">Walk back up toward the cliffs. The light is different now. The island is empty.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-time">Evening</div>
+      <div class="timeline-event">Dinner at T&iacute; Joe Watty's if it's open. Coal fire, seafood, a pint. Or cook in if you booked self-catering.</div>
+    </div>
+  </div>
+
+  <div class="divider">&bull; &bull; &bull;</div>
+
+  <h2>Next: The Big Fork</h2>
+
+  <p>After the island, you're back on the mainland with a car and a choice. Which direction do you head? This is where the trip splits wide open.</p>
+
+  <div class="decision">
+    <div class="decision-header">
+      <span class="icon">&#9670;</span>
+      NEXT: CHOOSING YOUR SOUTHERN ROUTE
+    </div>
+    <div class="decision-body">
+      <a href="day3-direction.html" class="option adventure">
+        <div class="option-title">The Big Fork &rarr;</div>
+        <div class="option-desc">Cliffs of Moher and Clare? The Ring of Kerry? The Dingle Peninsula? Straight to Cork? Everything depends on how much time you have left and what you care about most.</div>
+        <div class="option-meta">
+          <span>The defining decision</span>
+          <span>Shapes the rest of the trip</span>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <div class="btn-group">
+    <a href="day3-direction.html" class="btn btn-primary">The Big Fork &rarr;</a>
+    <a href="index.html" class="btn btn-secondary">&larr; Back to Start</a>
+    <a href="map.html" class="btn btn-gold">View Full Map</a>
+  </div>
+
+</div>
+
+<div class="footer">
+  <p>Built with care for Spencer &amp; Savannah's anniversary adventure.</p>
+  <p>Every fact in these pages has been verified. Hours, availability, and ferry schedules are current as of March 2026.</p>
+  <p style="margin-top: 0.5rem;">Works offline. No internet needed once downloaded.</p>
+</div>
+
+</body>
+</html>

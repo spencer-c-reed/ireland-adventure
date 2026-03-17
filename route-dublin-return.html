@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ireland Adventure — Return to Dublin via the Midlands</title>
+<style>
+  :root {
+    --parchment: #f4efe1;
+    --parchment-dark: #e8e0cc;
+    --ink: #2c1810;
+    --ink-light: #5a3e2b;
+    --moss: #4a6741;
+    --moss-light: #6b8f5e;
+    --moss-pale: #e8f0e4;
+    --sea: #2e6b7e;
+    --sea-light: #4a9bb5;
+    --sea-pale: #dceef3;
+    --gold: #c4a35a;
+    --gold-light: #e8d5a0;
+    --rust: #8b4513;
+    --storm: #536878;
+    --warning: #b8860b;
+    --white: #fefdfb;
+    --shadow: rgba(44, 24, 16, 0.12);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Georgia', 'Times New Roman', serif;
+    background: var(--parchment);
+    color: var(--ink);
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+
+  /* === HEADER === */
+  .hero {
+    background: linear-gradient(135deg, var(--moss) 0%, var(--sea) 50%, var(--storm) 100%);
+    color: var(--white);
+    padding: 3rem 1.5rem 2.5rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0 Q45 15 30 30 Q15 15 30 0z' fill='rgba(255,255,255,0.03)'/%3E%3C/svg%3E") repeat;
+  }
+
+  .hero h1 {
+    font-size: 2.2rem;
+    font-weight: normal;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.3rem;
+    position: relative;
+  }
+
+  .hero .subtitle {
+    font-style: italic;
+    opacity: 0.85;
+    font-size: 1.05rem;
+    position: relative;
+  }
+
+  .hero .dates {
+    margin-top: 1rem;
+    font-size: 0.9rem;
+    opacity: 0.7;
+    position: relative;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  /* === NAVIGATION BAR === */
+  .nav-bar {
+    background: var(--ink);
+    padding: 0.6rem 1.5rem;
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  .nav-bar a {
+    color: var(--gold-light);
+    text-decoration: none;
+    font-size: 0.85rem;
+    letter-spacing: 0.05em;
+    transition: color 0.2s;
+  }
+
+  .nav-bar a:hover { color: var(--white); }
+  .nav-bar a.active { color: var(--white); border-bottom: 1px solid var(--gold); }
+
+  /* === MAIN CONTENT === */
+  .content {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem 4rem;
+  }
+
+  /* === SECTION HEADERS === */
+  h2 {
+    font-size: 1.5rem;
+    color: var(--moss);
+    margin: 2.5rem 0 1rem;
+    padding-bottom: 0.4rem;
+    border-bottom: 2px solid var(--gold-light);
+    font-weight: normal;
+  }
+
+  h3 {
+    font-size: 1.15rem;
+    color: var(--sea);
+    margin: 1.8rem 0 0.6rem;
+    font-weight: normal;
+    font-style: italic;
+  }
+
+  p { margin-bottom: 1rem; }
+
+  /* === DECISION CARDS === */
+  .decision {
+    background: var(--white);
+    border: 1px solid var(--gold-light);
+    border-radius: 8px;
+    margin: 1.5rem 0;
+    overflow: hidden;
+    box-shadow: 0 2px 8px var(--shadow);
+  }
+
+  .decision-header {
+    background: linear-gradient(135deg, var(--ink) 0%, var(--ink-light) 100%);
+    color: var(--gold-light);
+    padding: 0.8rem 1.2rem;
+    font-size: 0.85rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .decision-header .icon { font-size: 1.1rem; }
+
+  .decision-body {
+    padding: 1.2rem;
+  }
+
+  /* === OPTION CARDS === */
+  .option {
+    display: block;
+    background: var(--parchment);
+    border: 1px solid var(--parchment-dark);
+    border-left: 4px solid var(--moss);
+    border-radius: 6px;
+    padding: 1rem 1.2rem;
+    margin: 0.8rem 0;
+    text-decoration: none;
+    color: var(--ink);
+    transition: all 0.2s ease;
+    cursor: pointer;
+  }
+
+  .option:hover {
+    border-left-color: var(--sea);
+    background: var(--sea-pale);
+    transform: translateX(4px);
+  }
+
+  .option.romantic { border-left-color: var(--rust); }
+  .option.romantic:hover { border-left-color: #c0392b; background: #fdf2f0; }
+
+  .option.adventure { border-left-color: var(--sea); }
+  .option.adventure:hover { border-left-color: var(--sea-light); }
+
+  .option.cultural { border-left-color: var(--gold); }
+  .option.cultural:hover { border-left-color: var(--warning); background: #fdf8ed; }
+
+  .option-title {
+    font-size: 1.1rem;
+    color: var(--moss);
+    margin-bottom: 0.3rem;
+  }
+
+  .option-desc {
+    font-size: 0.9rem;
+    color: var(--ink-light);
+    line-height: 1.5;
+  }
+
+  .option-meta {
+    display: flex;
+    gap: 1rem;
+    margin-top: 0.5rem;
+    font-size: 0.8rem;
+    color: var(--storm);
+    flex-wrap: wrap;
+  }
+
+  .option-meta span {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+  }
+
+  /* === INFO BOXES === */
+  .info-box {
+    background: var(--sea-pale);
+    border-left: 4px solid var(--sea);
+    border-radius: 0 6px 6px 0;
+    padding: 1rem 1.2rem;
+    margin: 1.2rem 0;
+    font-size: 0.9rem;
+  }
+
+  .info-box.warning {
+    background: #fdf3e0;
+    border-left-color: var(--warning);
+  }
+
+  .info-box.opportunity {
+    background: #fdf2f0;
+    border-left-color: var(--rust);
+  }
+
+  .info-box .label {
+    font-weight: bold;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 0.3rem;
+    color: var(--sea);
+  }
+
+  .info-box.warning .label { color: var(--warning); }
+  .info-box.opportunity .label { color: var(--rust); }
+
+  /* === TIMELINE === */
+  .timeline {
+    position: relative;
+    padding-left: 2rem;
+    margin: 1.5rem 0;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 0.5rem;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: var(--gold-light);
+  }
+
+  .timeline-item {
+    position: relative;
+    margin-bottom: 1.2rem;
+    padding-bottom: 0.5rem;
+  }
+
+  .timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -1.65rem;
+    top: 0.5rem;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--gold);
+    border: 2px solid var(--parchment);
+  }
+
+  .timeline-time {
+    font-size: 0.8rem;
+    color: var(--storm);
+    font-style: italic;
+    margin-bottom: 0.2rem;
+  }
+
+  .timeline-event {
+    font-size: 0.95rem;
+  }
+
+  /* === SPOT CARDS === */
+  .spot {
+    background: var(--white);
+    border: 1px solid var(--parchment-dark);
+    border-radius: 6px;
+    padding: 1rem 1.2rem;
+    margin: 0.8rem 0;
+  }
+
+  .spot-name {
+    font-size: 1.05rem;
+    color: var(--moss);
+    margin-bottom: 0.2rem;
+  }
+
+  .spot-type {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--storm);
+    margin-bottom: 0.4rem;
+  }
+
+  .spot-detail {
+    font-size: 0.9rem;
+    color: var(--ink-light);
+    margin-bottom: 0.3rem;
+  }
+
+  .spot-hours {
+    font-size: 0.8rem;
+    color: var(--moss);
+    font-style: italic;
+  }
+
+  .spot-veg {
+    display: inline-block;
+    background: var(--moss-pale);
+    color: var(--moss);
+    font-size: 0.7rem;
+    padding: 0.15rem 0.5rem;
+    border-radius: 3px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-top: 0.3rem;
+  }
+
+  /* === TRADEOFF BOX === */
+  .tradeoff {
+    background: var(--parchment-dark);
+    border-radius: 6px;
+    padding: 1rem 1.2rem;
+    margin: 1rem 0;
+    font-size: 0.9rem;
+  }
+
+  .tradeoff-title {
+    font-weight: bold;
+    color: var(--rust);
+    margin-bottom: 0.4rem;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .tradeoff ul {
+    margin-left: 1.2rem;
+    margin-top: 0.3rem;
+  }
+
+  .tradeoff li {
+    margin-bottom: 0.3rem;
+    font-size: 0.88rem;
+  }
+
+  /* === BUTTONS === */
+  .btn {
+    display: inline-block;
+    padding: 0.7rem 1.5rem;
+    border-radius: 6px;
+    text-decoration: none;
+    font-family: 'Georgia', serif;
+    font-size: 0.95rem;
+    transition: all 0.2s;
+    cursor: pointer;
+    border: none;
+  }
+
+  .btn-primary {
+    background: var(--moss);
+    color: var(--white);
+  }
+
+  .btn-primary:hover {
+    background: var(--moss-light);
+  }
+
+  .btn-secondary {
+    background: var(--white);
+    color: var(--moss);
+    border: 1px solid var(--moss);
+  }
+
+  .btn-secondary:hover {
+    background: var(--moss-pale);
+  }
+
+  .btn-gold {
+    background: linear-gradient(135deg, var(--gold) 0%, var(--warning) 100%);
+    color: var(--white);
+  }
+
+  .btn-group {
+    display: flex;
+    gap: 0.8rem;
+    flex-wrap: wrap;
+    margin: 1.5rem 0;
+  }
+
+  /* === BACK LINK === */
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    color: var(--storm);
+    text-decoration: none;
+    font-size: 0.85rem;
+    margin-bottom: 1rem;
+    transition: color 0.2s;
+  }
+
+  .back-link:hover { color: var(--moss); }
+
+  /* === FOOTER === */
+  .footer {
+    text-align: center;
+    padding: 2rem 1.5rem;
+    font-size: 0.8rem;
+    color: var(--storm);
+    border-top: 1px solid var(--parchment-dark);
+    margin-top: 3rem;
+  }
+
+  /* === QUICK FACTS STRIP === */
+  .facts-strip {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 0.8rem;
+    margin: 1.5rem 0;
+  }
+
+  .fact-card {
+    background: var(--white);
+    border: 1px solid var(--parchment-dark);
+    border-radius: 6px;
+    padding: 0.8rem;
+    text-align: center;
+  }
+
+  .fact-card .number {
+    font-size: 1.4rem;
+    color: var(--moss);
+    display: block;
+  }
+
+  .fact-card .label {
+    font-size: 0.75rem;
+    color: var(--storm);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  /* === CELTIC DIVIDER === */
+  .divider {
+    text-align: center;
+    margin: 2rem 0;
+    color: var(--gold);
+    font-size: 1.2rem;
+    letter-spacing: 0.5rem;
+  }
+
+  /* === TAGS === */
+  .tag {
+    display: inline-block;
+    font-size: 0.7rem;
+    padding: 0.1rem 0.4rem;
+    border-radius: 3px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-right: 0.3rem;
+  }
+
+  .tag-romantic { background: #fce4ec; color: var(--rust); }
+  .tag-history { background: #e8eaf6; color: #3949ab; }
+  .tag-nature { background: var(--moss-pale); color: var(--moss); }
+  .tag-food { background: #fff3e0; color: #e65100; }
+  .tag-shopping { background: #f3e5f5; color: #7b1fa2; }
+  .tag-whiskey { background: #efebe9; color: #4e342e; }
+
+  /* === RESPONSIVE === */
+  @media (max-width: 480px) {
+    .hero h1 { font-size: 1.7rem; }
+    .content { padding: 1.5rem 1rem 3rem; }
+    .option { padding: 0.8rem 1rem; }
+    .btn-group { flex-direction: column; }
+    .btn { text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>Return to Dublin</h1>
+  <div class="subtitle">The Midlands Route: History Through the Heart of Ireland</div>
+  <div class="dates">March 18 -- 24, 2026</div>
+</div>
+
+<nav class="nav-bar">
+  <a href="index.html">Start</a>
+  <a href="map.html">Full Map</a>
+  <a href="day1-west.html">Day 1</a>
+  <a href="packing.html">Packing &amp; Weather</a>
+</nav>
+
+<div class="content">
+
+  <a href="index.html" class="back-link">&larr; Back to Start</a>
+
+  <h2>Galway to Dublin via the Midlands</h2>
+
+  <p>You're skipping the southern coast and heading back east. This isn't the "boring" route -- it's the route through the interior of the country, where the history is quieter and darker: famine, rebellion, and the slow erasure of a language. The M6 motorway covers Galway to Dublin in about 2.5 hours, but the stops along the way are what make it worthwhile.</p>
+
+  <div class="facts-strip">
+    <div class="fact-card">
+      <span class="number">~2.5 hr</span>
+      <span class="label">Direct Drive</span>
+    </div>
+    <div class="fact-card">
+      <span class="number">3</span>
+      <span class="label">Optional Stops</span>
+    </div>
+    <div class="fact-card">
+      <span class="number">208 km</span>
+      <span class="label">Galway to Dublin</span>
+    </div>
+  </div>
+
+  <div class="divider">&bull; &bull; &bull;</div>
+
+  <h2>Optional Stops Along the Way</h2>
+
+  <h3>Pearse's Cottage, Rosmuc</h3>
+  <p><span class="tag tag-history">History</span> <span class="tag tag-nature">Gaeltacht</span></p>
+
+  <div class="spot">
+    <div class="spot-name">Pearse's Cottage &amp; Visitor Centre</div>
+    <div class="spot-type">Heritage Site &mdash; Rosmuc, Connemara (~45 min from Galway)</div>
+    <div class="spot-detail">Patrick Pearse's summer cottage, where the leader of the 1916 Easter Rising lived to immerse himself in the Irish language before the rebellion. This is deep in the Connemara Gaeltacht -- one of the last places where Irish is still the daily spoken language.</div>
+    <div class="spot-detail">The visitor centre opens March 17, so you'll catch it right at the start of the season. It's a small, contemplative place: the cottage itself, an exhibition on Pearse and the language revival, and the wild Connemara landscape all around.</div>
+    <div class="spot-hours">Opens March 17 &mdash; allow ~1 hour for the visit</div>
+  </div>
+
+  <div class="info-box">
+    <div class="label">Note</div>
+    This is a detour west from Galway, not on the road east. You'd visit this before leaving the Galway area, then double back to take the M6 toward Dublin.
+  </div>
+
+  <h3>National Famine Museum, Strokestown Park</h3>
+  <p><span class="tag tag-history">History</span></p>
+
+  <div class="spot">
+    <div class="spot-name">National Famine Museum at Strokestown Park</div>
+    <div class="spot-type">Museum &mdash; Strokestown, Co. Roscommon (~2 hrs from Galway)</div>
+    <div class="spot-detail">Housed in a Palladian mansion that was the site of one of Ireland's most infamous Famine-era events: the assassination of landlord Major Denis Mahon in 1847, after he forced 1,490 of his tenants to march to Dublin for deportation on coffin ships.</div>
+    <div class="spot-detail">The archive here is extraordinary -- original landlord documents, tenant letters, eviction notices. It's one of the most powerful historical sites in the country, more affecting than most because it's so specific. These aren't abstract statistics; these are named people.</div>
+    <div class="spot-detail">It's a 30-minute detour north off the M6 from Athlone. Allow 1.5--2 hours for the museum and grounds.</div>
+    <div class="spot-hours">Open daily 10:00 AM -- 5:00 PM (confirm March hours: +353 71 963 3013 or strokestownpark.ie)</div>
+  </div>
+
+  <div class="info-box warning">
+    <div class="label">Verify before you go</div>
+    The museum's standard hours are 10 AM -- 5 PM daily, but March is shoulder season and hours may be reduced. Call ahead at <strong>+353 71 963 3013</strong> or check <strong>strokestownpark.ie</strong> the day before to confirm they're open.
+  </div>
+
+  <h3>Kilbeggan Distillery</h3>
+  <p><span class="tag tag-whiskey">Whiskey</span></p>
+
+  <div class="spot">
+    <div class="spot-name">Kilbeggan Distillery Experience</div>
+    <div class="spot-type">Distillery &mdash; Kilbeggan, Co. Westmeath (right off M6 junction 5)</div>
+    <div class="spot-detail">Ireland's oldest licensed distillery, operating since 1757. If you missed it on the drive west, this is your chance. The 90-minute tour takes you through the original buildings -- waterwheel, copper pot stills, stone warehouses -- and ends with a tasting.</div>
+    <div class="spot-detail">The real prize: their fill-your-own-bottle from a cask-strength single barrel. You pick a cask, they fill a bottle, you take home something you literally can't buy anywhere else.</div>
+    <div class="spot-hours">Tour: ~90 min &mdash; EUR 35 per person</div>
+  </div>
+
+  <div class="tradeoff">
+    <div class="tradeoff-title">Timing the stops</div>
+    <ul>
+      <li><strong>All three stops</strong> would add 4--5 hours to a 2.5-hour drive. That's a full day. Only realistic if you leave Galway early morning.</li>
+      <li><strong>Strokestown + Kilbeggan</strong> is the natural combo -- both are on or near the M6. Add about 3 hours total.</li>
+      <li><strong>Pearse's Cottage</strong> is a separate detour west of Galway. Best paired with a morning in Connemara before heading east.</li>
+      <li>If you're heading to Dublin for an evening out, pick one or two stops, not all three.</li>
+    </ul>
+  </div>
+
+  <div class="divider">&bull; &bull; &bull;</div>
+
+  <h2>Arriving in Dublin</h2>
+
+  <p>You'll have a full evening and the next morning/afternoon in Dublin before your 4:45 PM flight on Tuesday. This is where you hit everything you skipped on Day 1.</p>
+
+  <h3>What to do in Dublin</h3>
+
+  <div class="decision">
+    <div class="decision-header">
+      <span class="icon">&#9670;</span>
+      DUBLIN HIT LIST
+    </div>
+    <div class="decision-body">
+
+      <div class="option cultural">
+        <div class="option-title">Kilmainham Gaol</div>
+        <div class="option-desc">The most powerful political history site in Ireland. Leaders of the 1916 Rising were executed here. Guided tours only -- book tickets NOW for tomorrow if any are available.</div>
+        <div class="option-meta">
+          <span><span class="tag tag-history">History</span></span>
+          <span>kilmainhamgaolmuseum.ie</span>
+        </div>
+      </div>
+
+      <div class="option cultural">
+        <div class="option-title">Kevin &amp; Howlin</div>
+        <div class="option-desc">Ireland's best tweed shop. Donegal tweed jackets, caps, scarves -- the real thing, not tourist tat. On Nassau Street near Trinity College.</div>
+        <div class="option-meta">
+          <span><span class="tag tag-shopping">Shopping</span></span>
+          <span>Mon--Sat 9:30 AM -- 5:30 PM</span>
+        </div>
+      </div>
+
+      <div class="option cultural">
+        <div class="option-title">Celtic Tweed</div>
+        <div class="option-desc">Another excellent tweed option. South Anne's Lane, just off Grafton Street.</div>
+        <div class="option-meta">
+          <span><span class="tag tag-shopping">Shopping</span></span>
+        </div>
+      </div>
+
+      <div class="option">
+        <div class="option-title">The Palace Bar</div>
+        <div class="option-desc">Fleet Street, Temple Bar area (but not a Temple Bar tourist trap). Over 100 Irish whiskeys. Dark wood, stained glass, no TV screens. A proper Dublin pub since 1823.</div>
+        <div class="option-meta">
+          <span><span class="tag tag-whiskey">Whiskey</span></span>
+          <span>100+ Irish whiskeys</span>
+        </div>
+      </div>
+
+      <div class="option cultural">
+        <div class="option-title">GPO Witness History</div>
+        <div class="option-desc">Inside the General Post Office on O'Connell Street -- the headquarters of the 1916 Rising. The bullet holes in the pillars outside are original.</div>
+        <div class="option-meta">
+          <span><span class="tag tag-history">History</span></span>
+        </div>
+      </div>
+
+      <div class="option cultural">
+        <div class="option-title">Collins Barracks</div>
+        <div class="option-desc">Free National Museum of Ireland branch with an excellent 1916 exhibition. A 10-minute walk from the quays.</div>
+        <div class="option-meta">
+          <span><span class="tag tag-history">History</span></span>
+          <span>Free admission</span>
+        </div>
+      </div>
+
+      <div class="option cultural">
+        <div class="option-title">Glasnevin Cemetery</div>
+        <div class="option-desc">Where the leaders of Irish independence are buried -- O'Connell, Collins, de Valera, Countess Markievicz. Guided tours bring the headstones to life.</div>
+        <div class="option-meta">
+          <span><span class="tag tag-history">History</span></span>
+        </div>
+      </div>
+
+      <div class="option cultural">
+        <div class="option-title">EPIC The Irish Emigration Museum</div>
+        <div class="option-desc">Interactive museum in the CHQ Building on Custom House Quay. Tells the story of the Irish diaspora -- where they went, what they built, what they left behind.</div>
+        <div class="option-meta">
+          <span><span class="tag tag-history">History</span></span>
+          <span>~EUR 17</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="divider">&bull; &bull; &bull;</div>
+
+  <h2>Where to Stay in Dublin</h2>
+
+  <p>You need one night in or near the city center. Here are three solid options in the EUR 120--180 range:</p>
+
+  <div class="spot">
+    <div class="spot-name">Blooms Hotel</div>
+    <div class="spot-type">Hotel &mdash; Temple Bar / Anglesea Street</div>
+    <div class="spot-detail">Right next to Trinity College and Dublin Castle. Central to everything on your hit list. Temple Bar location means walkable to pubs, restaurants, and the GPO.</div>
+    <div class="spot-detail">Check rates at blooms.ie -- expect ~EUR 140--170/night in late March.</div>
+  </div>
+
+  <div class="spot">
+    <div class="spot-name">Clayton Hotel Cardiff Lane</div>
+    <div class="spot-type">Hotel &mdash; Grand Canal Dock</div>
+    <div class="spot-detail">4-star hotel in the Docklands area, a 15-minute walk to Temple Bar. Swimming pool and health club. Slightly quieter neighborhood but well-connected. Often has rates around EUR 130--160.</div>
+  </div>
+
+  <div class="spot">
+    <div class="spot-name">Dublin Skylon Hotel</div>
+    <div class="spot-type">Hotel &mdash; Drumcondra (north of city center)</div>
+    <div class="spot-detail">About 15 minutes by bus from O'Connell Street, and closer to Glasnevin Cemetery. Drumcondra is a residential neighborhood -- quieter, cheaper, and on the road toward the airport for your Tuesday departure. Around EUR 130--165/night.</div>
+  </div>
+
+  <div class="info-box">
+    <div class="label">Booking tip</div>
+    March 17 is St. Patrick's Day -- if your Dublin night falls on or near the 17th, prices spike 60--80%. Your trip starts March 18, so you're past the worst of it, but book ahead. A 13.5% VAT is included in quoted rates. Always pay in EUR, not USD, to avoid currency conversion fees.
+  </div>
+
+  <div class="divider">&bull; &bull; &bull;</div>
+
+  <h2>Where to Eat in Dublin</h2>
+
+  <p>Three dinner options with strong vegetarian menus:</p>
+
+  <div class="spot">
+    <div class="spot-name">Glas Restaurant</div>
+    <div class="spot-type">Plant-Based Fine Dining &mdash; Chatham Street, Dublin 2</div>
+    <div class="spot-detail">Entirely plant-based, but this isn't a "salad bar" situation. Glas does a 5-course tasting menu with seasonal vegetables and local produce. Won "Best Sustainable Practices" at the Irish food awards. Creative, ambitious, genuinely excellent food.</div>
+    <div class="spot-detail">This is the best option if you want a proper dinner-out experience where both of you eat well.</div>
+    <div class="spot-hours">Dinner reservations recommended &mdash; glasrestaurant.ie</div>
+    <span class="spot-veg">100% plant-based</span>
+  </div>
+
+  <div class="spot">
+    <div class="spot-name">Cornucopia</div>
+    <div class="spot-type">Vegetarian &amp; Vegan &mdash; Wicklow Street</div>
+    <div class="spot-detail">Dublin's longest-running vegetarian restaurant, open since 1986. Two floors, cafeteria-style service with generous hot dishes and salads. More casual than Glas, but the food is hearty and the portions are big. Open for breakfast, lunch, and dinner.</div>
+    <div class="spot-detail">Good for a relaxed dinner without the formality of a tasting menu.</div>
+    <span class="spot-veg">Vegetarian &amp; Vegan</span>
+  </div>
+
+  <div class="spot">
+    <div class="spot-name">Brother Hubbard</div>
+    <div class="spot-type">Middle Eastern-Inspired &mdash; Capel Street</div>
+    <div class="spot-detail">Middle Eastern-leaning menu with extensive vegetarian and vegan options. Capel Street is one of Dublin's best food streets -- lively, local, not touristy. The dinner menu features mezze platters, grain bowls, and seasonal mains that work for both vegetarians and omnivores.</div>
+    <span class="spot-veg">Strong veggie options</span>
+  </div>
+
+  <div class="divider">&bull; &bull; &bull;</div>
+
+  <h2>Next: Getting Home</h2>
+
+  <p>Your flight is EI 0107, departing Dublin Airport at 4:45 PM on Tuesday, March 24. Dublin has US Preclearance -- you clear customs and immigration before boarding, which adds time. You need to be at the airport by 1:30--2:00 PM.</p>
+
+  <div class="btn-group">
+    <a href="departure.html" class="btn btn-primary">Tuesday: Getting Home &rarr;</a>
+    <a href="packing.html" class="btn btn-secondary">Packing &amp; Weather</a>
+    <a href="index.html" class="btn btn-gold">Back to Start</a>
+  </div>
+
+</div>
+
+<div class="footer">
+  <p>Built with care for Spencer &amp; Savannah's anniversary adventure.</p>
+  <p>Every fact in these pages has been verified. Hours, availability, and ferry schedules are current as of March 2026.</p>
+  <p style="margin-top: 0.5rem;">Works offline. No internet needed once downloaded.</p>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ireland Adventure &mdash; Full Map</title>
+<style>
+  :root {
+    --parchment: #f4efe1;
+    --parchment-dark: #e8e0cc;
+    --ink: #2c1810;
+    --ink-light: #5a3e2b;
+    --moss: #4a6741;
+    --moss-light: #6b8f5e;
+    --moss-pale: #e8f0e4;
+    --sea: #2e6b7e;
+    --sea-light: #4a9bb5;
+    --sea-pale: #dceef3;
+    --gold: #c4a35a;
+    --gold-light: #e8d5a0;
+    --rust: #8b4513;
+    --storm: #536878;
+    --warning: #b8860b;
+    --white: #fefdfb;
+    --shadow: rgba(44, 24, 16, 0.12);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Georgia', 'Times New Roman', serif;
+    background: var(--parchment);
+    color: var(--ink);
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+
+  .hero {
+    background: linear-gradient(135deg, var(--moss) 0%, var(--sea) 50%, var(--storm) 100%);
+    color: var(--white);
+    padding: 3rem 1.5rem 2.5rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0 Q45 15 30 30 Q15 15 30 0z' fill='rgba(255,255,255,0.03)'/%3E%3C/svg%3E") repeat;
+  }
+
+  .hero h1 { font-size: 2.2rem; font-weight: normal; letter-spacing: 0.05em; margin-bottom: 0.3rem; position: relative; }
+  .hero .subtitle { font-style: italic; opacity: 0.85; font-size: 1.05rem; position: relative; }
+  .hero .dates { margin-top: 1rem; font-size: 0.9rem; opacity: 0.7; position: relative; letter-spacing: 0.1em; text-transform: uppercase; }
+
+  .nav-bar {
+    background: var(--ink);
+    padding: 0.6rem 1.5rem;
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  .nav-bar a { color: var(--gold-light); text-decoration: none; font-size: 0.85rem; letter-spacing: 0.05em; transition: color 0.2s; }
+  .nav-bar a:hover { color: var(--white); }
+  .nav-bar a.active { color: var(--white); border-bottom: 1px solid var(--gold); }
+
+  .content { max-width: 720px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+
+  h2 { font-size: 1.5rem; color: var(--moss); margin: 2.5rem 0 1rem; padding-bottom: 0.4rem; border-bottom: 2px solid var(--gold-light); font-weight: normal; }
+  h3 { font-size: 1.15rem; color: var(--sea); margin: 1.8rem 0 0.6rem; font-weight: normal; font-style: italic; }
+  p { margin-bottom: 1rem; }
+
+  .info-box { background: var(--sea-pale); border-left: 4px solid var(--sea); border-radius: 0 6px 6px 0; padding: 1rem 1.2rem; margin: 1.2rem 0; font-size: 0.9rem; }
+  .info-box.warning { background: #fdf3e0; border-left-color: var(--warning); }
+  .info-box.opportunity { background: #fdf2f0; border-left-color: var(--rust); }
+  .info-box .label { font-weight: bold; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.3rem; color: var(--sea); }
+  .info-box.warning .label { color: var(--warning); }
+  .info-box.opportunity .label { color: var(--rust); }
+
+  .btn { display: inline-block; padding: 0.7rem 1.5rem; border-radius: 6px; text-decoration: none; font-family: 'Georgia', serif; font-size: 0.95rem; transition: all 0.2s; cursor: pointer; border: none; }
+  .btn-primary { background: var(--moss); color: var(--white); }
+  .btn-primary:hover { background: var(--moss-light); }
+  .btn-secondary { background: var(--white); color: var(--moss); border: 1px solid var(--moss); }
+  .btn-secondary:hover { background: var(--moss-pale); }
+  .btn-gold { background: linear-gradient(135deg, var(--gold) 0%, var(--warning) 100%); color: var(--white); }
+  .btn-group { display: flex; gap: 0.8rem; flex-wrap: wrap; margin: 1.5rem 0; }
+
+  .back-link { display: inline-flex; align-items: center; gap: 0.3rem; color: var(--storm); text-decoration: none; font-size: 0.85rem; margin-bottom: 1rem; transition: color 0.2s; }
+  .back-link:hover { color: var(--moss); }
+
+  .footer { text-align: center; padding: 2rem 1.5rem; font-size: 0.8rem; color: var(--storm); border-top: 1px solid var(--parchment-dark); margin-top: 3rem; }
+
+  .divider { text-align: center; margin: 2rem 0; color: var(--gold); font-size: 1.2rem; letter-spacing: 0.5rem; }
+
+  .tag { display: inline-block; font-size: 0.7rem; padding: 0.1rem 0.4rem; border-radius: 3px; text-transform: uppercase; letter-spacing: 0.05em; margin-right: 0.3rem; }
+  .tag-romantic { background: #fce4ec; color: var(--rust); }
+  .tag-history { background: #e8eaf6; color: #3949ab; }
+  .tag-nature { background: var(--moss-pale); color: var(--moss); }
+  .tag-food { background: #fff3e0; color: #e65100; }
+  .tag-shopping { background: #f3e5f5; color: #7b1fa2; }
+  .tag-whiskey { background: #efebe9; color: #4e342e; }
+
+  @media (max-width: 480px) {
+    .hero h1 { font-size: 1.7rem; }
+    .content { padding: 1.5rem 1rem 3rem; }
+    .btn-group { flex-direction: column; }
+    .btn { text-align: center; }
+  }
+
+  /* === MAP-SPECIFIC STYLES === */
+  .flow-tree {
+    position: relative;
+    padding-left: 1.5rem;
+    margin: 1.5rem 0;
+  }
+
+  .flow-tree::before {
+    content: '';
+    position: absolute;
+    left: 0.5rem;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: var(--gold-light);
+  }
+
+  .flow-node {
+    position: relative;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+  }
+
+  .flow-node::before {
+    content: '';
+    position: absolute;
+    left: -1.15rem;
+    top: 0.6rem;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--moss);
+    border: 2px solid var(--parchment);
+  }
+
+  .flow-node.fork::before {
+    background: var(--rust);
+    width: 12px;
+    height: 12px;
+    left: -1.2rem;
+  }
+
+  .flow-link {
+    display: inline-block;
+    color: var(--sea);
+    text-decoration: none;
+    font-weight: bold;
+    border-bottom: 1px dotted var(--sea-light);
+    transition: all 0.2s;
+  }
+
+  .flow-link:hover {
+    color: var(--moss);
+    border-bottom-color: var(--moss);
+  }
+
+  .flow-desc {
+    font-size: 0.88rem;
+    color: var(--ink-light);
+    margin-top: 0.2rem;
+  }
+
+  .stop-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.8rem;
+    margin: 1rem 0;
+  }
+
+  @media (max-width: 480px) {
+    .stop-grid { grid-template-columns: 1fr; }
+  }
+
+  .stop-card {
+    background: var(--white);
+    border: 1px solid var(--parchment-dark);
+    border-radius: 6px;
+    padding: 0.8rem 1rem;
+    transition: all 0.2s;
+  }
+
+  .stop-card:hover {
+    box-shadow: 0 2px 8px var(--shadow);
+  }
+
+  .stop-name {
+    font-size: 0.95rem;
+    color: var(--moss);
+    margin-bottom: 0.2rem;
+  }
+
+  .stop-info {
+    font-size: 0.8rem;
+    color: var(--ink-light);
+  }
+
+  .route-band {
+    background: var(--white);
+    border: 1px solid var(--parchment-dark);
+    border-radius: 8px;
+    padding: 1rem 1.2rem;
+    margin: 1rem 0;
+    border-left: 4px solid var(--moss);
+  }
+
+  .route-band.route-a { border-left-color: var(--sea); }
+  .route-band.route-b { border-left-color: var(--gold); }
+  .route-band.route-c { border-left-color: var(--moss); }
+
+  .route-label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--storm);
+    margin-bottom: 0.3rem;
+  }
+
+  .route-path {
+    font-size: 0.9rem;
+    color: var(--ink);
+    margin-bottom: 0.3rem;
+  }
+
+  .route-time {
+    font-size: 0.8rem;
+    color: var(--storm);
+    font-style: italic;
+  }
+
+  .drive-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1rem 0;
+    font-size: 0.85rem;
+  }
+
+  .drive-table th {
+    text-align: left;
+    padding: 0.5rem 0.6rem;
+    border-bottom: 2px solid var(--gold-light);
+    color: var(--moss);
+    font-weight: normal;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .drive-table td {
+    padding: 0.4rem 0.6rem;
+    border-bottom: 1px solid var(--parchment-dark);
+    color: var(--ink-light);
+  }
+
+  .drive-table tr:last-child td { border-bottom: none; }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>Full Map</h1>
+  <div class="subtitle">Every Stop, Every Route, Every Fork in the Road</div>
+  <div class="dates">March 18 &ndash; 24, 2026</div>
+</div>
+
+<nav class="nav-bar">
+  <a href="index.html">Start</a>
+  <a href="map.html" class="active">Full Map</a>
+  <a href="day1-west.html">Day 1</a>
+  <a href="packing.html">Packing &amp; Weather</a>
+</nav>
+
+<div class="content">
+
+  <a href="index.html" class="back-link">&larr; Back to Start</a>
+
+  <h2>The Decision Tree</h2>
+
+  <p>This is the bird's-eye view. Every page in this guide is a node in this tree. Follow it top to bottom to see how each choice shapes the rest of your trip.</p>
+
+  <div class="flow-tree">
+
+    <div class="flow-node">
+      <a href="index.html" class="flow-link">Landing: Dublin Airport, 4:20 AM Wed</a>
+      <div class="flow-desc">Pick up rental car (automatic). Chase Sapphire covers CDW.</div>
+    </div>
+
+    <div class="flow-node fork">
+      <strong style="color: var(--rust);">FORK: First Morning</strong>
+      <div class="flow-desc">This shapes the entire day.</div>
+    </div>
+
+    <div class="flow-node">
+      <a href="day1-west.html" class="flow-link">Option A: Drive West to Galway</a>
+      <div class="flow-desc">M6 motorway, 2h33m. Stop at Kilbeggan Distillery and/or Athenry. Arrive by mid-morning.</div>
+    </div>
+
+    <div class="flow-node">
+      <a href="day1-dublin.html" class="flow-link">Option B: Dublin Morning</a>
+      <div class="flow-desc">Kilmainham Gaol, GPO, Kevin &amp; Howlin tweed. Leave by 1 PM for evening ferry, or 2 PM for Galway evening.</div>
+    </div>
+
+    <div class="flow-node">
+      <a href="day1-galway.html" class="flow-link">Arriving in Galway</a>
+      <div class="flow-desc">Both paths converge here. Micil Distillery, O'Maille's, Kai Restaurant, Ard Bia. Accommodation options.</div>
+    </div>
+
+    <div class="flow-node fork">
+      <strong style="color: var(--rust);">FORK: Ferry Timing</strong>
+      <div class="flow-desc">10:30 AM or 6:00 PM (Sat&ndash;Thu) to Inis Mor from Rossaveel.</div>
+    </div>
+
+    <div class="flow-node">
+      <a href="day2-islands.html" class="flow-link">Aran Islands: Inis Mor</a>
+      <div class="flow-desc">Dun Aengus, Worm Hole, bike the island. 1 or 2 nights. Ferry from Rossaveel (EUR 34 return).</div>
+    </div>
+
+    <div class="flow-node fork">
+      <strong style="color: var(--rust);">THE BIG FORK: Which Way South?</strong>
+      <div class="flow-desc">The defining decision of the trip.</div>
+    </div>
+
+    <div class="flow-node">
+      <a href="day3-direction.html" class="flow-link">Day 3: The Big Fork</a>
+      <div class="flow-desc">4 routes compared side-by-side with gain/miss analysis.</div>
+    </div>
+
+  </div>
+
+  <div class="divider">&bull; &bull; &bull;</div>
+
+  <h2>The Four Routes</h2>
+
+  <div class="route-band route-a">
+    <div class="route-label">Route A &mdash; Wild Atlantic Way South</div>
+    <div class="route-path">Galway &rarr; Burren &rarr; Cliffs of Moher &rarr; Doolin &rarr; Dingle &rarr; Killarney &rarr; Kenmare &rarr; Kinsale &rarr; Cork &rarr; Dublin</div>
+    <div class="route-time">Most ambitious. ~12 hrs total driving. See the most, drive the most.</div>
+    <div style="margin-top: 0.5rem;">
+      <a href="route-clare.html" class="flow-link" style="font-size: 0.85rem;">Clare Coast</a> &rarr;
+      <a href="route-kerry.html" class="flow-link" style="font-size: 0.85rem;">Kerry &amp; Dingle</a> &rarr;
+      <a href="route-cork.html" class="flow-link" style="font-size: 0.85rem;">Cork &amp; Kinsale</a>
+    </div>
+  </div>
+
+  <div class="route-band route-b">
+    <div class="route-label">Route B &mdash; Clare Loop + Dublin</div>
+    <div class="route-path">Galway &rarr; Burren &rarr; Cliffs of Moher &rarr; Doolin &rarr; Dublin</div>
+    <div class="route-time">See the Cliffs, then loop back. ~6 hrs total driving. Time for Dublin.</div>
+    <div style="margin-top: 0.5rem;">
+      <a href="route-clare.html" class="flow-link" style="font-size: 0.85rem;">Clare Coast</a> &rarr;
+      <a href="final-night.html" class="flow-link" style="font-size: 0.85rem;">Last Night</a>
+    </div>
+  </div>
+
+  <div class="route-band route-c">
+    <div class="route-label">Route C &mdash; Midlands Return</div>
+    <div class="route-path">Galway &rarr; Strokestown (Famine Museum) &rarr; Kilbeggan &rarr; Dublin</div>
+    <div class="route-time">Most relaxed. ~4 hrs total driving. Deep history, minimal stress.</div>
+    <div style="margin-top: 0.5rem;">
+      <a href="route-dublin-return.html" class="flow-link" style="font-size: 0.85rem;">Midlands &amp; Dublin</a> &rarr;
+      <a href="final-night.html" class="flow-link" style="font-size: 0.85rem;">Last Night</a>
+    </div>
+  </div>
+
+  <div class="route-band">
+    <div class="route-label">Route D &mdash; Slow Galway &amp; Connemara</div>
+    <div class="route-path">Stay in Galway area &rarr; Connemara &rarr; Pearse's Cottage &rarr; Dublin</div>
+    <div class="route-time">Least driving. Rewards stillness. ~3 hrs total driving.</div>
+    <div style="margin-top: 0.5rem;">
+      <a href="route-dublin-return.html" class="flow-link" style="font-size: 0.85rem;">Midlands &amp; Dublin</a>
+    </div>
+  </div>
+
+  <div class="divider">&bull; &bull; &bull;</div>
+
+  <h2>All Pages</h2>
+
+  <div class="stop-grid">
+    <a href="index.html" class="stop-card" style="text-decoration: none; color: inherit;">
+      <div class="stop-name">Start Here</div>
+      <div class="stop-info">Landing page, first decision</div>
+    </a>
+    <a href="day1-west.html" class="stop-card" style="text-decoration: none; color: inherit;">
+      <div class="stop-name">Day 1: Drive West</div>
+      <div class="stop-info">M6, Kilbeggan, Athenry</div>
+    </a>
+    <a href="day1-dublin.html" class="stop-card" style="text-decoration: none; color: inherit;">
+      <div class="stop-name">Day 1: Dublin Morning</div>
+      <div class="stop-info">Gaol, GPO, tweed shops</div>
+    </a>
+    <a href="day1-galway.html" class="stop-card" style="text-decoration: none; color: inherit;">
+      <div class="stop-name">Arriving in Galway</div>
+      <div class="stop-info">Restaurants, pubs, accommodation</div>
+    </a>
+    <a href="day2-islands.html" class="stop-card" style="text-decoration: none; color: inherit;">
+      <div class="stop-name">Aran Islands</div>
+      <div class="stop-info">Inis Mor, Dun Aengus, ferries</div>
+    </a>
+    <a href="day3-direction.html" class="stop-card" style="text-decoration: none; color: inherit;">
+      <div class="stop-name">The Big Fork</div>
+      <div class="stop-info">4 routes compared</div>
+    </a>
+    <a href="route-clare.html" class="stop-card" style="text-decoration: none; color: inherit;">
+      <div class="stop-name">Clare Coast</div>
+      <div class="stop-info">Burren, Cliffs, Doolin</div>
+    </a>
+    <a href="route-kerry.html" class="stop-card" style="text-decoration: none; color: inherit;">
+      <div class="stop-name">Kerry &amp; Dingle</div>
+      <div class="stop-info">Slea Head, Killarney, Kenmare</div>
+    </a>
+    <a href="route-cork.html" class="stop-card" style="text-decoration: none; color: inherit;">
+      <div class="stop-name">Cork &amp; Kinsale</div>
+      <div class="stop-info">English Market, Charles Fort</div>
+    </a>
+    <a href="route-dublin-return.html" class="stop-card" style="text-decoration: none; color: inherit;">
+      <div class="stop-name">Midlands &amp; Dublin</div>
+      <div class="stop-info">Strokestown, Kilbeggan, Dublin</div>
+    </a>
+    <a href="final-night.html" class="stop-card" style="text-decoration: none; color: inherit;">
+      <div class="stop-name">Last Night</div>
+      <div class="stop-info">Monday evening options</div>
+    </a>
+    <a href="departure.html" class="stop-card" style="text-decoration: none; color: inherit;">
+      <div class="stop-name">Departure Day</div>
+      <div class="stop-info">Getting to DUB T2</div>
+    </a>
+    <a href="packing.html" class="stop-card" style="text-decoration: none; color: inherit;">
+      <div class="stop-name">Packing &amp; Weather</div>
+      <div class="stop-info">Day-by-day forecast, what to bring</div>
+    </a>
+  </div>
+
+  <div class="divider">&bull; &bull; &bull;</div>
+
+  <h2>Driving Times at a Glance</h2>
+
+  <p>All times verified via OSRM routing. "Realistic" adds buffer for fuel stops, navigation, and rural roads.</p>
+
+  <h3>Dublin to Galway Corridor</h3>
+  <table class="drive-table">
+    <tr><th>Segment</th><th>Distance</th><th>Time</th></tr>
+    <tr><td>Dublin Airport &rarr; Dublin City</td><td>15 km</td><td>~24 min</td></tr>
+    <tr><td>Dublin Airport &rarr; Kilbeggan</td><td>103 km</td><td>~1h25&ndash;1h30</td></tr>
+    <tr><td>Kilbeggan &rarr; Galway</td><td>122 km</td><td>~1h35&ndash;1h40</td></tr>
+    <tr><td>Dublin Airport &rarr; Galway (direct)</td><td>218 km</td><td>~2h50&ndash;2h55</td></tr>
+  </table>
+
+  <h3>Galway Area</h3>
+  <table class="drive-table">
+    <tr><th>Segment</th><th>Distance</th><th>Time</th></tr>
+    <tr><td>Galway &rarr; Spiddal (Standun)</td><td>17 km</td><td>~22 min</td></tr>
+    <tr><td>Galway &rarr; Rossaveel (ferry)</td><td>39 km</td><td>~50&ndash;52 min</td></tr>
+    <tr><td>Galway &rarr; Burren Perfumery</td><td>51 km</td><td>~1h05</td></tr>
+    <tr><td>Galway &rarr; Strokestown</td><td>113 km</td><td>~1h58&ndash;2h03</td></tr>
+  </table>
+
+  <h3>Southern Routes</h3>
+  <table class="drive-table">
+    <tr><th>Segment</th><th>Distance</th><th>Time</th></tr>
+    <tr><td>Galway &rarr; Cliffs of Moher</td><td>77 km</td><td>~1h27&ndash;1h31</td></tr>
+    <tr><td>Galway &rarr; Doolin</td><td>69 km</td><td>~1h19&ndash;1h23</td></tr>
+    <tr><td>Burren Perfumery &rarr; Doolin</td><td>31 km</td><td>~44 min</td></tr>
+    <tr><td>Doolin &rarr; Dingle</td><td>227 km</td><td>~3h39&ndash;3h49</td></tr>
+    <tr><td>Dingle &rarr; Killarney</td><td>66 km</td><td>~1h16&ndash;1h20</td></tr>
+    <tr><td>Killarney &rarr; Kenmare</td><td>33 km</td><td>~32 min</td></tr>
+    <tr><td>Kenmare &rarr; Kinsale</td><td>114 km</td><td>~1h45&ndash;1h50</td></tr>
+    <tr><td>Kinsale &rarr; Cork Airport</td><td>20 km</td><td>~24 min</td></tr>
+  </table>
+
+  <h3>Return to Dublin</h3>
+  <table class="drive-table">
+    <tr><th>Segment</th><th>Distance</th><th>Time</th></tr>
+    <tr><td>Cork City &rarr; Dublin Airport</td><td>265 km</td><td>~3h23&ndash;3h33</td></tr>
+    <tr><td>Galway &rarr; Dublin Airport</td><td>215 km</td><td>~2h48&ndash;2h55</td></tr>
+    <tr><td>Strokestown &rarr; Dublin Airport</td><td>156 km</td><td>~2h22&ndash;2h28</td></tr>
+  </table>
+
+  <div class="divider">&bull; &bull; &bull;</div>
+
+  <h2>Every Stop</h2>
+
+  <p>All the places mentioned across this guide, organized by region. Tap any tag to see what type of stop it is.</p>
+
+  <h3>Dublin</h3>
+  <div class="stop-grid">
+    <div class="stop-card">
+      <div class="stop-name">Kilmainham Gaol</div>
+      <div class="stop-info"><span class="tag tag-history">History</span> 1916 executions. EUR 8, 90 min tour. Book 28 days ahead.</div>
+    </div>
+    <div class="stop-card">
+      <div class="stop-name">Collins Barracks</div>
+      <div class="stop-info"><span class="tag tag-history">History</span> Proclaiming a Republic exhibition. FREE.</div>
+    </div>
+    <div class="stop-card">
+      <div class="stop-name">GPO &amp; Witness History</div>
+      <div class="stop-info"><span class="tag tag-history">History</span> Rebel HQ 1916. O'Connell Street.</div>
+    </div>
+    <div class="stop-card">
+      <div class="stop-name">Glasnevin Cemetery</div>
+      <div class="stop-info"><span class="tag tag-history">History</span> de Valera, Collins, Markievicz. Free grounds.</div>
+    </div>
+    <div class="stop-card">
+      <div class="stop-name">EPIC Emigration Museum</div>
+      <div class="stop-info"><span class="tag tag-history">History</span> Interactive. ~EUR 17.</div>
+    </div>
+    <div class="stop-card">
+      <div class="stop-name">Kevin &amp; Howlin</div>
+      <div class="stop-info"><span class="tag tag-shopping">Shopping</span> Donegal tweed since 1936. 31 Nassau St.</div>
+    </div>
+    <div class="stop-card">
+      <div class="stop-name">Celtic Tweed</div>
+      <div class="stop-info"><span class="tag tag-shopping">Shopping</span> Tailored tweed &amp; linen. South Anne's Lane.</div>
+    </div>
+    <div class="stop-card">
+      <div class="stop-name">The Palace Bar</div>
+      <div class="stop-info"><span class="tag tag-whiskey">Whiskey</span> 100+ Irish whiskeys. Fleet Street.</div>
+    </div>
+    <div class="stop-card">
+      <div class="stop-name">Glas Restaurant</div>
+      <div class="stop-info"><span class="tag tag-food">Food</span> Plant-based fine dining. Chatham St.</div>
+    </div>
+    <div class="stop-card">
+      <div class="stop-name">Cornucopia</div>
+      <div class="stop-info"><span class="tag tag-food">Food</span> Vegetarian since 1986. Wicklow St.</div>
+    </div>
+    <div class="stop-card">
+      <div class="stop-name">Brother Hubbard</div>
+      <div class="stop-info"><span class="tag tag-food">Food</span> Middle Eastern-inspired. Capel St.</div>
+    </div>
+  </div>
+
+  <h3>Midlands (M6 Corridor)</h3>
+  <div class="stop-grid">
+    <div class="stop-card">
+      <div class="stop-name">Kilbeggan Distillery</div>
+      <div class="stop-info"><span class="tag tag-whiskey">Whiskey</span> Ireland's oldest (1757). EUR 35 tour + fill-your-own-bottle.</div>
+    </div>
+    <div class="stop-card">
+      <div class="stop-name">Athenry</div>
+      <div class="stop-info"><span class="tag tag-history">History</span> Medieval walled town. Castle EUR 5. Right on M6.</div>
+    </div>
+    <div class="stop-card">
+      <div class="stop-name">Strokestown Famine Museum</div>
+      <div class="stop-info"><span class="tag tag-history">History</span> Original Famine archives. 30 min off M6.</div>
+    </div>
+  </div>
+
+  <h3>Galway</h3>
+  <div class="stop-grid">
+    <div class="stop-card">
+      <div class="stop-name">Micil Distillery</div>
+      <div class="stop-info"><span class="tag tag-whiskey">Whiskey</span> 6th gen poitin. Tours noon/2/4/6pm. Salthill.</div>
+    </div>
+    <div class="stop-card">
+      <div class="stop-name">O'Maille's</div>
+      <div class="stop-info"><span class="tag tag-shopping">Shopping</span> Handknit Aran sweaters. 16 High St.</div>
+    </div>
+    <div class="stop-card">
+      <div class="stop-name">Galway City Museum</div>
+      <div class="stop-info"><span class="tag tag-history">History</span> Revolution in Galway exhibition. FREE.</div>
+    </div>
+    <div class="stop-card">
+      <div class="stop-name">Standun, Spiddal</div>
+      <div class="stop-info"><span class="tag tag-shopping">Shopping</span> Family-run since 1946. On road to ferry.</div>
+    </div>
+    <div class="stop-card">
+      <div class="stop-name">Kai Restaurant</div>
+      <div class="stop-info"><span class="tag tag-food">Food</span> Michelin Bib Gourmand. Strong veg menu.</div>
+    </div>
+    <div class="stop-card">
+      <div class="stop-name">Ard Bia at Nimmo's</div>
+      <div class="stop-info"><span class="tag tag-food">Food</span> Waterfront. Creative Irish. Good veg.</div>
+    </div>
+  </div>
+
+  <h3>Aran Islands</h3>
+  <div class="stop-grid">
+    <div class="stop-card">
+      <div class="stop-name">Dun Aengus</div>
+      <div class="stop-info"><span class="tag tag-nature">Nature</span> <span class="tag tag-history">History</span> 87m cliff-edge Bronze Age fort. EUR 5.</div>
+    </div>
+    <div class="stop-card">
+      <div class="stop-name">The Worm Hole</div>
+      <div class="stop-info"><span class="tag tag-nature">Nature</span> Natural rectangular pool. Inis Mor south coast.</div>
+    </div>
+    <div class="stop-card">
+      <div class="stop-name">Aran Sweater Market</div>
+      <div class="stop-info"><span class="tag tag-shopping">Shopping</span> Since 1892. Genuine handknits.</div>
+    </div>
+  </div>
+
+  <h3>Clare &amp; The Burren</h3>
+  <div class="stop-grid">
+    <div class="stop-card">
+      <div class="stop-name">Cliffs of Moher</div>
+      <div class="stop-info"><span class="tag tag-nature">Nature</span> 214m high, 8km long. Open 8am&ndash;7pm Mar.</div>
+    </div>
+    <div class="stop-card">
+      <div class="stop-name">Poulnabrone Dolmen</div>
+      <div class="stop-info"><span class="tag tag-nature">Nature</span> <span class="tag tag-history">History</span> 5,000-year-old portal tomb. Free.</div>
+    </div>
+    <div class="stop-card">
+      <div class="stop-name">Burren Perfumery</div>
+      <div class="stop-info"><span class="tag tag-nature">Nature</span> Free admission. 10am&ndash;5pm.</div>
+    </div>
+    <div class="stop-card">
+      <div class="stop-name">Doolin</div>
+      <div class="stop-info"><span class="tag tag-food">Food</span> <span class="tag tag-romantic">Music</span> Trad music pubs nightly.</div>
+    </div>
+  </div>
+
+  <h3>Kerry &amp; Dingle</h3>
+  <div class="stop-grid">
+    <div class="stop-card">
+      <div class="stop-name">Slea Head Drive</div>
+      <div class="stop-info"><span class="tag tag-nature">Nature</span> Beehive huts, Blasket Centre, Gallarus Oratory.</div>
+    </div>
+    <div class="stop-card">
+      <div class="stop-name">Dingle Town</div>
+      <div class="stop-info"><span class="tag tag-food">Food</span> <span class="tag tag-romantic">Music</span> Harbour town, pubs, seafood.</div>
+    </div>
+    <div class="stop-card">
+      <div class="stop-name">Killarney National Park</div>
+      <div class="stop-info"><span class="tag tag-nature">Nature</span> Lakes, mountains. Ross Castle.</div>
+    </div>
+    <div class="stop-card">
+      <div class="stop-name">Kenmare</div>
+      <div class="stop-info"><span class="tag tag-romantic">Romantic</span> <span class="tag tag-food">Food</span> Colourful heritage town.</div>
+    </div>
+  </div>
+
+  <h3>Cork &amp; Kinsale</h3>
+  <div class="stop-grid">
+    <div class="stop-card">
+      <div class="stop-name">English Market</div>
+      <div class="stop-info"><span class="tag tag-food">Food</span> Covered market since 1788. Free. Mon&ndash;Sat.</div>
+    </div>
+    <div class="stop-card">
+      <div class="stop-name">Charles Fort</div>
+      <div class="stop-info"><span class="tag tag-history">History</span> 17th-century star fort. Kinsale. EUR 5.</div>
+    </div>
+    <div class="stop-card">
+      <div class="stop-name">Cafe Paradiso</div>
+      <div class="stop-info"><span class="tag tag-food">Food</span> Vegetarian fine dining. Cork City.</div>
+    </div>
+    <div class="stop-card">
+      <div class="stop-name">Kinsale</div>
+      <div class="stop-info"><span class="tag tag-food">Food</span> <span class="tag tag-romantic">Romantic</span> Ireland's "food capital."</div>
+    </div>
+  </div>
+
+  <h3>Connemara</h3>
+  <div class="stop-grid">
+    <div class="stop-card">
+      <div class="stop-name">Pearse's Cottage, Rosmuc</div>
+      <div class="stop-info"><span class="tag tag-history">History</span> 1916 leader's Gaeltacht cottage. Opens Mar 17.</div>
+    </div>
+    <div class="stop-card">
+      <div class="stop-name">Connemara</div>
+      <div class="stop-info"><span class="tag tag-nature">Nature</span> Wild bogland, mountains, empty beaches.</div>
+    </div>
+  </div>
+
+  <div class="divider">&bull; &bull; &bull;</div>
+
+  <h2>Tolls</h2>
+
+  <table class="drive-table">
+    <tr><th>Toll</th><th>Cost</th><th>Notes</th></tr>
+    <tr><td>M4 (Dublin&ndash;Galway, Enfield)</td><td>EUR 3.60</td><td>Cash or card</td></tr>
+    <tr><td>N6 (Ballinasloe&ndash;Loughrea)</td><td>EUR 2.30</td><td>Cash or card</td></tr>
+    <tr><td>M50 (Dublin ring road)</td><td>EUR 3.80</td><td>Camera-based, auto-charged to rental + admin fee</td></tr>
+    <tr><td>Southern routes (Cliffs, Kerry, Cork)</td><td>None</td><td>No tolls heading south from Galway</td></tr>
+  </table>
+
+  <div class="info-box">
+    <div class="label">Toll tip</div>
+    The M50 around Dublin is barrier-free. Your rental car will be charged automatically via number plate camera, plus a small admin fee from the rental company. No action needed on your part.
+  </div>
+
+  <div class="divider">&bull; &bull; &bull;</div>
+
+  <h2>Ferry Schedule</h2>
+
+  <div class="info-box">
+    <div class="label">Aran Island Ferries &mdash; Winter (Jan 1 &ndash; Apr 2)</div>
+    <strong>Rossaveel &rarr; Inis Mor:</strong><br>
+    Daily: 10:30 AM<br>
+    Sat&ndash;Thu: 6:00 PM &nbsp;|&nbsp; Fri: 6:30 PM<br><br>
+    <strong>Inis Mor &rarr; Rossaveel:</strong><br>
+    Mon&ndash;Sat: 8:15 AM &nbsp;|&nbsp; Sun: 9:00 AM<br>
+    Daily: 12:00 PM<br>
+    Fri only: 5:00 PM<br><br>
+    <strong>Crossing:</strong> 40 min &nbsp;|&nbsp; <strong>Return fare:</strong> EUR 34/adult<br>
+    <strong>Parking at Rossaveel:</strong> EUR 7/24hrs (open lot at pier)
+  </div>
+
+  <div class="divider">&bull; &bull; &bull;</div>
+
+  <h2>Essential Info</h2>
+
+  <div class="stop-grid">
+    <div class="stop-card">
+      <div class="stop-name">Flight Out</div>
+      <div class="stop-info">EI 0104 &bull; Tue Mar 17 &bull; JFK 18:00 &rarr; DUB 04:20 Wed</div>
+    </div>
+    <div class="stop-card">
+      <div class="stop-name">Flight Home</div>
+      <div class="stop-info">EI 0107 &bull; Tue Mar 24 &bull; DUB 16:45 &rarr; JFK 20:25</div>
+    </div>
+    <div class="stop-card">
+      <div class="stop-name">Booking Ref</div>
+      <div class="stop-info">32B7CB &bull; Aer Lingus &bull; Terminal 2 Dublin</div>
+    </div>
+    <div class="stop-card">
+      <div class="stop-name">Airport Deadline</div>
+      <div class="stop-info">Be at DUB T2 by 2:00 PM Tue &bull; US Preclearance</div>
+    </div>
+  </div>
+
+  <div class="btn-group">
+    <a href="index.html" class="btn btn-primary">&larr; Start the Adventure</a>
+    <a href="packing.html" class="btn btn-secondary">Packing &amp; Weather</a>
+    <a href="departure.html" class="btn btn-gold">Departure Day</a>
+  </div>
+
+</div>
+
+<div class="footer">
+  <p>Built with care for Spencer &amp; Savannah's anniversary adventure.</p>
+  <p>Every fact in these pages has been verified. Hours, availability, and ferry schedules are current as of March 2026.</p>
+  <p style="margin-top: 0.5rem;">Works offline. No internet needed once downloaded.</p>
+</div>
+
+</body>
+</html>

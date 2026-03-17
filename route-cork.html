@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ireland Adventure — Cork &amp; Kinsale</title>
+<style>
+  :root {
+    --parchment: #f4efe1;
+    --parchment-dark: #e8e0cc;
+    --ink: #2c1810;
+    --ink-light: #5a3e2b;
+    --moss: #4a6741;
+    --moss-light: #6b8f5e;
+    --moss-pale: #e8f0e4;
+    --sea: #2e6b7e;
+    --sea-light: #4a9bb5;
+    --sea-pale: #dceef3;
+    --gold: #c4a35a;
+    --gold-light: #e8d5a0;
+    --rust: #8b4513;
+    --storm: #536878;
+    --warning: #b8860b;
+    --white: #fefdfb;
+    --shadow: rgba(44, 24, 16, 0.12);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Georgia', 'Times New Roman', serif;
+    background: var(--parchment);
+    color: var(--ink);
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+
+  /* === HEADER === */
+  .hero {
+    background: linear-gradient(135deg, var(--moss) 0%, var(--sea) 50%, var(--storm) 100%);
+    color: var(--white);
+    padding: 3rem 1.5rem 2.5rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0 Q45 15 30 30 Q15 15 30 0z' fill='rgba(255,255,255,0.03)'/%3E%3C/svg%3E") repeat;
+  }
+
+  .hero h1 {
+    font-size: 2.2rem;
+    font-weight: normal;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.3rem;
+    position: relative;
+  }
+
+  .hero .subtitle {
+    font-style: italic;
+    opacity: 0.85;
+    font-size: 1.05rem;
+    position: relative;
+  }
+
+  .hero .dates {
+    margin-top: 1rem;
+    font-size: 0.9rem;
+    opacity: 0.7;
+    position: relative;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  /* === NAVIGATION BAR === */
+  .nav-bar {
+    background: var(--ink);
+    padding: 0.6rem 1.5rem;
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  .nav-bar a {
+    color: var(--gold-light);
+    text-decoration: none;
+    font-size: 0.85rem;
+    letter-spacing: 0.05em;
+    transition: color 0.2s;
+  }
+
+  .nav-bar a:hover { color: var(--white); }
+  .nav-bar a.active { color: var(--white); border-bottom: 1px solid var(--gold); }
+
+  /* === MAIN CONTENT === */
+  .content {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem 4rem;
+  }
+
+  /* === SECTION HEADERS === */
+  h2 {
+    font-size: 1.5rem;
+    color: var(--moss);
+    margin: 2.5rem 0 1rem;
+    padding-bottom: 0.4rem;
+    border-bottom: 2px solid var(--gold-light);
+    font-weight: normal;
+  }
+
+  h3 {
+    font-size: 1.15rem;
+    color: var(--sea);
+    margin: 1.8rem 0 0.6rem;
+    font-weight: normal;
+    font-style: italic;
+  }
+
+  p { margin-bottom: 1rem; }
+
+  /* === DECISION CARDS === */
+  .decision {
+    background: var(--white);
+    border: 1px solid var(--gold-light);
+    border-radius: 8px;
+    margin: 1.5rem 0;
+    overflow: hidden;
+    box-shadow: 0 2px 8px var(--shadow);
+  }
+
+  .decision-header {
+    background: linear-gradient(135deg, var(--ink) 0%, var(--ink-light) 100%);
+    color: var(--gold-light);
+    padding: 0.8rem 1.2rem;
+    font-size: 0.85rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .decision-header .icon { font-size: 1.1rem; }
+
+  .decision-body {
+    padding: 1.2rem;
+  }
+
+  /* === OPTION CARDS === */
+  .option {
+    display: block;
+    background: var(--parchment);
+    border: 1px solid var(--parchment-dark);
+    border-left: 4px solid var(--moss);
+    border-radius: 6px;
+    padding: 1rem 1.2rem;
+    margin: 0.8rem 0;
+    text-decoration: none;
+    color: var(--ink);
+    transition: all 0.2s ease;
+    cursor: pointer;
+  }
+
+  .option:hover {
+    border-left-color: var(--sea);
+    background: var(--sea-pale);
+    transform: translateX(4px);
+  }
+
+  .option.romantic { border-left-color: var(--rust); }
+  .option.romantic:hover { border-left-color: #c0392b; background: #fdf2f0; }
+
+  .option.adventure { border-left-color: var(--sea); }
+  .option.adventure:hover { border-left-color: var(--sea-light); }
+
+  .option.cultural { border-left-color: var(--gold); }
+  .option.cultural:hover { border-left-color: var(--warning); background: #fdf8ed; }
+
+  .option-title {
+    font-size: 1.1rem;
+    color: var(--moss);
+    margin-bottom: 0.3rem;
+  }
+
+  .option-desc {
+    font-size: 0.9rem;
+    color: var(--ink-light);
+    line-height: 1.5;
+  }
+
+  .option-meta {
+    display: flex;
+    gap: 1rem;
+    margin-top: 0.5rem;
+    font-size: 0.8rem;
+    color: var(--storm);
+    flex-wrap: wrap;
+  }
+
+  .option-meta span {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+  }
+
+  /* === INFO BOXES === */
+  .info-box {
+    background: var(--sea-pale);
+    border-left: 4px solid var(--sea);
+    border-radius: 0 6px 6px 0;
+    padding: 1rem 1.2rem;
+    margin: 1.2rem 0;
+    font-size: 0.9rem;
+  }
+
+  .info-box.warning {
+    background: #fdf3e0;
+    border-left-color: var(--warning);
+  }
+
+  .info-box.opportunity {
+    background: #fdf2f0;
+    border-left-color: var(--rust);
+  }
+
+  .info-box .label {
+    font-weight: bold;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 0.3rem;
+    color: var(--sea);
+  }
+
+  .info-box.warning .label { color: var(--warning); }
+  .info-box.opportunity .label { color: var(--rust); }
+
+  /* === TIMELINE === */
+  .timeline {
+    position: relative;
+    padding-left: 2rem;
+    margin: 1.5rem 0;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 0.5rem;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: var(--gold-light);
+  }
+
+  .timeline-item {
+    position: relative;
+    margin-bottom: 1.2rem;
+    padding-bottom: 0.5rem;
+  }
+
+  .timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -1.65rem;
+    top: 0.5rem;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--gold);
+    border: 2px solid var(--parchment);
+  }
+
+  .timeline-time {
+    font-size: 0.8rem;
+    color: var(--storm);
+    font-style: italic;
+    margin-bottom: 0.2rem;
+  }
+
+  .timeline-event {
+    font-size: 0.95rem;
+  }
+
+  /* === SPOT CARDS (for places/restaurants/shops) === */
+  .spot {
+    background: var(--white);
+    border: 1px solid var(--parchment-dark);
+    border-radius: 6px;
+    padding: 1rem 1.2rem;
+    margin: 0.8rem 0;
+  }
+
+  .spot-name {
+    font-size: 1.05rem;
+    color: var(--moss);
+    margin-bottom: 0.2rem;
+  }
+
+  .spot-type {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--storm);
+    margin-bottom: 0.4rem;
+  }
+
+  .spot-detail {
+    font-size: 0.9rem;
+    color: var(--ink-light);
+    margin-bottom: 0.3rem;
+  }
+
+  .spot-hours {
+    font-size: 0.8rem;
+    color: var(--moss);
+    font-style: italic;
+  }
+
+  .spot-veg {
+    display: inline-block;
+    background: var(--moss-pale);
+    color: var(--moss);
+    font-size: 0.7rem;
+    padding: 0.15rem 0.5rem;
+    border-radius: 3px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-top: 0.3rem;
+  }
+
+  /* === TRADEOFF BOX === */
+  .tradeoff {
+    background: var(--parchment-dark);
+    border-radius: 6px;
+    padding: 1rem 1.2rem;
+    margin: 1rem 0;
+    font-size: 0.9rem;
+  }
+
+  .tradeoff-title {
+    font-weight: bold;
+    color: var(--rust);
+    margin-bottom: 0.4rem;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .tradeoff ul {
+    margin-left: 1.2rem;
+    margin-top: 0.3rem;
+  }
+
+  .tradeoff li {
+    margin-bottom: 0.3rem;
+    font-size: 0.88rem;
+  }
+
+  /* === BUTTONS === */
+  .btn {
+    display: inline-block;
+    padding: 0.7rem 1.5rem;
+    border-radius: 6px;
+    text-decoration: none;
+    font-family: 'Georgia', serif;
+    font-size: 0.95rem;
+    transition: all 0.2s;
+    cursor: pointer;
+    border: none;
+  }
+
+  .btn-primary {
+    background: var(--moss);
+    color: var(--white);
+  }
+
+  .btn-primary:hover {
+    background: var(--moss-light);
+  }
+
+  .btn-secondary {
+    background: var(--white);
+    color: var(--moss);
+    border: 1px solid var(--moss);
+  }
+
+  .btn-secondary:hover {
+    background: var(--moss-pale);
+  }
+
+  .btn-gold {
+    background: linear-gradient(135deg, var(--gold) 0%, var(--warning) 100%);
+    color: var(--white);
+  }
+
+  .btn-group {
+    display: flex;
+    gap: 0.8rem;
+    flex-wrap: wrap;
+    margin: 1.5rem 0;
+  }
+
+  /* === BACK LINK === */
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    color: var(--storm);
+    text-decoration: none;
+    font-size: 0.85rem;
+    margin-bottom: 1rem;
+    transition: color 0.2s;
+  }
+
+  .back-link:hover { color: var(--moss); }
+
+  /* === FOOTER === */
+  .footer {
+    text-align: center;
+    padding: 2rem 1.5rem;
+    font-size: 0.8rem;
+    color: var(--storm);
+    border-top: 1px solid var(--parchment-dark);
+    margin-top: 3rem;
+  }
+
+  /* === QUICK FACTS STRIP === */
+  .facts-strip {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 0.8rem;
+    margin: 1.5rem 0;
+  }
+
+  .fact-card {
+    background: var(--white);
+    border: 1px solid var(--parchment-dark);
+    border-radius: 6px;
+    padding: 0.8rem;
+    text-align: center;
+  }
+
+  .fact-card .number {
+    font-size: 1.4rem;
+    color: var(--moss);
+    display: block;
+  }
+
+  .fact-card .label {
+    font-size: 0.75rem;
+    color: var(--storm);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  /* === CELTIC DIVIDER === */
+  .divider {
+    text-align: center;
+    margin: 2rem 0;
+    color: var(--gold);
+    font-size: 1.2rem;
+    letter-spacing: 0.5rem;
+  }
+
+  /* === RESPONSIVE === */
+  @media (max-width: 480px) {
+    .hero h1 { font-size: 1.7rem; }
+    .content { padding: 1.5rem 1rem 3rem; }
+    .option { padding: 0.8rem 1rem; }
+    .btn-group { flex-direction: column; }
+    .btn { text-align: center; }
+  }
+
+  /* === MAP PLACEHOLDER === */
+  .map-container {
+    background: var(--sea-pale);
+    border: 1px solid var(--sea-light);
+    border-radius: 8px;
+    padding: 2rem;
+    text-align: center;
+    margin: 1.5rem 0;
+    min-height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  /* === TAG === */
+  .tag {
+    display: inline-block;
+    font-size: 0.7rem;
+    padding: 0.1rem 0.4rem;
+    border-radius: 3px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-right: 0.3rem;
+  }
+
+  .tag-romantic { background: #fce4ec; color: var(--rust); }
+  .tag-history { background: #e8eaf6; color: #3949ab; }
+  .tag-nature { background: var(--moss-pale); color: var(--moss); }
+  .tag-food { background: #fff3e0; color: #e65100; }
+  .tag-shopping { background: #f3e5f5; color: #7b1fa2; }
+  .tag-whiskey { background: #efebe9; color: #4e342e; }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>Cork &amp; Kinsale</h1>
+  <div class="subtitle">Ireland's Food Capital and the Harbour Towns</div>
+  <div class="dates">March 18 -- 24, 2026</div>
+</div>
+
+<nav class="nav-bar">
+  <a href="index.html">Start</a>
+  <a href="map.html">Full Map</a>
+  <a href="route-kerry.html">Kerry</a>
+  <a href="route-cork.html" class="active">Cork</a>
+  <a href="packing.html">Packing &amp; Weather</a>
+</nav>
+
+<div class="content">
+
+  <a href="route-kerry.html" class="back-link">&larr; Back to Kerry Route</a>
+
+  <h2>Getting There</h2>
+
+  <p>From Kenmare, drive to Kinsale via the N71 through Bantry and Bandon -- 114 km of gorgeous West Cork scenery. Google says 1h36m, but these are narrow Irish roads through towns with 50 km/h speed limits. Budget 1h45 to 1h50 realistically. From Killarney, it's about 90 km directly to Cork City via the N22, roughly 1h15.</p>
+
+  <div class="facts-strip">
+    <div class="fact-card">
+      <span class="number">114 km</span>
+      <span class="label">Kenmare to Kinsale</span>
+    </div>
+    <div class="fact-card">
+      <span class="number">~1h50</span>
+      <span class="label">Realistic Drive</span>
+    </div>
+    <div class="fact-card">
+      <span class="number">20 km</span>
+      <span class="label">Kinsale to Cork Airport</span>
+    </div>
+    <div class="fact-card">
+      <span class="number">265 km</span>
+      <span class="label">Cork to Dublin Airport</span>
+    </div>
+  </div>
+
+  <div class="divider">&bull; &bull; &bull;</div>
+
+  <h2>West Cork (if coming via Kenmare)</h2>
+
+  <p>The N71 from Kenmare to Bantry crosses the Caha Pass, one of Ireland's most spectacular mountain roads. From Bantry, the road winds through the heart of West Cork -- Michael Collins country, dotted with harbors, ruins, and small towns that feel like they haven't changed in decades.</p>
+
+  <div class="spot">
+    <div class="spot-name">Bantry Bay</div>
+    <div class="spot-type"><span class="tag tag-nature">Scenic stop</span></div>
+    <div class="spot-detail">Pull over at Bantry for the view across the bay. The town square has a few good cafes if you want to stretch your legs. Bantry House and Gardens are worth a quick look if you have 30 minutes.</div>
+  </div>
+
+  <div class="spot">
+    <div class="spot-name">Michael Collins House</div>
+    <div class="spot-type"><span class="tag tag-history">Museum</span> Emmet Square, Clonakilty</div>
+    <div class="spot-detail">A museum dedicated to Michael Collins in his home town, with guided tours, interactive displays, and artifacts from the War of Independence. Collins was born at Sam's Cross, a few miles outside Clonakilty -- there's a memorial and the ruins of the family homestead nearby.</div>
+    <div class="spot-hours">Tue--Sat, 10 AM -- 5 PM (last entry 4 PM). Open year-round.</div>
+  </div>
+
+  <div class="info-box warning">
+    <div class="label">Michael Collins Centre -- closed in March</div>
+    The larger Michael Collins Centre museum (outside Clonakilty, with ambush site tours) doesn't open for walk-in visitors until June 15. However, <strong>Michael Collins House</strong> in Clonakilty town centre is open year-round, Tue--Sat. You can also contact the Collins Centre to arrange a private War of Independence tour by appointment.
+  </div>
+
+  <div class="spot">
+    <div class="spot-name">Timoleague Friary</div>
+    <div class="spot-type"><span class="tag tag-history">Ruin</span> <span class="tag tag-nature">Wild Atlantic Way</span></div>
+    <div class="spot-detail">The largest medieval ruin in West Cork -- a 13th-century Franciscan friary on the banks of the Argideen River, overlooking Courtmacsherry Bay. Explore the long church, cloister, tower, and cellars. Atmospheric and always accessible. Allow 30--60 minutes.</div>
+    <div class="spot-hours">Free entry. Open daylight hours. Unguided -- information panels on site.</div>
+  </div>
+
+  <div class="info-box">
+    <div class="label">Detour option</div>
+    If you have a spare half-day, the <strong>Beara Peninsula</strong> (accessed from Glengarriff, just west of Bantry) is wildly beautiful and far less touristy than the Ring of Kerry. But it's a commitment -- the loop is about 140 km and takes 3--4 hours. Only do this if you have a full extra day.
+  </div>
+
+  <div class="divider">&bull; &bull; &bull;</div>
+
+  <h2>Kinsale</h2>
+
+  <p>Ireland's self-proclaimed "food capital" -- and it earns the title. Kinsale is a compact, colorful harbor town with three Michelin-recognized restaurants and dozens more excellent spots. It's also the starting point of the Wild Atlantic Way, just 25 minutes from Cork City and 20 minutes from Cork Airport.</p>
+
+  <p>The town's history runs deep. The <strong>Battle of Kinsale in 1601</strong> was the decisive moment in the English conquest of Ireland. Spanish forces allied with the Gaelic chieftains O'Neill and O'Donnell landed here, but the combined Irish-Spanish force was routed by English troops under Mountjoy. It marked the end of the old Gaelic order and led to the Flight of the Earls -- the Irish chieftains fleeing to continental Europe, never to return. The Ireland that came after was shaped by that defeat.</p>
+
+  <h3>Things to See</h3>
+
+  <div class="spot">
+    <div class="spot-name">Charles Fort</div>
+    <div class="spot-type"><span class="tag tag-history">17th-century star fort</span></div>
+    <div class="spot-detail">A massive star-shaped fort overlooking Kinsale harbor, built in the 1670s. Walk the ramparts for panoramic views of the harbor and coastline. Guided tours included in admission. You can drive (5 minutes from town) or take the scenic Scilly Walk along the harbor (35 minutes on foot).</div>
+    <div class="spot-hours">Open daily 10 AM -- 5 PM (March). Last admission 4:15 PM. EUR 5 per person.</div>
+  </div>
+
+  <h3>Where to Eat in Kinsale</h3>
+
+  <div class="spot">
+    <div class="spot-name">Bastion</div>
+    <div class="spot-type"><span class="tag tag-food">Fine dining</span> Michelin star</div>
+    <div class="spot-detail">Modern Irish cuisine at its best. One of only a handful of Michelin-starred restaurants outside Dublin. The menu changes with the seasons and accommodates dietary restrictions. This is a special-occasion dinner -- book well ahead.</div>
+    <span class="spot-veg">Accommodates vegetarian/vegan</span>
+  </div>
+
+  <div class="spot">
+    <div class="spot-name">Fishy Fishy</div>
+    <div class="spot-type"><span class="tag tag-food">Seafood</span> Crowley's Quay</div>
+    <div class="spot-detail">Kinsale's most famous seafood restaurant, but don't let the name fool you -- they have scrumptious vegetarian options alongside the fish. Casual, colorful, and reliably excellent. Great for lunch.</div>
+    <span class="spot-veg">Vegetarian options</span>
+  </div>
+
+  <div class="spot">
+    <div class="spot-name">The Black Pig</div>
+    <div class="spot-type"><span class="tag tag-food">Wine bar &amp; kitchen</span></div>
+    <div class="spot-detail">A favorite foodie dinner spot with a multi-page wine list and a tapas-style menu. The vibe is intimate and unhurried. Excellent for a relaxed evening with sharing plates.</div>
+    <span class="spot-veg">Vegetarian sharing plates</span>
+  </div>
+
+  <div class="spot">
+    <div class="spot-name">The Lemon Leaf Cafe</div>
+    <div class="spot-type"><span class="tag tag-food">Cafe</span> Main Street</div>
+    <div class="spot-detail">A local favorite for breakfast and lunch, with popular homemade baked goods. Good vegetarian and vegan options. Also runs the Lemon Leaf Townhouse upstairs -- a central B&amp;B with ten rooms.</div>
+    <span class="spot-veg">Vegetarian &amp; vegan options</span>
+  </div>
+
+  <h3>Where to Stay in Kinsale</h3>
+
+  <div class="spot">
+    <div class="spot-name">Long Quay House</div>
+    <div class="spot-type"><span class="tag tag-romantic">Georgian townhouse</span> Harbor views</div>
+    <div class="spot-detail">An elegant 18th-century townhouse overlooking Kinsale's inner harbor and marina. Walking distance to everything. Considered the best B&amp;B in Kinsale -- "service, setting, and style." Expect EUR 120--160/night in March.</div>
+    <div class="spot-hours">longquayhousekinsale.com</div>
+  </div>
+
+  <div class="spot">
+    <div class="spot-name">Desmond Townhouse</div>
+    <div class="spot-type"><span class="tag tag-romantic">Georgian B&amp;B</span> #1 B&amp;B in Kinsale on Tripadvisor</div>
+    <div class="spot-detail">A 260-year-old beautifully restored Georgian townhouse right outside Desmond Castle. Ranked #3 Best B&amp;B in Ireland by Tripadvisor. Expect EUR 100--140/night in March.</div>
+    <div class="spot-hours">desmondhousekinsale.com</div>
+  </div>
+
+  <div class="divider">&bull; &bull; &bull;</div>
+
+  <h2>Cork City</h2>
+
+  <p>Ireland's second city has a distinct personality -- scrappier and more self-assured than Dublin, with a food culture that rivals anywhere on the island. If you're overnighting in Cork (or even just passing through), these are the highlights.</p>
+
+  <h3>Things to See</h3>
+
+  <div class="spot">
+    <div class="spot-name">The English Market</div>
+    <div class="spot-type"><span class="tag tag-food">Food market</span> Since 1788</div>
+    <div class="spot-detail">One of the oldest covered food markets in Europe, and Cork's beating heart. Browse artisan cheese, charcuterie, fish, bread, and produce. Eat lunch at the <strong>Farmgate Cafe</strong> on the mezzanine level -- it overlooks the market stalls and serves excellent food with good vegetarian options.</div>
+    <div class="spot-hours">Mon--Sat, 8 AM -- 6 PM. Closed Sundays and Bank Holidays.</div>
+  </div>
+
+  <div class="spot">
+    <div class="spot-name">Shandon Bells &amp; Tower</div>
+    <div class="spot-type"><span class="tag tag-history">Church</span> St Anne's, Shandon</div>
+    <div class="spot-detail">Climb the tower of St Anne's Church and ring the bells yourself -- follow the numbered ropes and play a tune over the rooftops of Cork. One of the most unique things you can do in any Irish city. Self-guided with info panels throughout.</div>
+    <div class="spot-hours">Mon--Sat 10 AM -- 5 PM, Sun 11:30 AM -- 4:30 PM. Adults EUR 5, family EUR 12.</div>
+  </div>
+
+  <div class="info-box warning">
+    <div class="label">Crawford Art Gallery -- closed until 2028</div>
+    The Crawford Art Gallery is undergoing a major redevelopment and won't reopen until 2028. Skip it from the itinerary. Instead, walk the city centre -- the colorful streets between St Patrick's Street and the English Market are worth exploring on their own.
+  </div>
+
+  <div class="spot">
+    <div class="spot-name">University College Cork</div>
+    <div class="spot-type"><span class="tag tag-nature">Campus walk</span></div>
+    <div class="spot-detail">The UCC campus sits along the River Lee, about a 15-minute walk from the city center. The limestone quad is genuinely beautiful, and the riverside walk through the grounds is peaceful. Not a must-do, but a pleasant detour if you're in the neighborhood and want to stretch your legs.</div>
+  </div>
+
+  <h3>Where to Eat in Cork City</h3>
+
+  <div class="spot">
+    <div class="spot-name">Cafe Paradiso</div>
+    <div class="spot-type"><span class="tag tag-food">Restaurant</span> 16 Lancaster Quay</div>
+    <div class="spot-detail">Ireland's most celebrated vegetarian restaurant. Chef Denis Cotter has been doing inventive seasonal vegetarian cooking here since 1993 -- small plates, punchy flavors, beautiful presentation. Popular with vegetarians and meat-eaters alike. Book ahead.</div>
+    <span class="spot-veg">Fully vegetarian</span>
+  </div>
+
+  <div class="spot">
+    <div class="spot-name">Market Lane</div>
+    <div class="spot-type"><span class="tag tag-food">Restaurant</span> Oliver Plunkett Street</div>
+    <div class="spot-detail">An award-winning restaurant near the English Market, sourcing ingredients from the market stalls. Wide-ranging menu with strong vegetarian, vegan, and coeliac options. Relaxed atmosphere, regularly updated seasonal menu.</div>
+    <span class="spot-veg">Vegetarian &amp; vegan options</span>
+  </div>
+
+  <div class="divider">&bull; &bull; &bull;</div>
+
+  <h2>The Return to Dublin</h2>
+
+  <p>You need to be at Dublin Airport by <strong>2 PM on Tuesday, March 24th</strong>. Here are your options for getting back from the Cork area.</p>
+
+  <div class="decision">
+    <div class="decision-header">
+      <span class="icon">&#9670;</span>
+      DECISION POINT: GETTING BACK TO DUBLIN AIRPORT BY TUESDAY 2 PM
+    </div>
+    <div class="decision-body">
+
+      <div class="option adventure">
+        <div class="option-title">Option 1: Drive Cork to Dublin Airport</div>
+        <div class="option-desc">The most flexible choice. 265 km via the M8 and M7. Google says 3h05m, but realistically budget 3h23 to 3h33 with fuel stops and traffic around Dublin. Leave by <strong>10:00 AM at the latest</strong> to account for traffic. No extra booking needed, no extra cost, and you can stop along the way.</div>
+        <div class="option-meta">
+          <span>3h 23--33m realistic</span>
+          <span>EUR 0 extra</span>
+          <span>Leave by 10 AM</span>
+        </div>
+      </div>
+
+      <div class="option cultural">
+        <div class="option-title">Option 2: Train Cork to Dublin</div>
+        <div class="option-desc">Irish Rail runs hourly from Cork Kent Station to Dublin Heuston. The fastest service takes 2 hr 15 min, average is 2 hr 30 min. Fares from EUR 25--40. From Heuston, take a taxi to Dublin Airport (about 30 minutes, EUR 30--40). Total journey time: about 3 hours door to door.</div>
+        <div class="option-meta">
+          <span>~2.5 hr train + 30 min taxi</span>
+          <span>EUR 25--40 train + EUR 30--40 taxi</span>
+          <span>Most relaxing</span>
+        </div>
+      </div>
+
+      <div class="option">
+        <div class="option-title">Option 3: Drop Car at Cork, Fly Internally</div>
+        <div class="option-desc">There are <strong>no direct flights</strong> from Cork to Dublin -- all options route through London or Amsterdam with 10+ hour layovers. This isn't a real option. Scratch it.</div>
+        <div class="option-meta">
+          <span>Not recommended</span>
+        </div>
+      </div>
+
+      <div class="tradeoff">
+        <div class="tradeoff-title">The rental car question</div>
+        <ul>
+          <li><strong>Round-trip rental (back to Dublin Airport):</strong> You drive back, drop the car, walk into the terminal. Simplest logistics. The drive is about 3 hours on the motorway -- not scenic, but fast.</li>
+          <li><strong>One-way drop at Cork:</strong> You save the 3-hour drive back but need to get from Cork to Dublin by train or bus. Most rental companies charge EUR 50--150 for a one-way fee. Check your booking terms -- Budget and Hertz often allow it.</li>
+          <li><strong>The math:</strong> If you have a round-trip rental, just drive back. The motorway is fast and the morning traffic heading north won't be bad. If you already arranged a one-way, the 9:25 AM train from Cork gets you to Dublin Heuston by noon, giving you plenty of time for a taxi to the airport.</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="info-box warning">
+    <div class="label">Tuesday morning timeline</div>
+    <strong>Flight at 4:45 PM, check-in by 2 PM.</strong> Working backwards:
+    <br>If driving from Cork: leave by 10:00 AM, arrive Dublin Airport ~1:30 PM. Add 30-min buffer.
+    <br>If training from Cork: take the 9:25 AM service, arrive Heuston ~11:55 AM, taxi to airport by 12:30 PM.
+    <br>If driving from Kinsale: add 25 minutes. Leave by 9:30 AM.
+    <br><br>
+    Don't cut it closer than this. Irish motorways are good, but you don't want to be sweating the clock on the last day.
+  </div>
+
+  <div class="info-box opportunity">
+    <div class="label">Monday night options</div>
+    If you want to break up the drive, consider spending Monday night somewhere between Cork and Dublin -- <strong>Kilkenny</strong> is roughly halfway (1.5 hours from Cork, 1.5 hours to Dublin Airport) and has a castle, medieval lanes, and good pubs. Or just sleep in Cork and drive Tuesday morning -- the motorway is straightforward.
+  </div>
+
+  <h3>Timing Scenarios</h3>
+
+  <p><strong>If it's Sunday and you're in Kinsale:</strong> You have a full day here plus Monday to get to Dublin. Relaxed pace. Spend Sunday exploring Kinsale, walk to Charles Fort, eat well. Monday: hit Cork City for the English Market and Cafe Paradiso dinner, then either drive to Dublin Monday evening (arrive ~7-8 PM, last night in the city) or sleep in Cork and drive Tuesday morning.</p>
+
+  <p><strong>If it's Monday and you're in Kinsale:</strong> You have time for a morning walk and lunch, then you need to decide. Drive to Dublin Monday evening (leave by 3-4 PM, arrive ~7-8 PM) for a last night in Dublin -- or sleep in Cork and drive Tuesday morning early. The Monday evening drive is the safer play. The Tuesday morning drive works but has zero margin for delays.</p>
+
+  <div class="info-box opportunity">
+    <div class="label">Savannah pick</div>
+    <strong>Cafe Paradiso</strong> is the standout for Savannah's diet. Fully vegetarian, fine dining level, and genuinely one of the best restaurants in the country regardless of category. If you're going to have one special dinner in Cork, this is it. Book as far ahead as you can.
+  </div>
+
+  <div class="divider">&bull; &bull; &bull;</div>
+
+  <h2>Car Rental: One-Way vs. Round-Trip</h2>
+
+  <p>This decision affects the whole shape of your return. Worth thinking through before you pick up the car in Dublin.</p>
+
+  <div class="tradeoff">
+    <div class="tradeoff-title">Round-trip rental (Dublin Airport to Dublin Airport)</div>
+    <ul>
+      <li>Cheaper daily rate</li>
+      <li>You drive the full loop: Dublin &rarr; West &rarr; Kerry &rarr; Cork &rarr; Dublin</li>
+      <li>The Cork-to-Dublin return drive is 265 km / 3+ hours of motorway. Not scenic, not painful, just driving</li>
+      <li>You get a last evening in Dublin on the way back -- could be a nice bookend to the trip</li>
+    </ul>
+  </div>
+
+  <div class="tradeoff">
+    <div class="tradeoff-title">One-way rental (Dublin Airport to Cork Airport)</div>
+    <ul>
+      <li>About $124+ for the week (from earlier research)</li>
+      <li>You skip the 3-hour return drive entirely</li>
+      <li>Drop the car at Cork Airport (20 km from Kinsale, 24 min) and fly or take the train to Dublin</li>
+      <li>You miss the chance for a last Dublin evening unless you take the train and arrive with time to spare</li>
+      <li>Not all rental companies offer one-way; confirm at booking</li>
+    </ul>
+  </div>
+
+  <div class="divider">&bull; &bull; &bull;</div>
+
+  <h2>The Honest Tradeoffs</h2>
+
+  <div class="tradeoff">
+    <div class="tradeoff-title">Is Kinsale worth the detour?</div>
+    <ul>
+      <li><strong>Yes, if you care about food.</strong> Kinsale is genuinely one of Ireland's best food towns. Fishy Fishy, The Black Pig, and a half-dozen other excellent places in a town you can walk end to end in fifteen minutes</li>
+      <li><strong>Charles Fort is a gem</strong>, especially on a clear day. The Scilly Walk from town to the fort is one of those perfect little Irish walks -- twenty minutes along the water with the fort growing larger ahead of you</li>
+    </ul>
+  </div>
+
+  <div class="tradeoff">
+    <div class="tradeoff-title">What if we're tired of driving?</div>
+    <ul>
+      <li>If it's late in the trip and you're done with country roads, <strong>skip Kinsale and go straight to Cork City</strong>. The English Market for lunch and Cafe Paradiso for dinner is a deeply satisfying final day, and Cork City is right on the motorway back to Dublin</li>
+      <li>Every hour spent in Cork is an hour you don't have in Dublin. If there's something in Dublin you didn't get to on Day 1 (Kilmainham Gaol, Kevin &amp; Howlin, the GPO), you'll want that last evening</li>
+    </ul>
+  </div>
+
+  <div class="btn-group">
+    <a href="final-night.html" class="btn btn-primary">Last Night Options &rarr;</a>
+    <a href="departure.html" class="btn btn-secondary">Departure Day &rarr;</a>
+    <a href="route-kerry.html" class="btn btn-gold">&larr; Back to Kerry</a>
+  </div>
+
+</div>
+
+<div class="footer">
+  <p>Built with care for Spencer &amp; Savannah's anniversary adventure.</p>
+  <p>Every fact in these pages has been verified. Hours, availability, and transport options are current as of March 2026.</p>
+  <p style="margin-top: 0.5rem;">Works offline. No internet needed once downloaded.</p>
+</div>
+
+</body>
+</html>

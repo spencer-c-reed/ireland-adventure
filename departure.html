@@ -1,0 +1,996 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ireland Adventure — Tuesday March 24: Getting Home</title>
+<style>
+  :root {
+    --parchment: #f4efe1;
+    --parchment-dark: #e8e0cc;
+    --ink: #2c1810;
+    --ink-light: #5a3e2b;
+    --moss: #4a6741;
+    --moss-light: #6b8f5e;
+    --moss-pale: #e8f0e4;
+    --sea: #2e6b7e;
+    --sea-light: #4a9bb5;
+    --sea-pale: #dceef3;
+    --gold: #c4a35a;
+    --gold-light: #e8d5a0;
+    --rust: #8b4513;
+    --storm: #536878;
+    --warning: #b8860b;
+    --white: #fefdfb;
+    --shadow: rgba(44, 24, 16, 0.12);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Georgia', 'Times New Roman', serif;
+    background: var(--parchment);
+    color: var(--ink);
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+
+  /* === HEADER === */
+  .hero {
+    background: linear-gradient(135deg, var(--moss) 0%, var(--sea) 50%, var(--storm) 100%);
+    color: var(--white);
+    padding: 3rem 1.5rem 2.5rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0 Q45 15 30 30 Q15 15 30 0z' fill='rgba(255,255,255,0.03)'/%3E%3C/svg%3E") repeat;
+  }
+
+  .hero h1 {
+    font-size: 2.2rem;
+    font-weight: normal;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.3rem;
+    position: relative;
+  }
+
+  .hero .subtitle {
+    font-style: italic;
+    opacity: 0.85;
+    font-size: 1.05rem;
+    position: relative;
+  }
+
+  .hero .dates {
+    margin-top: 1rem;
+    font-size: 0.9rem;
+    opacity: 0.7;
+    position: relative;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  /* === NAVIGATION BAR === */
+  .nav-bar {
+    background: var(--ink);
+    padding: 0.6rem 1.5rem;
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  .nav-bar a {
+    color: var(--gold-light);
+    text-decoration: none;
+    font-size: 0.85rem;
+    letter-spacing: 0.05em;
+    transition: color 0.2s;
+  }
+
+  .nav-bar a:hover { color: var(--white); }
+  .nav-bar a.active { color: var(--white); border-bottom: 1px solid var(--gold); }
+
+  /* === MAIN CONTENT === */
+  .content {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem 4rem;
+  }
+
+  /* === SECTION HEADERS === */
+  h2 {
+    font-size: 1.5rem;
+    color: var(--moss);
+    margin: 2.5rem 0 1rem;
+    padding-bottom: 0.4rem;
+    border-bottom: 2px solid var(--gold-light);
+    font-weight: normal;
+  }
+
+  h3 {
+    font-size: 1.15rem;
+    color: var(--sea);
+    margin: 1.8rem 0 0.6rem;
+    font-weight: normal;
+    font-style: italic;
+  }
+
+  p { margin-bottom: 1rem; }
+
+  /* === DECISION CARDS === */
+  .decision {
+    background: var(--white);
+    border: 1px solid var(--gold-light);
+    border-radius: 8px;
+    margin: 1.5rem 0;
+    overflow: hidden;
+    box-shadow: 0 2px 8px var(--shadow);
+  }
+
+  .decision-header {
+    background: linear-gradient(135deg, var(--ink) 0%, var(--ink-light) 100%);
+    color: var(--gold-light);
+    padding: 0.8rem 1.2rem;
+    font-size: 0.85rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .decision-header .icon { font-size: 1.1rem; }
+
+  .decision-body {
+    padding: 1.2rem;
+  }
+
+  /* === OPTION CARDS === */
+  .option {
+    display: block;
+    background: var(--parchment);
+    border: 1px solid var(--parchment-dark);
+    border-left: 4px solid var(--moss);
+    border-radius: 6px;
+    padding: 1rem 1.2rem;
+    margin: 0.8rem 0;
+    text-decoration: none;
+    color: var(--ink);
+    transition: all 0.2s ease;
+    cursor: pointer;
+  }
+
+  .option:hover {
+    border-left-color: var(--sea);
+    background: var(--sea-pale);
+    transform: translateX(4px);
+  }
+
+  .option.romantic { border-left-color: var(--rust); }
+  .option.romantic:hover { border-left-color: #c0392b; background: #fdf2f0; }
+
+  .option.adventure { border-left-color: var(--sea); }
+  .option.adventure:hover { border-left-color: var(--sea-light); }
+
+  .option.cultural { border-left-color: var(--gold); }
+  .option.cultural:hover { border-left-color: var(--warning); background: #fdf8ed; }
+
+  .option-title {
+    font-size: 1.1rem;
+    color: var(--moss);
+    margin-bottom: 0.3rem;
+  }
+
+  .option-desc {
+    font-size: 0.9rem;
+    color: var(--ink-light);
+    line-height: 1.5;
+  }
+
+  .option-meta {
+    display: flex;
+    gap: 1rem;
+    margin-top: 0.5rem;
+    font-size: 0.8rem;
+    color: var(--storm);
+    flex-wrap: wrap;
+  }
+
+  .option-meta span {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+  }
+
+  /* === INFO BOXES === */
+  .info-box {
+    background: var(--sea-pale);
+    border-left: 4px solid var(--sea);
+    border-radius: 0 6px 6px 0;
+    padding: 1rem 1.2rem;
+    margin: 1.2rem 0;
+    font-size: 0.9rem;
+  }
+
+  .info-box.warning {
+    background: #fdf3e0;
+    border-left-color: var(--warning);
+  }
+
+  .info-box.opportunity {
+    background: #fdf2f0;
+    border-left-color: var(--rust);
+  }
+
+  .info-box .label {
+    font-weight: bold;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 0.3rem;
+    color: var(--sea);
+  }
+
+  .info-box.warning .label { color: var(--warning); }
+  .info-box.opportunity .label { color: var(--rust); }
+
+  /* === TIMELINE === */
+  .timeline {
+    position: relative;
+    padding-left: 2rem;
+    margin: 1.5rem 0;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 0.5rem;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: var(--gold-light);
+  }
+
+  .timeline-item {
+    position: relative;
+    margin-bottom: 1.2rem;
+    padding-bottom: 0.5rem;
+  }
+
+  .timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -1.65rem;
+    top: 0.5rem;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--gold);
+    border: 2px solid var(--parchment);
+  }
+
+  .timeline-time {
+    font-size: 0.8rem;
+    color: var(--storm);
+    font-style: italic;
+    margin-bottom: 0.2rem;
+  }
+
+  .timeline-event {
+    font-size: 0.95rem;
+  }
+
+  /* === SPOT CARDS === */
+  .spot {
+    background: var(--white);
+    border: 1px solid var(--parchment-dark);
+    border-radius: 6px;
+    padding: 1rem 1.2rem;
+    margin: 0.8rem 0;
+  }
+
+  .spot-name {
+    font-size: 1.05rem;
+    color: var(--moss);
+    margin-bottom: 0.2rem;
+  }
+
+  .spot-type {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--storm);
+    margin-bottom: 0.4rem;
+  }
+
+  .spot-detail {
+    font-size: 0.9rem;
+    color: var(--ink-light);
+    margin-bottom: 0.3rem;
+  }
+
+  .spot-hours {
+    font-size: 0.8rem;
+    color: var(--moss);
+    font-style: italic;
+  }
+
+  .spot-veg {
+    display: inline-block;
+    background: var(--moss-pale);
+    color: var(--moss);
+    font-size: 0.7rem;
+    padding: 0.15rem 0.5rem;
+    border-radius: 3px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-top: 0.3rem;
+  }
+
+  /* === TRADEOFF BOX === */
+  .tradeoff {
+    background: var(--parchment-dark);
+    border-radius: 6px;
+    padding: 1rem 1.2rem;
+    margin: 1rem 0;
+    font-size: 0.9rem;
+  }
+
+  .tradeoff-title {
+    font-weight: bold;
+    color: var(--rust);
+    margin-bottom: 0.4rem;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .tradeoff ul {
+    margin-left: 1.2rem;
+    margin-top: 0.3rem;
+  }
+
+  .tradeoff li {
+    margin-bottom: 0.3rem;
+    font-size: 0.88rem;
+  }
+
+  /* === BUTTONS === */
+  .btn {
+    display: inline-block;
+    padding: 0.7rem 1.5rem;
+    border-radius: 6px;
+    text-decoration: none;
+    font-family: 'Georgia', serif;
+    font-size: 0.95rem;
+    transition: all 0.2s;
+    cursor: pointer;
+    border: none;
+  }
+
+  .btn-primary {
+    background: var(--moss);
+    color: var(--white);
+  }
+
+  .btn-primary:hover {
+    background: var(--moss-light);
+  }
+
+  .btn-secondary {
+    background: var(--white);
+    color: var(--moss);
+    border: 1px solid var(--moss);
+  }
+
+  .btn-secondary:hover {
+    background: var(--moss-pale);
+  }
+
+  .btn-gold {
+    background: linear-gradient(135deg, var(--gold) 0%, var(--warning) 100%);
+    color: var(--white);
+  }
+
+  .btn-group {
+    display: flex;
+    gap: 0.8rem;
+    flex-wrap: wrap;
+    margin: 1.5rem 0;
+  }
+
+  /* === BACK LINK === */
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    color: var(--storm);
+    text-decoration: none;
+    font-size: 0.85rem;
+    margin-bottom: 1rem;
+    transition: color 0.2s;
+  }
+
+  .back-link:hover { color: var(--moss); }
+
+  /* === FOOTER === */
+  .footer {
+    text-align: center;
+    padding: 2rem 1.5rem;
+    font-size: 0.8rem;
+    color: var(--storm);
+    border-top: 1px solid var(--parchment-dark);
+    margin-top: 3rem;
+  }
+
+  /* === QUICK FACTS STRIP === */
+  .facts-strip {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 0.8rem;
+    margin: 1.5rem 0;
+  }
+
+  .fact-card {
+    background: var(--white);
+    border: 1px solid var(--parchment-dark);
+    border-radius: 6px;
+    padding: 0.8rem;
+    text-align: center;
+  }
+
+  .fact-card .number {
+    font-size: 1.4rem;
+    color: var(--moss);
+    display: block;
+  }
+
+  .fact-card .label {
+    font-size: 0.75rem;
+    color: var(--storm);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  /* === CELTIC DIVIDER === */
+  .divider {
+    text-align: center;
+    margin: 2rem 0;
+    color: var(--gold);
+    font-size: 1.2rem;
+    letter-spacing: 0.5rem;
+  }
+
+  /* === CHECKLIST === */
+  .checklist {
+    list-style: none;
+    margin: 1rem 0;
+    padding: 0;
+  }
+
+  .checklist li {
+    position: relative;
+    padding-left: 1.8rem;
+    margin-bottom: 0.6rem;
+    font-size: 0.95rem;
+  }
+
+  .checklist li::before {
+    content: '\2610';
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-size: 1.1rem;
+    color: var(--moss);
+  }
+
+  /* === TAG === */
+  .tag {
+    display: inline-block;
+    font-size: 0.7rem;
+    padding: 0.1rem 0.4rem;
+    border-radius: 3px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-right: 0.3rem;
+  }
+
+  .tag-romantic { background: #fce4ec; color: var(--rust); }
+  .tag-history { background: #e8eaf6; color: #3949ab; }
+  .tag-nature { background: var(--moss-pale); color: var(--moss); }
+  .tag-food { background: #fff3e0; color: #e65100; }
+  .tag-shopping { background: #f3e5f5; color: #7b1fa2; }
+  .tag-whiskey { background: #efebe9; color: #4e342e; }
+
+  /* === RESPONSIVE === */
+  @media (max-width: 480px) {
+    .hero h1 { font-size: 1.7rem; }
+    .content { padding: 1.5rem 1rem 3rem; }
+    .option { padding: 0.8rem 1rem; }
+    .btn-group { flex-direction: column; }
+    .btn { text-align: center; }
+  }
+
+  /* === MAP PLACEHOLDER === */
+  .map-container {
+    background: var(--sea-pale);
+    border: 1px solid var(--sea-light);
+    border-radius: 8px;
+    padding: 2rem;
+    text-align: center;
+    margin: 1.5rem 0;
+    min-height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>Getting Home</h1>
+  <div class="subtitle">Tuesday, March 24 &mdash; Dublin Airport to JFK</div>
+  <div class="dates">EI 0107 &middot; DUB 16:45 &rarr; JFK 20:25</div>
+</div>
+
+<nav class="nav-bar">
+  <a href="index.html">Start</a>
+  <a href="map.html">Full Map</a>
+  <a href="day1-west.html">Day 1</a>
+  <a href="packing.html">Packing &amp; Weather</a>
+  <a href="departure.html" class="active">Departure</a>
+</nav>
+
+<div class="content">
+
+  <a href="index.html" class="back-link">&larr; Back to Start</a>
+
+  <h2>Your Flight Home</h2>
+
+  <div class="facts-strip">
+    <div class="fact-card">
+      <span class="number">EI 0107</span>
+      <span class="label">Flight</span>
+    </div>
+    <div class="fact-card">
+      <span class="number">16:45</span>
+      <span class="label">Departure</span>
+    </div>
+    <div class="fact-card">
+      <span class="number">20:25</span>
+      <span class="label">Arrival JFK</span>
+    </div>
+    <div class="fact-card">
+      <span class="number">T2</span>
+      <span class="label">Terminal</span>
+    </div>
+  </div>
+
+  <p>Booking reference: <strong>32B7CB</strong> &mdash; Aer Lingus, Terminal 2, Dublin Airport.</p>
+
+  <p>The single most important thing about this day: Dublin has <strong>US Preclearance</strong>. You clear US customs and immigration <em>before</em> you board in Dublin. That means when you land at JFK, you walk straight out like a domestic arrival. No immigration queue, no customs line. It's wonderful on the JFK end, but it adds serious time at Dublin. Budget accordingly.</p>
+
+  <div class="info-box warning">
+    <div class="label">Weather Warning</div>
+    <strong>Tue Mar 24 weather: 11/4&deg;C, RAIN (14mm Dublin), 5--9 m/s wind.</strong> The worst weather day of the trip. Allow extra time for driving in rain. Visibility will be poor, roads will be wet, and you'll want windshield wipers you trust. If you're driving from the west, the rain will be heavier there.
+  </div>
+
+  <div class="divider">&bull; &bull; &bull;</div>
+
+  <!-- ============================================ -->
+  <!-- SCENARIO 1: DUBLIN -->
+  <!-- ============================================ -->
+
+  <h2>Scenario 1: You Woke Up in Dublin</h2>
+
+  <p>This is the most relaxed version of departure day. You're already where you need to be. Sleep in, have a proper breakfast, maybe squeeze in one last thing before heading to the airport.</p>
+
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="timeline-time">Morning &mdash; Sleep in</div>
+      <div class="timeline-event">No alarm. You've earned it. Get up when you get up. Find a good breakfast spot or eat at your hotel.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-time">10:00 &mdash; 11:30 AM</div>
+      <div class="timeline-event">Last stop in Dublin. Hit any shop you missed, take a final walk, grab a coffee. See the shopping section below if you want ideas.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-time">11:30 AM &mdash; Check out</div>
+      <div class="timeline-event">Check out of hotel/B&amp;B. Do a final sweep of the room. Load the car.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-time">12:00 PM &mdash; Drive to airport</div>
+      <div class="timeline-event">Dublin city center to DUB Airport is about 30 minutes, but in rain and traffic allow 45. Head north on the M1/M50.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-time">12:30 &mdash; 1:00 PM</div>
+      <div class="timeline-event">Arrive at airport rental car return village. Fill petrol first (station near the rental village). Return car, take shuttle to Terminal 2.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-time">1:30 PM</div>
+      <div class="timeline-event">At Terminal 2. Check in, drop any bags, proceed through security.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-time">2:00 &mdash; 3:00 PM</div>
+      <div class="timeline-event"><strong>US Preclearance.</strong> Queue can take 30--60 minutes. Have both passports ready. Answer the standard questions. Once through, you're in the departures lounge.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-time">3:00 &mdash; 4:15 PM</div>
+      <div class="timeline-event">Duty free shopping and a last pint. The Loop duty free is <em>after</em> Preclearance.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-time">~4:15 PM &mdash; Boarding</div>
+      <div class="timeline-event">Board EI 0107. Settle in for the westbound crossing.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-time">4:45 PM &mdash; Departure</div>
+      <div class="timeline-event"><strong>Wheels up.</strong> Next stop: JFK, arriving 8:25 PM local time. Walk straight out.</div>
+    </div>
+  </div>
+
+  <div class="divider">&bull; &bull; &bull;</div>
+
+  <!-- ============================================ -->
+  <!-- SCENARIO 2: GALWAY -->
+  <!-- ============================================ -->
+
+  <h2>Scenario 2: You Woke Up in Galway</h2>
+
+  <p>Galway to Dublin Airport is 215 km, mostly on the M6 motorway. Google says 2h33m in good conditions. In Tuesday's rain, budget <strong>2h48 to 2h55</strong>.</p>
+
+  <div class="decision">
+    <div class="decision-header">
+      <span class="icon">&#9670;</span>
+      GALWAY DEPARTURE TIMELINE
+    </div>
+    <div class="decision-body">
+
+      <div class="option adventure">
+        <div class="option-title">Leave by 10:30 AM &mdash; latest safe departure</div>
+        <div class="option-desc">This gets you to the rental car village by ~1:15 PM, through car return by ~1:45 PM, and at Terminal 2 by 2:00 PM. Tight but doable. No stops along the way.</div>
+        <div class="option-meta">
+          <span>215 km / ~2h50 in rain</span>
+          <span>Arrives T2: ~2:00 PM</span>
+        </div>
+      </div>
+
+      <div class="option cultural">
+        <div class="option-title">Leave by 9:30 AM &mdash; with a stop at Kilbeggan</div>
+        <div class="option-desc">Kilbeggan Distillery sits right off the M6, about halfway to Dublin (103 km from DUB Airport). If you didn't stop on the way west, this is your last chance. A quick tasting tour takes 45 minutes.</div>
+        <div class="option-meta">
+          <span>Stop adds ~1 hour</span>
+          <span>Leave Kilbeggan by 11:15 AM</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="timeline-time">8:30 &mdash; 9:00 AM</div>
+      <div class="timeline-event">Breakfast in Galway. Ard Bia at Nimmo's if you're near the Spanish Arch, or any spot in the Latin Quarter.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-time">9:30 &mdash; 10:30 AM</div>
+      <div class="timeline-event">Check out, load the car. Say goodbye to Galway. Head east on the M6.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-time">~10:45 AM (if stopping)</div>
+      <div class="timeline-event">Kilbeggan Distillery, right off M6 exit. Quick tasting tour. Back on the road by 11:30 AM.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-time">~1:00 &mdash; 1:15 PM</div>
+      <div class="timeline-event">Arrive at Dublin Airport. Fill petrol, return rental car.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-time">~1:45 &mdash; 2:00 PM</div>
+      <div class="timeline-event">Terminal 2. Check in, security, US Preclearance.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-time">4:45 PM</div>
+      <div class="timeline-event"><strong>Departure: EI 0107 to JFK.</strong></div>
+    </div>
+  </div>
+
+  <div class="info-box">
+    <div class="label">Good to know</div>
+    The M6 from Galway to Dublin is a well-maintained motorway the entire way. Even in rain, it's straightforward driving. The speed limit is 120 km/h but slow down in heavy rain. The route passes through Athlone and Kilbeggan before joining the M4 into Dublin.
+  </div>
+
+  <div class="divider">&bull; &bull; &bull;</div>
+
+  <!-- ============================================ -->
+  <!-- SCENARIO 3: CORK/KINSALE -->
+  <!-- ============================================ -->
+
+  <h2>Scenario 3: You Woke Up in Cork or Kinsale</h2>
+
+  <p>This is a tight one. Cork City to Dublin Airport is 265 km, about 3h05m on the M8/M7 in dry conditions. In Tuesday's rain, budget <strong>3h23 to 3h33</strong>. And if you're in Kinsale, add another 30 minutes to get to Cork first.</p>
+
+  <div class="info-box warning">
+    <div class="label">Tight Schedule</div>
+    <strong>From Cork City: leave by 9:30 AM latest.</strong> That gets you to the airport around 1:00 PM, through car return by 1:30 PM, at Terminal 2 by 2:00 PM. There's no margin for a flat tire, a wrong turn, or a long petrol queue. No detours, no stops.
+  </div>
+
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="timeline-time">8:00 AM &mdash; Wake up</div>
+      <div class="timeline-event">Early start. Grab breakfast at the hotel or B&amp;B. If you're in Kinsale, you need to be on the road to Cork by 8:30 AM.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-time">8:30 AM (Kinsale) / 9:00 AM (Cork)</div>
+      <div class="timeline-event">Check out. Load the car. Final room sweep.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-time">9:00 &mdash; 9:30 AM</div>
+      <div class="timeline-event">On the N8/M8 heading north. Straight motorway to Dublin. The route goes through Cashel and past the Rock of Cashel (which you can see from the motorway but don't have time to stop).</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-time">12:15 &mdash; 1:00 PM</div>
+      <div class="timeline-event">Arrive at Dublin Airport area. Fill petrol. Return the rental car.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-time">1:00 &mdash; 1:30 PM</div>
+      <div class="timeline-event">Shuttle from rental village to Terminal 2.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-time">1:30 &mdash; 2:00 PM</div>
+      <div class="timeline-event">Check in, security, US Preclearance.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-time">4:45 PM</div>
+      <div class="timeline-event"><strong>Departure: EI 0107 to JFK.</strong></div>
+    </div>
+  </div>
+
+  <div class="tradeoff">
+    <div class="tradeoff-title">If this feels too tight</div>
+    <ul>
+      <li><strong>Consider driving to Dublin on Monday evening.</strong> Cork to Dublin is actually a pleasant evening drive. Get a hotel near the airport or in Dublin city center, and Tuesday morning becomes the relaxed Scenario 1.</li>
+      <li><strong>The Cashel Court Hotel</strong> is about halfway (1h45 from Cork, 1h30 from DUB Airport). You could split the drive if Monday night is late.</li>
+    </ul>
+  </div>
+
+  <div class="divider">&bull; &bull; &bull;</div>
+
+  <!-- ============================================ -->
+  <!-- SCENARIO 4: KERRY -->
+  <!-- ============================================ -->
+
+  <h2>Scenario 4: You Woke Up in Kerry</h2>
+
+  <p>If you spent Monday night in Killarney or Dingle, you've got the longest drive ahead. Killarney to Dublin Airport is about 305 km, roughly <strong>3h30 in realistic conditions</strong>. From Dingle, add another 45 minutes to reach Killarney first.</p>
+
+  <div class="info-box warning">
+    <div class="label">Very Tight</div>
+    <strong>From Killarney: leave by 9:00 AM.</strong> From Dingle: leave by 8:15 AM. This assumes no stops, no detours, and no getting stuck behind a tractor on the N22. In rain, these roads are slower than the motorways further east. <strong>Strongly consider driving toward Dublin on Monday evening instead.</strong>
+  </div>
+
+  <div class="decision">
+    <div class="decision-header">
+      <span class="icon">&#9670;</span>
+      KERRY DEPARTURE OPTIONS
+    </div>
+    <div class="decision-body">
+
+      <div class="option">
+        <div class="option-title">Option A: Drive to Dublin Monday evening</div>
+        <div class="option-desc">The smart play. Leave Kerry by 5:00--6:00 PM Monday, arrive in Dublin by 9:00 PM. Stay near the airport or in the city. Tuesday morning is relaxed. You could even squeeze in a last Dublin evening.</div>
+        <div class="option-meta">
+          <span>Recommended</span>
+          <span>Removes all Tuesday stress</span>
+        </div>
+      </div>
+
+      <div class="option adventure">
+        <div class="option-title">Option B: Drive to Limerick Monday evening</div>
+        <div class="option-desc">Split the difference. Killarney to Limerick is about 1h30. Stay in Limerick Monday night. Tuesday morning, Limerick to Dublin Airport is about 2h15 (195 km on the M7). Leave Limerick by 10:30 AM.</div>
+        <div class="option-meta">
+          <span>195 km Tue morning</span>
+          <span>Moderate buffer</span>
+        </div>
+      </div>
+
+      <div class="option cultural">
+        <div class="option-title">Option C: White-knuckle it Tuesday morning</div>
+        <div class="option-desc">Leave Killarney by 9:00 AM sharp. Drive straight through, no stops. Arrive at DUB Airport around 12:30 PM if everything goes perfectly. In rain, on Kerry roads, with a flight to catch. Not recommended.</div>
+        <div class="option-meta">
+          <span>~305 km / ~3h30</span>
+          <span>No margin for error</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="divider">&bull; &bull; &bull;</div>
+
+  <!-- ============================================ -->
+  <!-- CAR RETURN -->
+  <!-- ============================================ -->
+
+  <h2>Returning the Rental Car</h2>
+
+  <p>No matter where you're coming from, the car return process at Dublin Airport works the same way. Allow <strong>30 minutes</strong> from pulling into the rental village to stepping into the terminal.</p>
+
+  <h3>Before you arrive</h3>
+
+  <ul class="checklist">
+    <li>Fill petrol at the station near the airport rental village (it's on the approach road &mdash; follow signs). Most rental agreements require a full tank on return.</li>
+    <li>Check the car for new damage. Walk around it. Take photos of all four sides, the roof, and the wheels. Do this <em>before</em> you pull into the return bay.</li>
+    <li>Check the boot, glove box, under seats, door pockets &mdash; nothing left behind.</li>
+    <li>Remove any rubbish. Leave the car the way you found it.</li>
+  </ul>
+
+  <h3>At the rental village</h3>
+
+  <p>Follow signs for <strong>"Car Rental Return"</strong> as you approach Dublin Airport. The rental car village is separate from the terminals. You'll pull into your rental company's return bay, hand over the keys, and get a shuttle bus to Terminal 2. The shuttle runs frequently (every 5--10 minutes), but don't count on it being instant.</p>
+
+  <div class="info-box">
+    <div class="label">Insurance Note</div>
+    You declined the rental company's CDW because the <strong>Chase Sapphire</strong> covers international rental car insurance. If there's any damage dispute at return, don't sign anything admitting fault. Take photos, note the agent's name, and file the claim through Chase when you get home. The Sapphire's coverage is primary for international rentals.
+  </div>
+
+  <div class="info-box">
+    <div class="label">M50 Toll</div>
+    The M50 (Dublin's ring road) has a camera-based toll. No stopping, no toll booth &mdash; it photographs your plate. The toll is <strong>EUR 3.80</strong> for rental cars, and the rental company will typically auto-charge it plus an admin fee. You'll see it on your final rental statement. Nothing you need to do.
+  </div>
+
+  <div class="divider">&bull; &bull; &bull;</div>
+
+  <!-- ============================================ -->
+  <!-- TERMINAL 2 PROCESS -->
+  <!-- ============================================ -->
+
+  <h2>Dublin Airport Terminal 2</h2>
+
+  <p>Working backward from the 16:45 departure, here's the target timeline:</p>
+
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="timeline-time">~14:00 &mdash; Arrive at Terminal 2</div>
+      <div class="timeline-event"><strong>Recommended arrival time.</strong> This gives you nearly 3 hours before departure, which sounds like a lot until you factor in Preclearance. Check in at the Aer Lingus desks (or use the self-service kiosks if you've checked in online).</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-time">~14:15 &mdash; Security screening</div>
+      <div class="timeline-event">Standard airport security. Laptops out, liquids in a bag. Usually moves quickly at T2.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-time">~14:30 &mdash; US Preclearance</div>
+      <div class="timeline-event"><strong>This is the big one.</strong> You go through US Customs and Border Protection right here in Dublin. It's a full US immigration checkpoint: passport scan, photo, fingerprints, questions about your trip. The queue can take 30--60 minutes depending on how many US-bound flights are departing around the same time. Be patient. Have your passports ready.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-time">~15:00 &mdash; 15:30</div>
+      <div class="timeline-event"><strong>Through Preclearance.</strong> You're now in the departures area. Duty free shopping, food, pints. Relax. The hard part is done.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-time">~16:15</div>
+      <div class="timeline-event">Boarding begins for EI 0107.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-time">16:45</div>
+      <div class="timeline-event"><strong>Departure.</strong> Dublin to JFK, arriving 20:25 local time. You walk off the plane and straight out of the airport. No queues. You're home.</div>
+    </div>
+  </div>
+
+  <div class="info-box opportunity">
+    <div class="label">Duty Free Tip</div>
+    <strong>Duty free in Dublin T2 is AFTER US Preclearance.</strong> That means anything you buy &mdash; Irish whiskey, wool, chocolate, whatever &mdash; you carry onto the plane. When you land at JFK, you're treated as a domestic arrival. No customs declaration for duty free goods purchased after Preclearance. This is the time to buy that bottle of Redbreast 15 or a Donegal tweed scarf.
+  </div>
+
+  <div class="divider">&bull; &bull; &bull;</div>
+
+  <!-- ============================================ -->
+  <!-- LAST-MINUTE DUBLIN SHOPPING -->
+  <!-- ============================================ -->
+
+  <h2>Last-Minute Shopping</h2>
+
+  <p>If you're in Dublin with time to spare on Tuesday morning, or if you want to grab something at the airport before you go through Preclearance, here are your best options.</p>
+
+  <h3>At the Airport</h3>
+
+  <div class="spot">
+    <div class="spot-name">The Loop &mdash; Dublin Airport Duty Free</div>
+    <div class="spot-type"><span class="tag tag-whiskey">Whiskey</span> <span class="tag tag-shopping">Shopping</span></div>
+    <div class="spot-detail">T2 duty free, located after US Preclearance. Strong selection of Irish whiskeys including exclusive airport bottlings. Redbreast, Midleton, Green Spot, Powers John's Lane. Also carries Irish chocolates, Aran knitwear, and Waterford Crystal.</div>
+    <div class="spot-hours">Open from early morning through last departures</div>
+  </div>
+
+  <h3>In Dublin City Center (morning only)</h3>
+
+  <div class="spot">
+    <div class="spot-name">Kevin &amp; Howlin</div>
+    <div class="spot-type"><span class="tag tag-shopping">Shopping</span></div>
+    <div class="spot-detail">31 Nassau Street, right by Trinity College. The best Donegal tweed shop in Ireland, full stop. Jackets, caps, scarves, waistcoats. Everything is genuine Magee Donegal tweed. Staff are knowledgeable and will help with fit. This is a heritage shop, not a tourist trap.</div>
+    <div class="spot-hours">Mon--Sat 9:30 AM -- 5:30 PM</div>
+  </div>
+
+  <div class="spot">
+    <div class="spot-name">Celtic Tweed</div>
+    <div class="spot-type"><span class="tag tag-shopping">Shopping</span></div>
+    <div class="spot-detail">South Anne's Lane, off Grafton Street. Tailored tweed jackets and accessories. More contemporary cuts than Kevin &amp; Howlin but still using traditional Irish fabrics. Good option if you want something a bit more modern.</div>
+    <div class="spot-hours">Check hours &mdash; typically 10:00 AM -- 5:30 PM</div>
+  </div>
+
+  <div class="spot">
+    <div class="spot-name">The Palace Bar</div>
+    <div class="spot-type"><span class="tag tag-whiskey">Whiskey</span> <span class="tag tag-food">Food &amp; Drink</span></div>
+    <div class="spot-detail">21 Fleet Street, Temple Bar area. One of Dublin's finest traditional pubs, and it has over 100 Irish whiskeys behind the bar. Opens at 10:30 AM. If you have time for one last dram before heading to the airport, this is the place to do it. A proper goodbye to Ireland.</div>
+    <div class="spot-hours">Opens 10:30 AM daily</div>
+  </div>
+
+  <div class="tradeoff">
+    <div class="tradeoff-title">Time Check</div>
+    <ul>
+      <li>If you want to hit a city center shop AND return the car AND make the flight, you need to be <strong>done shopping by 11:30 AM</strong> and heading to the car by noon.</li>
+      <li>Kevin &amp; Howlin is closest to the car parks near Trinity. If you only have time for one stop, make it this one.</li>
+      <li>The Palace Bar opens at 10:30 AM &mdash; a quick whiskey takes 20 minutes, not two hours. Get in, get out, get to the airport.</li>
+    </ul>
+  </div>
+
+  <div class="divider">&bull; &bull; &bull;</div>
+
+  <!-- ============================================ -->
+  <!-- PRE-DEPARTURE CHECKLIST -->
+  <!-- ============================================ -->
+
+  <h2>Pre-Departure Checklist</h2>
+
+  <ul class="checklist">
+    <li>Passports (both) &mdash; needed for Preclearance</li>
+    <li>Booking reference: <strong>32B7CB</strong></li>
+    <li>Rental car returned, keys handed over, return receipt received</li>
+    <li>Petrol tank full at time of return</li>
+    <li>Photos of rental car taken at return (insurance backup)</li>
+    <li>Nothing left in the car, hotel room, or B&amp;B</li>
+    <li>Phone/camera charged for the journey home</li>
+    <li>Downloaded photos and videos backed up (in case of phone loss)</li>
+    <li>Any duty free purchased after Preclearance, not before</li>
+  </ul>
+
+  <div class="divider">&bull; &bull; &bull;</div>
+
+  <!-- ============================================ -->
+  <!-- SILVER LINING -->
+  <!-- ============================================ -->
+
+  <div class="info-box opportunity">
+    <div class="label">Silver Lining</div>
+    You've had six days of mostly dry weather. Cloud, yes. Mist, sure. But the rain held off for the Aran Islands, for the Cliffs of Moher, for every drive along the coast. Tuesday's downpour is Ireland's parting gift: a reminder that you got incredibly lucky with the weather, and a reason not to feel bad about leaving.
+  </div>
+
+  <div class="info-box">
+    <div class="label">At JFK</div>
+    Because you cleared US customs in Dublin, arriving at JFK is simple. You land, you deplane, you walk out of the airport. No immigration line, no baggage customs hall (for carry-on), no declaration forms. Grab your bags if you checked any, and you're in New York. The whole thing takes 15 minutes. Welcome home.
+  </div>
+
+  <div class="divider">&bull; &bull; &bull;</div>
+
+  <div class="btn-group">
+    <a href="packing.html" class="btn btn-primary">Packing &amp; Weather &rarr;</a>
+    <a href="route-dublin-return.html" class="btn btn-secondary">&larr; Return via Midlands</a>
+    <a href="index.html" class="btn btn-gold">Back to Start</a>
+  </div>
+
+</div>
+
+<div class="footer">
+  <p>Built with care for Spencer &amp; Savannah's anniversary adventure.</p>
+  <p>Every fact in these pages has been verified. Hours, availability, and ferry schedules are current as of March 2026.</p>
+  <p style="margin-top: 0.5rem;">Works offline. No internet needed once downloaded.</p>
+</div>
+
+</body>
+</html>
