@@ -1,0 +1,930 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ireland Adventure — The Route</title>
+<style>
+  :root {
+    --parchment: #f4efe1;
+    --parchment-dark: #e8e0cc;
+    --ink: #2c1810;
+    --ink-light: #5a3e2b;
+    --moss: #4a6741;
+    --moss-light: #6b8f5e;
+    --moss-pale: #e8f0e4;
+    --sea: #2e6b7e;
+    --sea-light: #4a9bb5;
+    --sea-pale: #dceef3;
+    --gold: #c4a35a;
+    --gold-light: #e8d5a0;
+    --rust: #8b4513;
+    --storm: #536878;
+    --warning: #b8860b;
+    --white: #fefdfb;
+    --shadow: rgba(44, 24, 16, 0.12);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Georgia', 'Times New Roman', serif;
+    background: var(--parchment);
+    color: var(--ink);
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+
+  .hero {
+    background: linear-gradient(135deg, var(--moss) 0%, var(--sea) 50%, var(--storm) 100%);
+    color: var(--white);
+    padding: 3rem 1.5rem 2.5rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0 Q45 15 30 30 Q15 15 30 0z' fill='rgba(255,255,255,0.03)'/%3E%3C/svg%3E") repeat;
+  }
+
+  .hero h1 {
+    font-size: 2.2rem;
+    font-weight: normal;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.3rem;
+    position: relative;
+  }
+
+  .hero .subtitle {
+    font-style: italic;
+    opacity: 0.85;
+    font-size: 1.05rem;
+    position: relative;
+  }
+
+  .hero .dates {
+    margin-top: 1rem;
+    font-size: 0.9rem;
+    opacity: 0.7;
+    position: relative;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .nav-bar {
+    background: var(--ink);
+    padding: 0.6rem 1.5rem;
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  .nav-bar a {
+    color: var(--gold-light);
+    text-decoration: none;
+    font-size: 0.85rem;
+    letter-spacing: 0.05em;
+    transition: color 0.2s;
+  }
+
+  .nav-bar a:hover { color: var(--white); }
+  .nav-bar a.active { color: var(--white); border-bottom: 1px solid var(--gold); }
+
+  .content {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem 4rem;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+    color: var(--moss);
+    margin: 2.5rem 0 1rem;
+    padding-bottom: 0.4rem;
+    border-bottom: 2px solid var(--gold-light);
+    font-weight: normal;
+  }
+
+  h3 {
+    font-size: 1.15rem;
+    color: var(--sea);
+    margin: 1.8rem 0 0.6rem;
+    font-weight: normal;
+    font-style: italic;
+  }
+
+  p { margin-bottom: 1rem; }
+
+  .decision {
+    background: var(--white);
+    border: 1px solid var(--gold-light);
+    border-radius: 8px;
+    margin: 1.5rem 0;
+    overflow: hidden;
+    box-shadow: 0 2px 8px var(--shadow);
+  }
+
+  .decision-header {
+    background: linear-gradient(135deg, var(--ink) 0%, var(--ink-light) 100%);
+    color: var(--gold-light);
+    padding: 0.8rem 1.2rem;
+    font-size: 0.85rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .decision-header .icon { font-size: 1.1rem; }
+
+  .decision-body {
+    padding: 1.2rem;
+  }
+
+  .option {
+    display: block;
+    background: var(--parchment);
+    border: 1px solid var(--parchment-dark);
+    border-left: 4px solid var(--moss);
+    border-radius: 6px;
+    padding: 1rem 1.2rem;
+    margin: 0.8rem 0;
+    text-decoration: none;
+    color: var(--ink);
+    transition: all 0.2s ease;
+    cursor: pointer;
+  }
+
+  .option:hover {
+    border-left-color: var(--sea);
+    background: var(--sea-pale);
+    transform: translateX(4px);
+  }
+
+  .option.romantic { border-left-color: var(--rust); }
+  .option.romantic:hover { border-left-color: #c0392b; background: #fdf2f0; }
+
+  .option.adventure { border-left-color: var(--sea); }
+  .option.adventure:hover { border-left-color: var(--sea-light); }
+
+  .option.cultural { border-left-color: var(--gold); }
+  .option.cultural:hover { border-left-color: var(--warning); background: #fdf8ed; }
+
+  .option-title {
+    font-size: 1.1rem;
+    color: var(--moss);
+    margin-bottom: 0.3rem;
+  }
+
+  .option-desc {
+    font-size: 0.9rem;
+    color: var(--ink-light);
+    line-height: 1.5;
+  }
+
+  .option-meta {
+    display: flex;
+    gap: 1rem;
+    margin-top: 0.5rem;
+    font-size: 0.8rem;
+    color: var(--storm);
+    flex-wrap: wrap;
+  }
+
+  .option-meta span {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+  }
+
+  .info-box {
+    background: var(--sea-pale);
+    border-left: 4px solid var(--sea);
+    border-radius: 0 6px 6px 0;
+    padding: 1rem 1.2rem;
+    margin: 1.2rem 0;
+    font-size: 0.9rem;
+  }
+
+  .info-box.warning {
+    background: #fdf3e0;
+    border-left-color: var(--warning);
+  }
+
+  .info-box.opportunity {
+    background: #fdf2f0;
+    border-left-color: var(--rust);
+  }
+
+  .info-box .label {
+    font-weight: bold;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 0.3rem;
+    color: var(--sea);
+  }
+
+  .info-box.warning .label { color: var(--warning); }
+  .info-box.opportunity .label { color: var(--rust); }
+
+  .timeline {
+    position: relative;
+    padding-left: 2rem;
+    margin: 1.5rem 0;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 0.5rem;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: var(--gold-light);
+  }
+
+  .timeline-item {
+    position: relative;
+    margin-bottom: 1.2rem;
+    padding-bottom: 0.5rem;
+  }
+
+  .timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -1.65rem;
+    top: 0.5rem;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--gold);
+    border: 2px solid var(--parchment);
+  }
+
+  .timeline-time {
+    font-size: 0.8rem;
+    color: var(--storm);
+    font-style: italic;
+    margin-bottom: 0.2rem;
+  }
+
+  .timeline-event {
+    font-size: 0.95rem;
+  }
+
+  .spot {
+    background: var(--white);
+    border: 1px solid var(--parchment-dark);
+    border-radius: 6px;
+    padding: 1rem 1.2rem;
+    margin: 0.8rem 0;
+  }
+
+  .spot-name {
+    font-size: 1.05rem;
+    color: var(--moss);
+    margin-bottom: 0.2rem;
+  }
+
+  .spot-type {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--storm);
+    margin-bottom: 0.4rem;
+  }
+
+  .spot-detail {
+    font-size: 0.9rem;
+    color: var(--ink-light);
+    margin-bottom: 0.3rem;
+  }
+
+  .spot-hours {
+    font-size: 0.8rem;
+    color: var(--moss);
+    font-style: italic;
+  }
+
+  .spot-veg {
+    display: inline-block;
+    background: var(--moss-pale);
+    color: var(--moss);
+    font-size: 0.7rem;
+    padding: 0.15rem 0.5rem;
+    border-radius: 3px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-top: 0.3rem;
+  }
+
+  .tradeoff {
+    background: var(--parchment-dark);
+    border-radius: 6px;
+    padding: 1rem 1.2rem;
+    margin: 1rem 0;
+    font-size: 0.9rem;
+  }
+
+  .tradeoff-title {
+    font-weight: bold;
+    color: var(--rust);
+    margin-bottom: 0.4rem;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .tradeoff ul {
+    margin-left: 1.2rem;
+    margin-top: 0.3rem;
+  }
+
+  .tradeoff li {
+    margin-bottom: 0.3rem;
+    font-size: 0.88rem;
+  }
+
+  .facts-strip {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 0.8rem;
+    margin: 1.5rem 0;
+  }
+
+  .fact-card {
+    background: var(--white);
+    border: 1px solid var(--parchment-dark);
+    border-radius: 6px;
+    padding: 0.8rem;
+    text-align: center;
+  }
+
+  .fact-card .number {
+    font-size: 1.4rem;
+    color: var(--moss);
+    display: block;
+  }
+
+  .fact-card .label {
+    font-size: 0.75rem;
+    color: var(--storm);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .btn {
+    display: inline-block;
+    padding: 0.7rem 1.5rem;
+    border-radius: 6px;
+    text-decoration: none;
+    font-family: 'Georgia', serif;
+    font-size: 0.95rem;
+    transition: all 0.2s;
+    cursor: pointer;
+    border: none;
+  }
+
+  .btn-primary {
+    background: var(--moss);
+    color: var(--white);
+  }
+
+  .btn-primary:hover { background: var(--moss-light); }
+
+  .btn-secondary {
+    background: var(--white);
+    color: var(--moss);
+    border: 1px solid var(--moss);
+  }
+
+  .btn-secondary:hover { background: var(--moss-pale); }
+
+  .btn-gold {
+    background: linear-gradient(135deg, var(--gold) 0%, var(--warning) 100%);
+    color: var(--white);
+  }
+
+  .btn-group {
+    display: flex;
+    gap: 0.8rem;
+    flex-wrap: wrap;
+    margin: 1.5rem 0;
+  }
+
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    color: var(--storm);
+    text-decoration: none;
+    font-size: 0.85rem;
+    margin-bottom: 1rem;
+    transition: color 0.2s;
+  }
+
+  .back-link:hover { color: var(--moss); }
+
+  .footer {
+    text-align: center;
+    padding: 2rem 1.5rem;
+    font-size: 0.8rem;
+    color: var(--storm);
+    border-top: 1px solid var(--parchment-dark);
+    margin-top: 3rem;
+  }
+
+  .divider {
+    text-align: center;
+    margin: 2rem 0;
+    color: var(--gold);
+    font-size: 1.2rem;
+    letter-spacing: 0.5rem;
+  }
+
+  .tag {
+    display: inline-block;
+    font-size: 0.7rem;
+    padding: 0.1rem 0.4rem;
+    border-radius: 3px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-right: 0.3rem;
+  }
+
+  .tag-romantic { background: #fce4ec; color: var(--rust); }
+  .tag-history { background: #e8eaf6; color: #3949ab; }
+  .tag-nature { background: var(--moss-pale); color: var(--moss); }
+  .tag-food { background: #fff3e0; color: #e65100; }
+  .tag-shopping { background: #f3e5f5; color: #7b1fa2; }
+  .tag-music { background: #efebe9; color: #4e342e; }
+
+  @media (max-width: 480px) {
+    .hero h1 { font-size: 1.7rem; }
+    .content { padding: 1.5rem 1rem 3rem; }
+    .option { padding: 0.8rem 1rem; }
+    .btn-group { flex-direction: column; }
+    .btn { text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>The Route</h1>
+  <div class="subtitle">Galway, the Cliffs, Doolin &amp; Dingle</div>
+  <div class="dates">Wednesday -- Friday, March 18 -- 20, 2026</div>
+</div>
+
+<nav class="nav-bar">
+  <a href="index.html">Start</a>
+  <a href="the-route.html" class="active">The Route</a>
+  <a href="cork-weekend.html">Cork Weekend</a>
+  <a href="heading-home.html">Getting Home</a>
+  <a href="packing.html">Packing</a>
+  <a href="map.html">Map</a>
+</nav>
+
+<div class="content">
+
+  <a href="index.html" class="back-link">&larr; Back to Start</a>
+
+  <!-- ============================================ -->
+  <h2>Wednesday March 18: Dublin to Galway</h2>
+  <!-- ============================================ -->
+
+  <p>You land at Dublin Airport at 4:20 AM. By 6:00--6:30, you'll have the rental car and be ready to go. The question is whether you go straight west or spend the morning in Dublin first.</p>
+
+  <div class="facts-strip">
+    <div class="fact-card">
+      <span class="number">4:20 AM</span>
+      <span class="label">Land in Dublin</span>
+    </div>
+    <div class="fact-card">
+      <span class="number">2.5 hrs</span>
+      <span class="label">Dublin to Galway (M6)</span>
+    </div>
+    <div class="fact-card">
+      <span class="number">208 km</span>
+      <span class="label">Distance</span>
+    </div>
+    <div class="fact-card">
+      <span class="number">&euro;3.10</span>
+      <span class="label">M6 toll</span>
+    </div>
+  </div>
+
+  <div class="decision">
+    <div class="decision-header">
+      <span class="icon">&#9670;</span>
+      DUBLIN MORNING OR STRAIGHT TO GALWAY?
+    </div>
+    <div class="decision-body">
+
+      <div class="option cultural">
+        <div class="option-title">Option A: Dublin Morning First</div>
+        <div class="option-desc">Breakfast at <strong>Keogh's Cafe</strong> (opens 6:30 AM, Trinity Street). Check <em>kilmainhamgaolmuseum.ie</em> at 9:15 AM for cancellation tickets. <strong>Kevin &amp; Howlin</strong> tweed (31 Nassau Street, opens 10 AM -- Donegal tweed jackets ~&euro;450). GPO on O'Connell Street (1916 bullet holes in the facade). Leave Dublin ~1--2 PM, arrive Galway ~4 PM.</div>
+        <div class="option-meta">
+          <span>Leave Dublin ~1--2 PM</span>
+          <span>Arrive Galway ~4 PM</span>
+        </div>
+      </div>
+
+      <div class="option adventure">
+        <div class="option-title">Option B: Straight to Galway</div>
+        <div class="option-desc">On the M6 by 6:30 AM. In Galway by 9 AM. A whole day to explore the Latin Quarter, walk the Long Walk, eat well, settle in. You'll hit Dublin on the way home Monday anyway.</div>
+        <div class="option-meta">
+          <span>Leave Dublin ~6:30 AM</span>
+          <span>Arrive Galway ~9 AM</span>
+        </div>
+      </div>
+
+      <div class="tradeoff">
+        <div class="tradeoff-title">The tradeoff</div>
+        <ul>
+          <li><strong>Dublin morning:</strong> Kilmainham Gaol is the most powerful political history site in Ireland. Kevin &amp; Howlin is the gold standard for Donegal tweed. But you arrive Galway late afternoon with limited time there.</li>
+          <li><strong>Straight to Galway:</strong> A full day to explore. You arrive rested enough to wander. The M6 motorway is mindless driving -- good for jet-lagged brains. And you'll pass through Dublin again on Monday.</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="info-box warning">
+    <div class="label">Kilmainham Gaol tickets</div>
+    Tickets release 28 days in advance and sell out fast. For March 18, those dropped on February 18. Your best shot is cancellation tickets released each morning between 9:15 and 9:30 AM on the official site. Only buy from <em>kilmainhamgaolmuseum.ie</em>. If sold out, <strong>Collins Barracks</strong> (free, no ticket needed) has an excellent 1916 Rising exhibition. You'll pass through Dublin again Monday, so don't stress.
+  </div>
+
+  <h3>Galway afternoon &amp; evening</h3>
+
+  <p>Galway's Latin Quarter is a tight grid of colorful shop fronts, buskers, and restaurants that punches far above its weight. You could spend a full day here or just an evening -- either way, the vibe is infectious.</p>
+
+  <div class="spot">
+    <div class="spot-name">Charlie Byrne's Bookshop</div>
+    <div class="spot-type"><span class="tag tag-shopping">Bookshop</span> Middle Street</div>
+    <div class="spot-detail">Legendary independent bookshop with 35,000+ titles across two floors. New, secondhand, rare, and Irish interest. You could lose an hour here easily.</div>
+  </div>
+
+  <div class="spot">
+    <div class="spot-name">O'Maille's</div>
+    <div class="spot-type"><span class="tag tag-shopping">Traditional clothing</span> Since 1938</div>
+    <div class="spot-detail">Traditional Irish clothing -- Aran sweaters, tweed caps, hand-knit scarves. The real deal, not tourist tat. Family-run for almost 90 years.</div>
+  </div>
+
+  <div class="spot">
+    <div class="spot-name">Spanish Arch &amp; the Long Walk</div>
+    <div class="spot-type"><span class="tag tag-history">16th century</span> <span class="tag tag-romantic">Romantic</span></div>
+    <div class="spot-detail">The Spanish Arch is a 16th-century structure on the River Corrib. Walk through it and you're on the Long Walk -- the prettiest street in Galway. Colorful terraced houses along the water, looking out across Galway Bay. Great for photos, great for a stroll.</div>
+  </div>
+
+  <div class="spot">
+    <div class="spot-name">Galway City Museum</div>
+    <div class="spot-type"><span class="tag tag-history">Museum</span> Free admission</div>
+    <div class="spot-detail">Right next to the Spanish Arch. Small but excellent collection of local history, archaeology, and art. Free. A good 30--45 minute visit.</div>
+  </div>
+
+  <h3>Where to eat in Galway</h3>
+
+  <div class="spot">
+    <div class="spot-name">Ard Bia at Nimmo's</div>
+    <div class="spot-type"><span class="tag tag-food">Restaurant</span> Spanish Arch, riverside</div>
+    <div class="spot-detail">Gorgeous setting right on the river at Spanish Arch. The menu is seasonal and always features strong vegetarian dishes. One of Galway's best restaurants, and the atmosphere -- candlelit stone walls, water outside -- makes it even better.</div>
+    <span class="spot-veg">Vegetarian options</span>
+  </div>
+
+  <div class="spot">
+    <div class="spot-name">Kai</div>
+    <div class="spot-type"><span class="tag tag-food">Restaurant</span> Sea Road</div>
+    <div class="spot-detail">Small, seasonal, vegetable-forward cooking. Often called the best restaurant in Galway. Everything is sourced locally, and the vegetarian dishes aren't afterthoughts -- they're highlights. Book ahead; it fills up fast.</div>
+    <span class="spot-veg">Exceptional vegetarian options</span>
+  </div>
+
+  <div class="spot">
+    <div class="spot-name">Dela</div>
+    <div class="spot-type"><span class="tag tag-food">Restaurant</span> Dominick Street</div>
+    <div class="spot-detail">Relaxed counter-service, beautifully presented food. Great for a lighter meal if you're jet-lagged and don't want to commit to a full sit-down dinner. The kind of place where simple things are done perfectly.</div>
+    <span class="spot-veg">Vegetarian options</span>
+  </div>
+
+  <div class="spot">
+    <div class="spot-name">Bierhaus</div>
+    <div class="spot-type"><span class="tag tag-food">Gastropub</span> Henry Street</div>
+    <div class="spot-detail">A fully vegetarian gastropub. Craft beer and creative veg food in a buzzy, unpretentious setting. Savannah's kind of place. The menu changes regularly and always has something surprising.</div>
+    <span class="spot-veg">Fully vegetarian</span>
+  </div>
+
+  <div class="info-box">
+    <div class="label">Sleep</div>
+    You need accommodation in Galway tonight. See the <a href="#lodging" style="color: var(--sea);">lodging section</a> below.
+  </div>
+
+  <div class="divider">&bull; &bull; &bull;</div>
+
+  <!-- ============================================ -->
+  <h2>Thursday March 19: Galway to Cliffs to Doolin to Dingle</h2>
+  <!-- ============================================ -->
+
+  <p>The big day. You're covering the most ground today, but it's all spectacular -- lunar limestone, towering sea cliffs, trad music pubs, a car ferry across the Shannon, and a mountain pass into Dingle at sunset.</p>
+
+  <div class="facts-strip">
+    <div class="fact-card">
+      <span class="number">1.5 hrs</span>
+      <span class="label">Galway to Cliffs</span>
+    </div>
+    <div class="fact-card">
+      <span class="number">&euro;8</span>
+      <span class="label">Cliffs entry</span>
+    </div>
+    <div class="fact-card">
+      <span class="number">20 min</span>
+      <span class="label">Shannon Ferry</span>
+    </div>
+    <div class="fact-card">
+      <span class="number">~3 hrs</span>
+      <span class="label">Doolin to Dingle (via ferry)</span>
+    </div>
+  </div>
+
+  <h3>Morning: The Burren &amp; Cliffs of Moher</h3>
+
+  <p>Drive south from Galway through the Burren -- a lunar landscape of cracked limestone stretching to the horizon. It looks like another planet. Nothing prepares you for it.</p>
+
+  <div class="spot">
+    <div class="spot-name">Poulnabrone Dolmen</div>
+    <div class="spot-type"><span class="tag tag-history">Ancient site</span> <span class="tag tag-nature">The Burren</span></div>
+    <div class="spot-detail">A 5,800-year-old portal tomb sitting in the middle of the Burren limestone. Older than the pyramids. Free, just pull over. Five-minute walk from the road. One of those sights that makes you recalibrate what "old" means.</div>
+  </div>
+
+  <div class="spot">
+    <div class="spot-name">Cliffs of Moher</div>
+    <div class="spot-type"><span class="tag tag-nature">Sea cliffs</span> 214m (702 ft)</div>
+    <div class="spot-detail">Sea cliffs dropping straight into the Atlantic. &euro;8 entry includes the visitor centre. Walk south past O'Brien's Tower for the best views and fewer people. The cliff walk toward Hag's Head is magnificent if the weather cooperates. Allow 1--2 hours.</div>
+  </div>
+
+  <div class="info-box warning">
+    <div class="label">March weather at the cliffs</div>
+    Wind at the cliffs can be brutal. Bring layers and something windproof. The visitor centre is good shelter if it's lashing rain. Don't let bad weather stop you going -- the cliffs are actually more dramatic in rough weather, as long as you're dressed for it.
+  </div>
+
+  <h3>Lunchtime: Doolin</h3>
+
+  <p>Doolin is three pubs and a post office -- and somehow one of the most famous music villages in Ireland. In high season, every pub has trad sessions nightly. In late March, it's quieter but you'll still find music, especially on a Thursday night.</p>
+
+  <div class="spot">
+    <div class="spot-name">Gus O'Connor's Pub</div>
+    <div class="spot-type"><span class="tag tag-music">Trad music</span> <span class="tag tag-food">Pub</span></div>
+    <div class="spot-detail">The most famous trad music pub in Ireland. Sessions most nights. Stone floors, open fire, pints of Guinness. If you only go to one pub in Doolin, make it this one.</div>
+  </div>
+
+  <div class="spot">
+    <div class="spot-name">McGann's</div>
+    <div class="spot-type"><span class="tag tag-music">Trad music</span> <span class="tag tag-food">Pub</span></div>
+    <div class="spot-detail">Smaller, more intimate than Gus O'Connor's. Often has afternoon sessions. Good pub food -- toasties, soup, chowder. A nice spot to warm up before the drive south.</div>
+  </div>
+
+  <div class="spot">
+    <div class="spot-name">McDermott's</div>
+    <div class="spot-type"><span class="tag tag-music">Trad music</span> <span class="tag tag-food">Pub</span></div>
+    <div class="spot-detail">The third of the Doolin trinity. More modern feel. Live music most evenings. If the other two are packed, this one will have room.</div>
+  </div>
+
+  <div class="spot">
+    <div class="spot-name">Doolin Cafe</div>
+    <div class="spot-type"><span class="tag tag-food">Cafe</span> Doolin village</div>
+    <div class="spot-detail">The best proper food in the village if you want more than pub grub. Good vegetarian options, fresh-baked goods, coffee that's actually good. A solid lunch stop.</div>
+    <span class="spot-veg">Vegetarian options</span>
+  </div>
+
+  <h3>Afternoon: The Shannon crossing to Dingle</h3>
+
+  <p>The Killimer--Tarbert car ferry crosses the Shannon estuary and saves you 130 km of driving versus going inland through Limerick. This is the smart route south.</p>
+
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="timeline-time">~2:00 PM</div>
+      <div class="timeline-event">Leave Doolin. Drive south to Killimer ferry terminal (~45 min).</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-time">~2:45 PM</div>
+      <div class="timeline-event">Arrive Killimer. Ferry runs every hour on the hour (check <em>shannonferries.com</em>). 20-minute crossing. Car + 2 passengers ~&euro;28 return.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-time">~3:15 PM</div>
+      <div class="timeline-event">Land at Tarbert. Drive south through Listowel to Tralee.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-time">~4:15 PM</div>
+      <div class="timeline-event">Tralee. Pick up the N86 toward the Connor Pass.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-time">~5:00--5:30 PM</div>
+      <div class="timeline-event">Arrive Dingle. Drop bags, walk the harbor, breathe.</div>
+    </div>
+  </div>
+
+  <div class="info-box">
+    <div class="label">The Connor Pass</div>
+    The highest mountain pass in Ireland. Narrow, dramatic, with views down to Brandon Bay on one side and the Dingle Peninsula on the other. Go slow, use passing places. This is the moment the trip shifts from "getting somewhere" to "being somewhere."
+  </div>
+
+  <h3>Dingle evening</h3>
+
+  <p>Drop your bags, walk the harbor, breathe. You're on the tip of the Dingle Peninsula, in a Gaeltacht area where Irish is the everyday language. The town is small enough to walk end-to-end in 15 minutes, but the food scene is remarkable.</p>
+
+  <div class="spot">
+    <div class="spot-name">The Chart House</div>
+    <div class="spot-type"><span class="tag tag-food">Restaurant</span> Michelin Guide listed</div>
+    <div class="spot-detail">Elegant but unfussy, with an imaginative approach to local Kerry ingredients. The menu rotates seasonally and always includes strong vegetarian options. One of Dingle's best dinners.</div>
+    <span class="spot-veg">Vegetarian options</span>
+  </div>
+
+  <div class="spot">
+    <div class="spot-name">Solas Tapas &amp; Wine</div>
+    <div class="spot-type"><span class="tag tag-food">Tapas</span> Small plates &amp; wine</div>
+    <div class="spot-detail">Fresh, beautifully presented small plates perfect for sharing. Great wine list. Ideal if you don't want a heavy meal after a long day on the road.</div>
+    <span class="spot-veg">Strong vegetarian &amp; vegan menu</span>
+  </div>
+
+  <div class="spot">
+    <div class="spot-name">The Wren's Nest</div>
+    <div class="spot-type"><span class="tag tag-food">Cafe</span> Dykegate Lane, Dingle</div>
+    <div class="spot-detail">A completely vegetarian cafe, coffee house, garden, and eclectic shop rolled into one. Extensive menu with vegan and gluten-free options. Savannah will love this place.</div>
+    <div class="spot-hours">Open 11 AM -- 5 PM</div>
+    <span class="spot-veg">Fully vegetarian</span>
+  </div>
+
+  <div class="info-box">
+    <div class="label">Sleep</div>
+    You need accommodation in Dingle tonight. See the <a href="#lodging" style="color: var(--sea);">lodging section</a> below.
+  </div>
+
+  <div class="divider">&bull; &bull; &bull;</div>
+
+  <!-- ============================================ -->
+  <h2>Friday March 20: Slea Head Drive &amp; Cork</h2>
+  <!-- ============================================ -->
+
+  <p>Your last morning on the Wild Atlantic Way. Make it count.</p>
+
+  <div class="facts-strip">
+    <div class="fact-card">
+      <span class="number">38 km</span>
+      <span class="label">Slea Head loop</span>
+    </div>
+    <div class="fact-card">
+      <span class="number">2.5--3.5 hrs</span>
+      <span class="label">With stops</span>
+    </div>
+    <div class="fact-card">
+      <span class="number">Clockwise</span>
+      <span class="label">Avoids tour buses</span>
+    </div>
+    <div class="fact-card">
+      <span class="number">~2.5 hrs</span>
+      <span class="label">Dingle to Cork</span>
+    </div>
+  </div>
+
+  <h3>Morning: Slea Head Drive</h3>
+
+  <p>A 38 km circular route around the tip of the peninsula, starting and ending in Dingle town. Drive <strong>clockwise</strong> to avoid meeting tour buses head-on. March advantage: you'll have it largely to yourselves.</p>
+
+  <div class="spot">
+    <div class="spot-name">Fahan Beehive Huts</div>
+    <div class="spot-type"><span class="tag tag-history">Ancient site</span> <span class="tag tag-nature">Farm</span></div>
+    <div class="spot-detail">2,000-year-old stone beehive huts on a working farm. &euro;4 entry. You can hold a baby lamb. That alone is worth the stop.</div>
+  </div>
+
+  <div class="spot">
+    <div class="spot-name">Dunmore Head</div>
+    <div class="spot-type"><span class="tag tag-nature">Viewpoint</span> <span class="tag tag-romantic">Romantic</span></div>
+    <div class="spot-detail">The westernmost point of mainland Ireland. Next stop west: North America. Short walk from the car park to the headland. Genuinely one of those "edge of the world" moments.</div>
+  </div>
+
+  <div class="spot">
+    <div class="spot-name">Gallarus Oratory</div>
+    <div class="spot-type"><span class="tag tag-history">7th-century chapel</span></div>
+    <div class="spot-detail">A remarkably preserved early Christian chapel built entirely from dry-stacked stone, shaped like an inverted boat. Still watertight after 1,300 years. One of the most intact early medieval buildings in Ireland.</div>
+  </div>
+
+  <div class="spot">
+    <div class="spot-name">Blasket Centre</div>
+    <div class="spot-type"><span class="tag tag-history">Museum</span> Dunquin</div>
+    <div class="spot-detail">Museum about the Great Blasket island community, evacuated in 1953. Three classics of Irish autobiography came from a community of fewer than 200 people. The building sits on the cliff overlooking the abandoned island.</div>
+  </div>
+
+  <div class="info-box">
+    <div class="label">Star Wars was here</div>
+    The Dingle Peninsula was a filming location for <em>Star Wars: The Force Awakens</em>. The dramatic coastal landscape doubled for the planet where Luke Skywalker was found. Keep an eye out for the signs.
+  </div>
+
+  <h3>Lunch in Dingle, then drive to Cork</h3>
+
+  <p>Head back into Dingle for lunch -- the Wren's Nest or Solas are both good quick options -- then point the car east.</p>
+
+  <p>The direct route: Dingle &rarr; Tralee (N86) &rarr; Killarney (N22) &rarr; Cork City (N22). About 2.5 hours total. Good roads after Tralee. Straightforward driving.</p>
+
+  <div class="info-box">
+    <div class="label">Optional: Killarney National Park</div>
+    If you have time, Killarney is right on the way. <strong>Muckross House gardens</strong> (free, beautiful) or <strong>Ladies View</strong> (famous viewpoint, just pull over on the N71) make good 30-minute breaks without a detour. Don't do the full Ring of Kerry -- no time, and you don't need to.
+  </div>
+
+  <h3>Evening: Arrive Cork</h3>
+
+  <p>Arrive Cork ~5--6 PM. Your friends are waiting. Settle in, rest up. The anniversary weekend starts now.</p>
+
+  <div class="divider">&bull; &bull; &bull;</div>
+
+  <!-- ============================================ -->
+  <h2 id="lodging">Where to Sleep</h2>
+  <!-- ============================================ -->
+
+  <p>Two nights of accommodation to book. Friday through Sunday you're staying with your friends in Cork -- no booking needed.</p>
+
+  <h3>Wednesday night: Galway</h3>
+
+  <p>The Latin Quarter / Ard Bia area is ideal: walkable to everything, right in the heart of things. Verified availability for March 18:</p>
+
+  <div class="spot">
+    <div class="spot-name">The House Hotel</div>
+    <div class="spot-type"><span class="tag tag-romantic">4-star boutique</span> Spanish Parade, Latin Quarter</div>
+    <div class="spot-detail">Just renovated (all 48 rooms). Around the corner from Quay Street and Shop Street. Direct booking from &euro;179 per couple with breakfast + burger & drink at MacNeill's Pub. Book direct for best rates at thehousehotel.ie</div>
+    <div class="spot-hours">&euro;179+ per couple | +353 091 538900</div>
+  </div>
+
+  <div class="spot">
+    <div class="spot-name">The Snug Townhouse</div>
+    <div class="spot-type"><span class="tag tag-romantic">3-star</span> Near Eyre Square</div>
+    <div class="spot-detail">Excellent location, 0.4 miles from Eyre Square, 17-minute walk to Grattan Beach. Very friendly and helpful staff. Good value.</div>
+    <div class="spot-hours">&euro;132/night | Booking.com</div>
+  </div>
+
+  <div class="spot">
+    <div class="spot-name">Radisson RED Galway</div>
+    <div class="spot-type"><span class="tag tag-romantic">Modern 4-star</span> 18-min walk from center</div>
+    <div class="spot-detail">Super clean, excellent breakfast with lots of choice. Free private parking. Terrace, restaurant, bar.</div>
+    <div class="spot-hours">&euro;135/night | Booking.com</div>
+  </div>
+
+  <h3>Thursday night: Dingle</h3>
+
+  <p>Verified availability for March 19. Top-rated options:</p>
+
+  <div class="spot">
+    <div class="spot-name">Pax House</div>
+    <div class="spot-type"><span class="tag tag-romantic">Boutique B&amp;B</span> #1 Dingle on TripAdvisor | #2 Europe, #4 World</div>
+    <div class="spot-detail">TripAdvisor Best of the Best Hotels 2026. Breathtaking sea views ("one of the top ten views in Ireland"), exceptional breakfast, luxury touches. Warmth of a B&B with polish of a boutique hotel. Opens March 11 after winter closure.</div>
+    <div class="spot-hours">&euro;120--160/night | pax-house.com | +353 66 915 1518</div>
+  </div>
+
+  <div class="spot">
+    <div class="spot-name">Heaton's Guesthouse</div>
+    <div class="spot-type"><span class="tag tag-romantic">4-star Guesthouse</span> Dingle Bay waterfront</div>
+    <div class="spot-detail">On the shores of Dingle Bay with panoramic views, 5 minutes' walk from town center. Sister property to Castlewood House (same family). Voted one of the best places to stay in Ireland. Breakfast by David Heaton is legendary.</div>
+    <div class="spot-hours">&euro;92--132/night | heatonsdingle.com | +353 66 9152288</div>
+  </div>
+
+  <div class="spot">
+    <div class="spot-name">Castlewood House</div>
+    <div class="spot-type"><span class="tag tag-romantic">Boutique B&amp;B</span> 10/10 Exceptional rating</div>
+    <div class="spot-detail">Sister property to Heaton's, run by Helen and Brian Heaton. Outstanding attention to detail. Amazing breakfasts. 7-minute walk from Dingle Oceanworld. Free private parking.</div>
+    <div class="spot-hours">&euro;185/night | Booking.com</div>
+  </div>
+
+  <div class="spot">
+    <div class="spot-name">Dingle Benners Hotel</div>
+    <div class="spot-type"><span class="tag tag-romantic">Classic hotel</span> Central Dingle</div>
+    <div class="spot-detail">Traditional, spacious rooms with old world charm. Excellent food and value. Helpful, friendly staff. Spacious rooms with waterfall showers. In the heart of town.</div>
+    <div class="spot-hours">&euro;169/night | Booking.com</div>
+  </div>
+
+  <div class="spot">
+    <div class="spot-name">Budget-Friendly Options</div>
+    <div class="spot-type"><span class="tag tag-nature">Good value</span></div>
+    <div class="spot-detail"><strong>Milltown House</strong> (&euro;110/night, 8.7 rating, bay views) and <strong>Base Dingle</strong> (&euro;119/night, 8.8 rating, perfect location) offer excellent value with strong ratings.</div>
+  </div>
+
+  <div class="divider">&bull; &bull; &bull;</div>
+
+  <div class="btn-group">
+    <a href="cork-weekend.html" class="btn btn-primary">Continue to Cork Weekend &rarr;</a>
+    <a href="index.html" class="btn btn-secondary">&larr; Back to Start</a>
+  </div>
+
+</div>
+
+<div class="footer">
+  <p>Built with care for Spencer &amp; Savannah's anniversary adventure.</p>
+  <p>Every fact in these pages has been verified. Hours, availability, and transport options are current as of March 2026.</p>
+  <p style="margin-top: 0.5rem;">Works offline. No internet needed once downloaded.</p>
+</div>
+
+</body>
+</html>
