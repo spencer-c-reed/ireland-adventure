@@ -16,98 +16,120 @@
 
   <Folder>
     <name>Lodging (Booked)</name>
-    <Placemark><name>Sheedy's B&amp;B (Wed night - BOOKED)</name><description>Doolin. #1 B&amp;B in Ireland (TripAdvisor). River views, feather duvets. sheedysdoolin.com</description><styleUrl>#lodging</styleUrl><Point><coordinates>-9.3780,52.9960</coordinates></Point></Placemark>
-    <Placemark><name>Pax House (Thu night - BOOKED)</name><description>Dingle. #1 Dingle, #2 Europe. Exceptional breakfast, Dingle Bay views. +353 66 915 1518</description><styleUrl>#lodging</styleUrl><Point><coordinates>-10.2750,52.1380</coordinates></Point></Placemark>
+    <Placemark><name>Sheedy's B&amp;B (Wed night - BOOKED)</name><description>Doolin. #1 B&amp;B in Ireland (TripAdvisor). River views, feather duvets. sheedysdoolin.com</description><styleUrl>#lodging</styleUrl><Point><coordinates>-9.3800,53.0158</coordinates></Point></Placemark>
+    <Placemark><name>Pax House (Thu night - BOOKED)</name><description>Dingle. #1 Dingle, #2 Europe. Exceptional breakfast, Dingle Bay views. +353 66 915 1518</description><styleUrl>#lodging</styleUrl><Point><coordinates>-10.2571,52.1339</coordinates></Point></Placemark>
   </Folder>
 
   <Folder>
     <name>Food &amp; Drink</name>
     <!-- Dublin -->
-    <Placemark><name>Glas Restaurant</name><description>Plant-based fine dining. 15/16 Chatham St, Dublin</description><styleUrl>#food</styleUrl><Point><coordinates>-6.2610,53.3408</coordinates></Point></Placemark>
-    <Placemark><name>Cornucopia</name><description>100% vegetarian/vegan. 19/20 Wicklow St, Dublin</description><styleUrl>#food</styleUrl><Point><coordinates>-6.2620,53.3420</coordinates></Point></Placemark>
-    <Placemark><name>Brother Hubbard</name><description>Middle Eastern-inspired. Capel St, Dublin</description><styleUrl>#food</styleUrl><Point><coordinates>-6.2670,53.3470</coordinates></Point></Placemark>
-    <Placemark><name>The Winding Stair</name><description>Irish seasonal, river views. 40 Lower Ormond Quay, Dublin</description><styleUrl>#food</styleUrl><Point><coordinates>-6.2650,53.3470</coordinates></Point></Placemark>
-    <Placemark><name>Keogh's Cafe</name><description>Breakfast, opens 6:30 AM. 1-2 Trinity St, Dublin</description><styleUrl>#food</styleUrl><Point><coordinates>-6.2600,53.3430</coordinates></Point></Placemark>
-    <Placemark><name>Palace Bar</name><description>100+ Irish whiskeys, traditional pub. 21 Fleet St, Dublin</description><styleUrl>#food</styleUrl><Point><coordinates>-6.2600,53.3450</coordinates></Point></Placemark>
+    <Placemark><name>Glas Restaurant</name><description>Plant-based fine dining. 15/16 Chatham St, Dublin</description><styleUrl>#food</styleUrl><Point><coordinates>-6.2613,53.3413</coordinates></Point></Placemark>
+    <Placemark><name>Cornucopia</name><description>100% vegetarian/vegan. 19/20 Wicklow St, Dublin</description><styleUrl>#food</styleUrl><Point><coordinates>-6.2567,53.3392</coordinates></Point></Placemark>
+    <Placemark><name>Brother Hubbard</name><description>Middle Eastern-inspired. 153 Capel St, Dublin. Daytime only (dinner temporarily closed)</description><styleUrl>#food</styleUrl><Point><coordinates>-6.2683,53.3469</coordinates></Point></Placemark>
+    <Placemark><name>The Winding Stair</name><description>Irish seasonal, river views. 40 Lower Ormond Quay, Dublin. 12-10:30pm daily</description><styleUrl>#food</styleUrl><Point><coordinates>-6.2636,53.3467</coordinates></Point></Placemark>
+    <Placemark><name>Keogh's Cafe</name><description>Breakfast, opens 6:30 AM. 1-2 Trinity St, Dublin</description><styleUrl>#food</styleUrl><Point><coordinates>-6.2622,53.3441</coordinates></Point></Placemark>
+    <Placemark><name>Palace Bar</name><description>100+ Irish whiskeys, traditional pub. 21 Fleet St, Dublin</description><styleUrl>#food</styleUrl><Point><coordinates>-6.2597,53.3459</coordinates></Point></Placemark>
     <!-- Galway -->
-    <Placemark><name>Ard Bia at Nimmo's</name><description>Seasonal, great veg options. Spanish Arch, Galway</description><styleUrl>#food</styleUrl><Point><coordinates>-9.0540,53.2700</coordinates></Point></Placemark>
-    <Placemark><name>Kai Restaurant</name><description>Vegetable-forward, small seasonal menu. Sea Road, Galway</description><styleUrl>#food</styleUrl><Point><coordinates>-9.0590,53.2720</coordinates></Point></Placemark>
-    <Placemark><name>Dela</name><description>Counter-service, lighter meals. Dominick St, Galway</description><styleUrl>#food</styleUrl><Point><coordinates>-9.0570,53.2730</coordinates></Point></Placemark>
-    <Placemark><name>Bierhaus</name><description>Fully vegetarian gastropub. Henry St, Galway</description><styleUrl>#food</styleUrl><Point><coordinates>-9.0530,53.2720</coordinates></Point></Placemark>
-    <Placemark><name>Micil Distillery</name><description>6th gen family poitin/whiskey. 75-min tours, Salthill, Galway</description><styleUrl>#food</styleUrl><Point><coordinates>-9.0750,53.2600</coordinates></Point></Placemark>
+    <Placemark><name>Ard Bia at Nimmo's</name><description>Seasonal, great veg options. Spanish Arch, Galway. Lunch 12-3, dinner 6-9</description><styleUrl>#food</styleUrl><Point><coordinates>-9.0537,53.2698</coordinates></Point></Placemark>
+    <Placemark><name>Kai Restaurant</name><description>Vegetable-forward, Michelin Bib Gourmand + Green Star. Sea Road, Galway. Tue-Sat only, closed Sun-Mon</description><styleUrl>#food</styleUrl><Point><coordinates>-9.0590,53.2720</coordinates></Point></Placemark>
+    <Placemark><name>Dela</name><description>Counter-service, lighter meals. Dominick St, Galway. Brunch 9:30-3 daily, dinner Fri-Sat only</description><styleUrl>#food</styleUrl><Point><coordinates>-9.0570,53.2730</coordinates></Point></Placemark>
+    <Placemark><name>Bierhaus</name><description>Fully vegetarian gastropub, 24 craft taps. 2 Henry St, Galway. From noon daily</description><styleUrl>#food</styleUrl><Point><coordinates>-9.0568,53.2707</coordinates></Point></Placemark>
+    <Placemark><name>Greens &amp; Co</name><description>NEW: Fully vegan/vegetarian in a converted butcher's shop. Korean tofu wings, tofish &amp; chips. 4 Henry St, Galway. 10am-4:30pm Wed</description><styleUrl>#food</styleUrl><Point><coordinates>-9.0565,53.2708</coordinates></Point></Placemark>
+    <Placemark><name>Micil Distillery</name><description>6th gen family poitin/whiskey. Tours noon/2/4/6pm daily, pre-book. Salthill, Galway</description><styleUrl>#food</styleUrl><Point><coordinates>-9.0764,53.2599</coordinates></Point></Placemark>
     <!-- Doolin -->
     <Placemark><name>Gus O'Connor's Pub</name><description>Famous trad music pub. Fisher St, Doolin</description><styleUrl>#food</styleUrl><Point><coordinates>-9.3810,52.9940</coordinates></Point></Placemark>
     <Placemark><name>McGann's Pub</name><description>Trad music, afternoon sessions. Doolin</description><styleUrl>#food</styleUrl><Point><coordinates>-9.3800,52.9950</coordinates></Point></Placemark>
-    <Placemark><name>McDermott's</name><description>Trad music pub. Doolin</description><styleUrl>#food</styleUrl><Point><coordinates>-9.3795,52.9955</coordinates></Point></Placemark>
-    <Placemark><name>Doolin Cafe</name><description>Good veg options, fresh-baked goods. Best proper food in the village. Doolin</description><styleUrl>#food</styleUrl><Point><coordinates>-9.3785,52.9965</coordinates></Point></Placemark>
-    <!-- Lisdoonvarna -->
+    <Placemark><name>McDermott's</name><description>Trad music pub since 1887. Food daily 1-9:30pm. Doolin</description><styleUrl>#food</styleUrl><Point><coordinates>-9.3795,52.9955</coordinates></Point></Placemark>
+    <Placemark><name>Doolin Cafe</name><description>Good veg options, fresh-baked goods. May be rebranded as "Doolin Cafe 21" — confirm locally. Doolin</description><styleUrl>#food</styleUrl><Point><coordinates>-9.3785,52.9965</coordinates></Point></Placemark>
+    <Placemark><name>Oar Restaurant</name><description>NEW: Michelin-listed fine dining. Wed-Sun 5:30-9pm. Book by phone: +353 65 704 7990. Doolin</description><styleUrl>#food</styleUrl><Point><coordinates>-9.3792,53.0155</coordinates></Point></Placemark>
+    <!-- Burren -->
+    <Placemark><name>Burren Smokehouse</name><description>NEW: Free visitor centre, award-winning smoked salmon. 10am-4pm daily. Lisdoonvarna</description><styleUrl>#food</styleUrl><Point><coordinates>-9.2870,53.0310</coordinates></Point></Placemark>
     <!-- Dingle -->
-    <Placemark><name>Solas Tapas &amp; Wine</name><description>Small plates, veg/vegan menu. Green St, Dingle</description><styleUrl>#food</styleUrl><Point><coordinates>-10.2650,52.1410</coordinates></Point></Placemark>
+    <Placemark><name>Solas Tapas &amp; Wine</name><description>Michelin Bib Gourmand. Small plates, veg/vegan menu. Strand St, Dingle. Call to confirm Thu opening: +353 87 993 2116</description><styleUrl>#food</styleUrl><Point><coordinates>-10.2671,52.1409</coordinates></Point></Placemark>
+    <Placemark><name>Fenton's Restaurant</name><description>NEW: Michelin-noted, family-run. Tue-Sat 5:30-9:30pm. Good veg options. Green St, Dingle. Book: +353 66 915 2172</description><styleUrl>#food</styleUrl><Point><coordinates>-10.2655,52.1412</coordinates></Point></Placemark>
+    <Placemark><name>Ashes Restaurant</name><description>NEW: Reopened Mar 3 2026. Explicit veg/vegan menu. Tue-Sat lunch 1-3, dinner 5:30-8:45. Main St, Dingle</description><styleUrl>#food</styleUrl><Point><coordinates>-10.2648,52.1413</coordinates></Point></Placemark>
+    <Placemark><name>The Boatyard</name><description>NEW: Harbour views, reopened Mar 14. 11am-9pm daily. Walk-in lunch, book dinner: 066 915 0920. Strand St, Dingle</description><styleUrl>#food</styleUrl><Point><coordinates>-10.2680,52.1405</coordinates></Point></Placemark>
+    <Placemark><name>Bean in Dingle</name><description>NEW: Best coffee in Ireland (TripAdvisor). Own-roasted beans. Mon-Sat 8am-4pm, closed Sun. Green St, Dingle</description><styleUrl>#food</styleUrl><Point><coordinates>-10.2660,52.1411</coordinates></Point></Placemark>
     <!-- Kenmare -->
-    <Placemark><name>No. 35 Kenmare</name><description>Modern Irish, veg options. 35 Main St, Kenmare</description><styleUrl>#food</styleUrl><Point><coordinates>-9.5830,51.8800</coordinates></Point></Placemark>
-    <Placemark><name>The Lime Tree</name><description>Warm atmosphere, veg options. Shelbourne St, Kenmare</description><styleUrl>#food</styleUrl><Point><coordinates>-9.5840,51.8810</coordinates></Point></Placemark>
+    <Placemark><name>No. 35 Kenmare</name><description>Modern Irish, veg options. Fri-Tue 5-9pm, closed Wed-Thu. 35 Main St, Kenmare</description><styleUrl>#food</styleUrl><Point><coordinates>-9.5836,51.8805</coordinates></Point></Placemark>
+    <Placemark><name>The Lime Tree</name><description>Seasonal — reopening mid-March 2026. Call ahead. Shelbourne St, Kenmare</description><styleUrl>#food</styleUrl><Point><coordinates>-9.5832,51.8782</coordinates></Point></Placemark>
     <!-- Cork / Kinsale -->
-    <Placemark><name>Cafe Paradiso</name><description>Ireland's best vegetarian restaurant. 16 Lancaster Quay, Cork</description><styleUrl>#food</styleUrl><Point><coordinates>-8.4870,51.8960</coordinates></Point></Placemark>
-    <Placemark><name>Fishy Fishy</name><description>Seafood institution. Crowley's Quay, Kinsale</description><styleUrl>#food</styleUrl><Point><coordinates>-8.5240,51.7060</coordinates></Point></Placemark>
-    <Placemark><name>The Black Pig</name><description>Sharing plates &amp; wine. Kinsale</description><styleUrl>#food</styleUrl><Point><coordinates>-8.5230,51.7065</coordinates></Point></Placemark>
-    <Placemark><name>Bastion</name><description>Michelin star. Market St, Kinsale</description><styleUrl>#food</styleUrl><Point><coordinates>-8.5225,51.7070</coordinates></Point></Placemark>
-    <Placemark><name>The Lemon Leaf Cafe</name><description>Vegetarian options. Main St, Kinsale</description><styleUrl>#food</styleUrl><Point><coordinates>-8.5235,51.7068</coordinates></Point></Placemark>
+    <Placemark><name>Cafe Paradiso</name><description>Ireland's best vegetarian restaurant. Mon-Sat 5:30-10pm, closed Sun. 16 Lancaster Quay, Cork</description><styleUrl>#food</styleUrl><Point><coordinates>-8.4828,51.8971</coordinates></Point></Placemark>
+    <Placemark><name>Fishy Fishy</name><description>Seafood institution. Wed-Sun from noon. Crowley's Quay, Kinsale</description><styleUrl>#food</styleUrl><Point><coordinates>-8.5230,51.7058</coordinates></Point></Placemark>
+    <Placemark><name>The Black Pig</name><description>Sharing plates &amp; wine. Wed-Sat only (Mar-Apr). Book ahead. Kinsale</description><styleUrl>#food</styleUrl><Point><coordinates>-8.5230,51.7065</coordinates></Point></Placemark>
+    <Placemark><name>Bastion</name><description>Michelin star (retained 2026). Wed-Sun 5-11pm. Book well ahead. Market St, Kinsale</description><styleUrl>#food</styleUrl><Point><coordinates>-8.5225,51.7070</coordinates></Point></Placemark>
+    <Placemark><name>The Lemon Leaf Cafe</name><description>Vegetarian options. Mon-Sat 8:30am-5:30pm, Sun 9-6. Main St, Kinsale</description><styleUrl>#food</styleUrl><Point><coordinates>-8.5240,51.7055</coordinates></Point></Placemark>
   </Folder>
 
   <Folder>
     <name>Attractions</name>
     <!-- Dublin -->
-    <Placemark><name>Kilmainham Gaol</name><description>1916 Rising executions. €8 (~$9), book 28 days ahead</description><styleUrl>#attraction</styleUrl><Point><coordinates>-6.3100,53.3420</coordinates></Point></Placemark>
-    <Placemark><name>Collins Barracks</name><description>Free. Proclaiming a Republic exhibition</description><styleUrl>#attraction</styleUrl><Point><coordinates>-6.2870,53.3480</coordinates></Point></Placemark>
-    <Placemark><name>GPO &amp; Witness History</name><description>1916 rebel HQ. O'Connell St, Dublin</description><styleUrl>#attraction</styleUrl><Point><coordinates>-6.2600,53.3490</coordinates></Point></Placemark>
-    <Placemark><name>Glasnevin Cemetery</name><description>de Valera, Collins, Markievicz graves. Free grounds</description><styleUrl>#attraction</styleUrl><Point><coordinates>-6.2760,53.3720</coordinates></Point></Placemark>
-    <Placemark><name>EPIC Emigration Museum</name><description>Interactive. ~€17 (~$19). CHQ Building, Dublin</description><styleUrl>#attraction</styleUrl><Point><coordinates>-6.2480,53.3490</coordinates></Point></Placemark>
-    <Placemark><name>Kevin &amp; Howlin</name><description>Donegal tweed since 1936. 31 Nassau St, Dublin</description><styleUrl>#attraction</styleUrl><Point><coordinates>-6.2570,53.3420</coordinates></Point></Placemark>
-    <Placemark><name>Celtic Tweed</name><description>Tailored tweed &amp; linen, made in Dublin. South Anne's Lane</description><styleUrl>#attraction</styleUrl><Point><coordinates>-6.2590,53.3415</coordinates></Point></Placemark>
+    <Placemark><name>Kilmainham Gaol</name><description>1916 Rising executions. €8 (~$9), book 28 days ahead</description><styleUrl>#attraction</styleUrl><Point><coordinates>-6.3058,53.3385</coordinates></Point></Placemark>
+    <Placemark><name>Collins Barracks</name><description>Free. Proclaiming a Republic exhibition. Tue-Sat 10-5, Sun 2-5, closed Mon</description><styleUrl>#attraction</styleUrl><Point><coordinates>-6.2858,53.3484</coordinates></Point></Placemark>
+    <Placemark><name>GPO &amp; Witness History</name><description>1916 rebel HQ. Wed-Sat 10-5. O'Connell St, Dublin</description><styleUrl>#attraction</styleUrl><Point><coordinates>-6.2606,53.3494</coordinates></Point></Placemark>
+    <Placemark><name>Glasnevin Cemetery</name><description>de Valera, Collins, Markievicz graves. Free grounds. Confirm museum status: +353 1 882 6550</description><styleUrl>#attraction</styleUrl><Point><coordinates>-6.2776,53.3698</coordinates></Point></Placemark>
+    <Placemark><name>EPIC Emigration Museum</name><description>Interactive. ~€17 (~$19). Daily 10am-5pm last entry. CHQ Building, Dublin</description><styleUrl>#attraction</styleUrl><Point><coordinates>-6.2481,53.3483</coordinates></Point></Placemark>
+    <Placemark><name>Kevin &amp; Howlin</name><description>Donegal tweed since 1936. Mon-Sat 10-5. 31 Nassau St, Dublin</description><styleUrl>#attraction</styleUrl><Point><coordinates>-6.2554,53.3412</coordinates></Point></Placemark>
+    <Placemark><name>Celtic Tweed</name><description>Tailored tweed &amp; linen, made in Dublin. Mon-Sat 9-5. South Anne's Lane</description><styleUrl>#attraction</styleUrl><Point><coordinates>-6.2590,53.3415</coordinates></Point></Placemark>
     <!-- En route Dublin-Galway -->
-    <Placemark><name>Kilbeggan Distillery</name><description>Ireland's oldest (1757). €35 (~$38) tour w/ fill-your-own bottle. Right off M6</description><styleUrl>#attraction</styleUrl><Point><coordinates>-7.5000,53.3700</coordinates></Point></Placemark>
+    <Placemark><name>Kilbeggan Distillery</name><description>Ireland's oldest (1757). €35 (~$38) tour w/ fill-your-own bottle. Opens 10am. Right off M6</description><styleUrl>#attraction</styleUrl><Point><coordinates>-7.5027,53.3695</coordinates></Point></Placemark>
     <!-- Galway -->
-    <Placemark><name>Charlie Byrne's Bookshop</name><description>35,000+ titles. Middle St, Galway</description><styleUrl>#attraction</styleUrl><Point><coordinates>-9.0560,53.2710</coordinates></Point></Placemark>
+    <Placemark><name>Charlie Byrne's Bookshop</name><description>100,000+ titles. Mon-Thu 9-6, Fri 9-8, Sat 9-6, Sun 12-6. Middle St, Galway</description><styleUrl>#attraction</styleUrl><Point><coordinates>-9.0530,53.2716</coordinates></Point></Placemark>
     <Placemark><name>Spanish Arch</name><description>16th-century arch, Long Walk views. Galway</description><styleUrl>#attraction</styleUrl><Point><coordinates>-9.0540,53.2695</coordinates></Point></Placemark>
-    <Placemark><name>Galway City Museum</name><description>Free. Local history, archaeology, art</description><styleUrl>#attraction</styleUrl><Point><coordinates>-9.0545,53.2698</coordinates></Point></Placemark>
+    <Placemark><name>Galway City Museum</name><description>Free. Revolution in Galway exhibition. 10am-5pm. Spanish Parade, Galway</description><styleUrl>#attraction</styleUrl><Point><coordinates>-9.0535,53.2698</coordinates></Point></Placemark>
+    <Placemark><name>Thomas Dillon's Claddagh Gold</name><description>NEW: Ireland's oldest jewellers (1750). Free Claddagh Museum inside. Quay St, Galway</description><styleUrl>#attraction</styleUrl><Point><coordinates>-9.0536,53.2710</coordinates></Point></Placemark>
+    <Placemark><name>Galway Woollen Market</name><description>NEW: Hand-loomed Aran knits, tweed, lace. 21 High St, Galway. 9am-9pm</description><styleUrl>#attraction</styleUrl><Point><coordinates>-9.0542,53.2718</coordinates></Point></Placemark>
     <!-- Near Galway -->
-    <Placemark><name>Standun (Spiddal)</name><description>Family-run wool shop since 1946. Aran sweaters, tweed, cafe. 20 min west of Galway</description><styleUrl>#attraction</styleUrl><Point><coordinates>-9.3050,53.2420</coordinates></Point></Placemark>
-    <Placemark><name>Dunguaire Castle (EXTERIOR ONLY)</name><description>Closed since 2022 for repairs. Photo op from road only — cannot enter. On Kinvara Bay.</description><styleUrl>#attraction</styleUrl><Point><coordinates>-8.9240,53.1420</coordinates></Point></Placemark>
+    <Placemark><name>Standun (Spiddal)</name><description>Family-run wool shop since 1946. Aran sweaters, tweed, cafe. 20 min west of Galway</description><styleUrl>#attraction</styleUrl><Point><coordinates>-9.3054,53.2442</coordinates></Point></Placemark>
+    <Placemark><name>Dunguaire Castle (EXTERIOR ONLY)</name><description>Closed since 2022 for repairs. Photo op from road only — cannot enter. On Kinvara Bay.</description><styleUrl>#attraction</styleUrl><Point><coordinates>-8.9261,53.1422</coordinates></Point></Placemark>
     <!-- Burren / Clare -->
-    <Placemark><name>Poulnabrone Dolmen</name><description>5,800-year-old portal tomb. Free, Burren. Pull over, 5-min walk</description><styleUrl>#attraction</styleUrl><Point><coordinates>-9.1400,53.0490</coordinates></Point></Placemark>
-    <Placemark><name>Burren Perfumery</name><description>Free admission, 10am-5pm. Carran, Burren</description><styleUrl>#attraction</styleUrl><Point><coordinates>-9.0800,53.0600</coordinates></Point></Placemark>
-    <Placemark><name>Cliffs of Moher</name><description>214m sea cliffs. €8 (~$9), 1-2 hours. 10 min from Doolin</description><styleUrl>#attraction</styleUrl><Point><coordinates>-9.4260,52.9720</coordinates></Point></Placemark>
+    <Placemark><name>Corcomroe Abbey</name><description>NEW: 13th-century Cistercian monastery. Beautiful carved stonework. Free, always open. Near Bellharbour</description><styleUrl>#attraction</styleUrl><Point><coordinates>-9.0600,53.0940</coordinates></Point></Placemark>
+    <Placemark><name>Caherconnell Stone Fort</name><description>NEW: 1,000-year-old ring fort + sheepdog demos. 10am-4pm. On R480 near Poulnabrone</description><styleUrl>#attraction</styleUrl><Point><coordinates>-9.1190,53.0350</coordinates></Point></Placemark>
+    <Placemark><name>Poulnabrone Dolmen</name><description>5,800-year-old portal tomb. Free, Burren. Pull over, 5-min walk</description><styleUrl>#attraction</styleUrl><Point><coordinates>-9.1406,53.0471</coordinates></Point></Placemark>
+    <Placemark><name>Burren Perfumery</name><description>Free admission, 10am-5pm. Tea rooms just reopened for season. Carran, Burren</description><styleUrl>#attraction</styleUrl><Point><coordinates>-9.0470,53.0436</coordinates></Point></Placemark>
+    <Placemark><name>Aillwee Cave</name><description>NEW: Guided cave tour + Birds of Prey Centre. 10am-5pm. Near Ballyvaughan</description><styleUrl>#attraction</styleUrl><Point><coordinates>-9.0970,53.0780</coordinates></Point></Placemark>
+    <Placemark><name>Cliffs of Moher</name><description>214m sea cliffs. €8 (~$9). Mar hours 8am-7pm. Some trail sections closed</description><styleUrl>#attraction</styleUrl><Point><coordinates>-9.4265,52.9719</coordinates></Point></Placemark>
+    <Placemark><name>Doonagore Castle</name><description>NEW: 16th-century tower on hilltop above Doolin. Great sunset spot. Exterior only, always accessible</description><styleUrl>#attraction</styleUrl><Point><coordinates>-9.3970,52.9790</coordinates></Point></Placemark>
+    <Placemark><name>Shannon Ferry (Killimer)</name><description>NEW: Car ferry to Kerry. Every hour on the hour 7am-7pm. €22.50 (~$25) single car+passengers. 20 min crossing</description><styleUrl>#attraction</styleUrl><Point><coordinates>-9.3720,52.6230</coordinates></Point></Placemark>
     <!-- Dingle Peninsula -->
-    <Placemark><name>Connor Pass</name><description>Highest mountain pass in Ireland. Dramatic views</description><styleUrl>#attraction</styleUrl><Point><coordinates>-10.1200,52.1700</coordinates></Point></Placemark>
-    <Placemark><name>Slea Head Drive (start)</name><description>38km scenic loop, 2.5-3.5 hours. Drive clockwise to avoid tour buses</description><styleUrl>#attraction</styleUrl><Point><coordinates>-10.2700,52.1400</coordinates></Point></Placemark>
-    <Placemark><name>Fahan Beehive Huts</name><description>2,000-year-old stone huts. €4 (~$4). Baby lambs!</description><styleUrl>#attraction</styleUrl><Point><coordinates>-10.4200,52.1150</coordinates></Point></Placemark>
-    <Placemark><name>Dunmore Head</name><description>Westernmost point of mainland Ireland. Short walk from car park</description><styleUrl>#attraction</styleUrl><Point><coordinates>-10.4700,52.1050</coordinates></Point></Placemark>
-    <Placemark><name>Gallarus Oratory</name><description>7th-century dry-stacked stone chapel, still watertight after 1,300 years</description><styleUrl>#attraction</styleUrl><Point><coordinates>-10.3530,52.1710</coordinates></Point></Placemark>
-    <Placemark><name>Blasket Centre</name><description>Museum of Great Blasket island community. €5 (~$5), Dunquin</description><styleUrl>#attraction</styleUrl><Point><coordinates>-10.4600,52.1200</coordinates></Point></Placemark>
+    <Placemark><name>Dingle Distillery</name><description>NEW: Whiskey/gin/vodka. 75-min tours 10am/11:30/2/4pm, €25 (~$27). Book at dingledistillery.ie</description><styleUrl>#attraction</styleUrl><Point><coordinates>-10.2740,52.1380</coordinates></Point></Placemark>
+    <Placemark><name>Dick Mack's</name><description>NEW: Half pub, half leather shop. Own brewery. Celebrity plaques outside. Green St, Dingle</description><styleUrl>#attraction</styleUrl><Point><coordinates>-10.2662,52.1410</coordinates></Point></Placemark>
+    <Placemark><name>Neligan's</name><description>NEW: Live music 7 nights/week. Free dance class Thu 8pm. Cozy stove seating. Main St, Dingle</description><styleUrl>#attraction</styleUrl><Point><coordinates>-10.2645,52.1415</coordinates></Point></Placemark>
+    <Placemark><name>Connor Pass</name><description>Highest mountain pass in Ireland. Dramatic views</description><styleUrl>#attraction</styleUrl><Point><coordinates>-10.2078,52.1820</coordinates></Point></Placemark>
+    <Placemark><name>Slea Head Drive (start)</name><description>38km scenic loop, 2.5-3.5 hours. Drive clockwise to avoid tour buses</description><styleUrl>#attraction</styleUrl><Point><coordinates>-10.2689,52.1409</coordinates></Point></Placemark>
+    <Placemark><name>Ventry Beach</name><description>NEW: 3km long beach backed by dunes. First stop on Slea Head. 8km from Dingle. Free</description><styleUrl>#attraction</styleUrl><Point><coordinates>-10.3520,52.1260</coordinates></Point></Placemark>
+    <Placemark><name>Dunbeg Fort</name><description>NEW: Iron Age promontory fort (~580 BC). Visitor centre + fenced walkway. Book at dunbeagfort.com</description><styleUrl>#attraction</styleUrl><Point><coordinates>-10.3920,52.1170</coordinates></Point></Placemark>
+    <Placemark><name>Fahan Beehive Huts</name><description>2,000-year-old stone huts. Star Wars filming location. €3-5 cash. Slea Head Drive</description><styleUrl>#attraction</styleUrl><Point><coordinates>-10.4214,52.1016</coordinates></Point></Placemark>
+    <Placemark><name>Coumeenoole Beach</name><description>NEW: Iconic beach, Ryan's Daughter filming location. Short walk down. Slea Head Drive</description><styleUrl>#attraction</styleUrl><Point><coordinates>-10.4650,52.1080</coordinates></Point></Placemark>
+    <Placemark><name>Dunmore Head</name><description>Westernmost point of mainland Ireland. Short walk from car park</description><styleUrl>#attraction</styleUrl><Point><coordinates>-10.4649,52.1102</coordinates></Point></Placemark>
+    <Placemark><name>Dunquin Pier</name><description>NEW: Iconic winding walkway to pier. Blasket Island views. Free, always accessible</description><styleUrl>#attraction</styleUrl><Point><coordinates>-10.4560,52.1190</coordinates></Point></Placemark>
+    <Placemark><name>Blasket Centre</name><description>Museum of Great Blasket island community. €5 (~$5). 10am-6pm daily (opened Mar 6). Dunquin</description><styleUrl>#attraction</styleUrl><Point><coordinates>-10.4616,52.1323</coordinates></Point></Placemark>
+    <Placemark><name>Louis Mulcahy Pottery</name><description>NEW: Handcrafted ceramics, workshop + shop. 10am-5:30pm daily. Ri Fern Cafe upstairs (lunch). Ballyferriter</description><styleUrl>#attraction</styleUrl><Point><coordinates>-10.4050,52.1570</coordinates></Point></Placemark>
+    <Placemark><name>Gallarus Oratory</name><description>7th-century dry-stacked stone chapel, still watertight after 1,300 years. Free via public path, or €5 via visitor centre</description><styleUrl>#attraction</styleUrl><Point><coordinates>-10.3523,52.1738</coordinates></Point></Placemark>
     <!-- Kerry -->
-    <Placemark><name>Muckross House &amp; Gardens</name><description>Victorian mansion, free gardens. On the way Dingle-Cork via Killarney</description><styleUrl>#attraction</styleUrl><Point><coordinates>-9.5050,52.0200</coordinates></Point></Placemark>
-    <Placemark><name>Gap of Dunloe</name><description>Glacial valley, Wishing Bridge (30-min round trip). Free parking at Kate Kearney's Cottage</description><styleUrl>#attraction</styleUrl><Point><coordinates>-9.6500,51.9900</coordinates></Point></Placemark>
-    <Placemark><name>Ladies View</name><description>Famous viewpoint on N71. Free, just pull over. Killarney area</description><styleUrl>#attraction</styleUrl><Point><coordinates>-9.6800,51.9700</coordinates></Point></Placemark>
+    <Placemark><name>Muckross House &amp; Gardens</name><description>Victorian mansion, free gardens. 9am-5:30pm daily. On the way Dingle-Cork via Killarney</description><styleUrl>#attraction</styleUrl><Point><coordinates>-9.5040,52.0182</coordinates></Point></Placemark>
+    <Placemark><name>Gap of Dunloe</name><description>Glacial valley, Wishing Bridge (30-min round trip). Free parking at Kate Kearney's Cottage</description><styleUrl>#attraction</styleUrl><Point><coordinates>-9.6556,51.9986</coordinates></Point></Placemark>
+    <Placemark><name>Ladies View</name><description>Famous viewpoint on N71. Free, just pull over. Killarney area</description><styleUrl>#attraction</styleUrl><Point><coordinates>-9.5940,51.9670</coordinates></Point></Placemark>
     <!-- Cork -->
-    <Placemark><name>English Market</name><description>Covered market since 1788. Free, Mon-Sat 8am-6pm. Cork City</description><styleUrl>#attraction</styleUrl><Point><coordinates>-8.4780,51.8970</coordinates></Point></Placemark>
-    <Placemark><name>Shandon Bells &amp; Tower</name><description>Ring bells yourself. €5 (~$5). Views over Cork rooftops</description><styleUrl>#attraction</styleUrl><Point><coordinates>-8.4790,51.9020</coordinates></Point></Placemark>
-    <Placemark><name>Nano Nagle Place</name><description>Heritage centre &amp; gardens. Cork City</description><styleUrl>#attraction</styleUrl><Point><coordinates>-8.4820,51.8950</coordinates></Point></Placemark>
-    <Placemark><name>Fitzgerald Park &amp; Cork Public Museum</name><description>Free admission. Cork City</description><styleUrl>#attraction</styleUrl><Point><coordinates>-8.4950,51.8940</coordinates></Point></Placemark>
-    <Placemark><name>Triskel Arts Centre</name><description>Arts venue. Cork City</description><styleUrl>#attraction</styleUrl><Point><coordinates>-8.4770,51.8960</coordinates></Point></Placemark>
+    <Placemark><name>English Market</name><description>Covered market since 1788. Free, Mon-Sat 8:30am-6pm, closed Sun. Cork City</description><styleUrl>#attraction</styleUrl><Point><coordinates>-8.4743,51.8978</coordinates></Point></Placemark>
+    <Placemark><name>Shandon Bells &amp; Tower</name><description>Ring bells yourself. €5 (~$5). Repairs ongoing — verify before visiting. Cork City</description><styleUrl>#attraction</styleUrl><Point><coordinates>-8.4762,51.9033</coordinates></Point></Placemark>
+    <Placemark><name>Nano Nagle Place</name><description>Heritage centre &amp; gardens. Tue-Fri 10-5, Sat-Sun 9:30-5, closed Mon. Cork City</description><styleUrl>#attraction</styleUrl><Point><coordinates>-8.4733,51.8939</coordinates></Point></Placemark>
+    <Placemark><name>Fitzgerald Park &amp; Cork Public Museum</name><description>Free. Tue-Fri 10-4, Sat 11-4. NO Sundays until May. Cork City</description><styleUrl>#attraction</styleUrl><Point><coordinates>-8.4943,51.8964</coordinates></Point></Placemark>
+    <Placemark><name>Triskel Arts Centre</name><description>Arts venue, film, exhibitions. Cork City</description><styleUrl>#attraction</styleUrl><Point><coordinates>-8.4763,51.8974</coordinates></Point></Placemark>
     <!-- Kinsale -->
-    <Placemark><name>Charles Fort</name><description>17th-century star fort. €5 (~$5). Scilly Walk access</description><styleUrl>#attraction</styleUrl><Point><coordinates>-8.5020,51.6970</coordinates></Point></Placemark>
+    <Placemark><name>Charles Fort</name><description>17th-century star fort. €5 (~$5). Daily 10-6 from Mar 14. Kinsale</description><styleUrl>#attraction</styleUrl><Point><coordinates>-8.4966,51.6968</coordinates></Point></Placemark>
     <!-- Cork region -->
-    <Placemark><name>Cobh Heritage Centre</name><description>Last port for Titanic. Heritage town with cathedral</description><styleUrl>#attraction</styleUrl><Point><coordinates>-8.2960,51.8510</coordinates></Point></Placemark>
-    <Placemark><name>Spike Island</name><description>Prison history, Cork Harbor</description><styleUrl>#attraction</styleUrl><Point><coordinates>-8.2810,51.8380</coordinates></Point></Placemark>
-    <Placemark><name>Jameson Experience Midleton</name><description>Whiskey distillery tour. 20 min from Cork</description><styleUrl>#attraction</styleUrl><Point><coordinates>-8.1750,51.9140</coordinates></Point></Placemark>
-    <Placemark><name>Fota Wildlife Park</name><description>Animal park. Between Cork and Cobh</description><styleUrl>#attraction</styleUrl><Point><coordinates>-8.3080,51.8920</coordinates></Point></Placemark>
+    <Placemark><name>Cobh Heritage Centre</name><description>Last port for Titanic. 9:30am-5pm daily (Sun from 11am in winter). Cobh</description><styleUrl>#attraction</styleUrl><Point><coordinates>-8.2994,51.8488</coordinates></Point></Placemark>
+    <Placemark><name>Spike Island</name><description>Prison history. WEEKENDS ONLY in March. Book ahead. Cork Harbour</description><styleUrl>#attraction</styleUrl><Point><coordinates>-8.3081,51.8470</coordinates></Point></Placemark>
+    <Placemark><name>Jameson Experience Midleton</name><description>Whiskey distillery tour. 10am-4:30pm daily. Pre-book. 20 min from Cork</description><styleUrl>#attraction</styleUrl><Point><coordinates>-8.1681,51.9136</coordinates></Point></Placemark>
+    <Placemark><name>Fota Wildlife Park</name><description>Animal park. Daily from 9:30am. Between Cork and Cobh</description><styleUrl>#attraction</styleUrl><Point><coordinates>-8.3069,51.8870</coordinates></Point></Placemark>
     <!-- West Cork -->
-    <Placemark><name>Timoleague Friary</name><description>13th-century Franciscan ruin. Free. West Cork</description><styleUrl>#attraction</styleUrl><Point><coordinates>-8.7730,51.6380</coordinates></Point></Placemark>
-    <Placemark><name>Michael Collins House</name><description>War of Independence. Tue-Sat 10am-5pm. Clonakilty</description><styleUrl>#attraction</styleUrl><Point><coordinates>-8.8870,51.6230</coordinates></Point></Placemark>
+    <Placemark><name>Timoleague Friary</name><description>13th-century Franciscan ruin. Free, always open. West Cork</description><styleUrl>#attraction</styleUrl><Point><coordinates>-8.7631,51.6425</coordinates></Point></Placemark>
+    <Placemark><name>Michael Collins House</name><description>War of Independence. Wed-Sat 10am-5pm ONLY (Mar schedule). Clonakilty</description><styleUrl>#attraction</styleUrl><Point><coordinates>-8.8914,51.6217</coordinates></Point></Placemark>
     <!-- Return route -->
-    <Placemark><name>Rock of Cashel</name><description>Medieval cathedral cluster. €8 (~$9). Tipperary, on M8 back to Dublin</description><styleUrl>#attraction</styleUrl><Point><coordinates>-7.8900,52.5200</coordinates></Point></Placemark>
-    <Placemark><name>Cahir Castle</name><description>13th-century, best-preserved medieval castle. €5 (~$5). Tipperary</description><styleUrl>#attraction</styleUrl><Point><coordinates>-7.9270,52.3750</coordinates></Point></Placemark>
-    <Placemark><name>Kilkenny Castle</name><description>13th-century castle, free OPW grounds. Medieval city</description><styleUrl>#attraction</styleUrl><Point><coordinates>-7.2490,52.6500</coordinates></Point></Placemark>
+    <Placemark><name>Rock of Cashel</name><description>Medieval cathedral cluster. €8 (~$9). Daily 9-5:30. Tipperary</description><styleUrl>#attraction</styleUrl><Point><coordinates>-7.8878,52.5214</coordinates></Point></Placemark>
+    <Placemark><name>Cahir Castle</name><description>13th-century, best-preserved medieval castle. €5 (~$5). Daily 9:30-5:30. Tipperary</description><styleUrl>#attraction</styleUrl><Point><coordinates>-7.9271,52.3746</coordinates></Point></Placemark>
+    <Placemark><name>Kilkenny Castle</name><description>13th-century castle. Daily 9:30-5. Free OPW grounds. Medieval city</description><styleUrl>#attraction</styleUrl><Point><coordinates>-7.2494,52.6505</coordinates></Point></Placemark>
   </Folder>
 
 </Document>
