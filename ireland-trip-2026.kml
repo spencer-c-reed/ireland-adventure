@@ -40,7 +40,7 @@
     <Placemark><name>Gus O'Connor's Pub</name><description>Famous trad music pub. Fisher St, Doolin</description><styleUrl>#food</styleUrl><Point><coordinates>-9.3810,52.9940</coordinates></Point></Placemark>
     <Placemark><name>McGann's Pub</name><description>Trad music, afternoon sessions. Doolin</description><styleUrl>#food</styleUrl><Point><coordinates>-9.3800,52.9950</coordinates></Point></Placemark>
     <Placemark><name>McDermott's</name><description>Trad music pub since 1887. Food daily 1-9:30pm. Doolin</description><styleUrl>#food</styleUrl><Point><coordinates>-9.3795,52.9955</coordinates></Point></Placemark>
-    <Placemark><name>Doolin Cafe</name><description>Good veg options, fresh-baked goods. May be rebranded as "Doolin Cafe 21" — confirm locally. Doolin</description><styleUrl>#food</styleUrl><Point><coordinates>-9.3785,52.9965</coordinates></Point></Placemark>
+    <!-- Doolin Cafe: permanently closed. Removed March 2026. -->
     <Placemark><name>Oar Restaurant</name><description>NEW: Michelin-listed fine dining. Wed-Sun 5:30-9pm. Book by phone: +353 65 704 7990. Doolin</description><styleUrl>#food</styleUrl><Point><coordinates>-9.3792,53.0155</coordinates></Point></Placemark>
     <!-- Burren -->
     <Placemark><name>Burren Smokehouse</name><description>NEW: Free visitor centre, award-winning smoked salmon. 10am-4pm daily. Lisdoonvarna</description><styleUrl>#food</styleUrl><Point><coordinates>-9.2870,53.0310</coordinates></Point></Placemark>
